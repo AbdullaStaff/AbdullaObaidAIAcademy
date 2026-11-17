@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AbdullaObaidWeb // AI Quiz & Anti-Cheat Terminal</title>
+  <title>AbdullaObaidWeb // AI Quiz & Strict Anti-Cheat Terminal</title>
   <style>
     :root {
       --bg: #030705;
@@ -181,16 +181,17 @@
 
     /* Anti-Cheat Notice & Alert Banner */
     .anticheat-notice {
-      background: rgba(255, 42, 85, 0.1);
+      background: rgba(255, 42, 85, 0.12);
       border: 1px solid var(--danger);
       color: var(--danger);
-      padding: 10px 14px;
+      padding: 12px 14px;
       margin-bottom: 18px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
+      line-height: 1.4;
     }
 
     .cheat-alert-box {
-      background: rgba(255, 42, 85, 0.2);
+      background: rgba(255, 42, 85, 0.22);
       border: 2px solid var(--danger);
       color: #fff;
       padding: 12px 16px;
@@ -412,7 +413,9 @@
     </div>
 
     <div class="anticheat-notice">
-      [ANTI-CHEAT SHIELD ACTIVE]: Switching tabs, minimizing the browser, right-clicking, copying text, or opening DevTools during a quiz is strictly monitored. 3 violations = automatic 0% disqualification logged to Admin.
+      <strong>[ZERO-TOLERANCE ANTI-CHEAT ACTIVE]:</strong><br/>
+      1. <strong>INSTANT DISQUALIFICATION:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates the exam with <strong>0%</strong> and flags you for cheating in the Admin Panel.<br/>
+      2. <strong>INPUT LOCK:</strong> Right-clicking, copying text, and DevTools shortcuts are blocked during exams.
     </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
@@ -454,7 +457,7 @@
     <div class="terminal-header">
       <div>
         <h2>> AbdullaObaidWeb // SELECT TARGET LESSON (10 QUESTIONS EACH)</h2>
-        <p class="sub">Anti-Cheat monitoring begins automatically when you start any lesson.</p>
+        <p class="sub">Do NOT switch tabs or leave this webpage once a lesson begins.</p>
       </div>
     </div>
 
@@ -475,7 +478,7 @@
       <span id="hud-module">LESSON: ---</span>
       <span id="hud-progress">Q: 1/10</span>
       <span id="hud-score">SCORE: 0</span>
-      <span id="hud-strikes" style="color: var(--green);">STRIKES: 0/3</span>
+      <span id="hud-shield" style="color: var(--green);">SHIELD: LOCKED</span>
     </div>
 
     <div id="cheat-alert-banner" class="cheat-alert-box hidden"></div>
@@ -497,7 +500,7 @@
       <p class="sub" id="res-student-info"></p>
       <div class="big-score" id="res-score">0%</div>
       <p class="sub" id="res-fraction"></p>
-      <p id="res-anticheat-status" style="margin-top: 10px; font-weight: bold;"></p>
+      <p id="res-anticheat-status" style="margin-top: 12px; font-weight: bold;"></p>
     </div>
     <button class="term-btn" style="width: 100%; padding: 14px;" onclick="goToStudentArea()">
       [ RETURN TO LESSON DIRECTORY ]
@@ -742,36 +745,35 @@
     let currentQIndex = 0;
     let currentScore = 0;
 
-    // ANTI-CHEAT STATE
+    // ANTI-CHEAT STATE (STRICT: INSTANT DISQUALIFICATION ON TAB / WEB SWITCH)
     let isQuizActive = false;
-    let cheatStrikes = 0;
-    let lastViolationTime = 0;
-    const MAX_STRIKES = 3;
+    let cheatReason = "";
 
-    // ANTI-CHEAT EVENT LISTENERS
+    // INSTANT DISQUALIFICATION ON SWITCHING TABS OR OPENING ANOTHER WEBSITE/WINDOW
     document.addEventListener("visibilitychange", () => {
       if (isQuizActive && document.hidden) {
-        triggerCheatStrike("Tab switch or browser minimized detected!");
+        triggerInstantCheatFail("Switched browser tab or opened another website/app!");
       }
     });
 
     window.addEventListener("blur", () => {
       if (isQuizActive) {
-        triggerCheatStrike("Window focus lost (clicked outside quiz window)!");
+        triggerInstantCheatFail("Left the AbdullaObaidWeb quiz window (switched window/app)!");
       }
     });
 
+    // BLOCK RIGHT-CLICK, COPY, AND DEVTOOLS DURING QUIZ
     document.addEventListener("contextmenu", (e) => {
       if (isQuizActive) {
         e.preventDefault();
-        triggerCheatStrike("Right-click context menu blocked during exam!");
+        showWarningToast("Right-click is disabled during the exam!");
       }
     });
 
     document.addEventListener("copy", (e) => {
       if (isQuizActive) {
         e.preventDefault();
-        triggerCheatStrike("Copying question text is blocked!");
+        triggerInstantCheatFail("Attempted to copy exam content!");
       }
     });
 
@@ -780,33 +782,25 @@
       const key = e.key.toLowerCase();
       if (
         e.key === "F12" ||
-        (e.ctrlKey && ["c", "x", "u", "s", "p", "a"].includes(key)) ||
-        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key))
+        (e.ctrlKey && ["c", "x", "u", "s", "p", "a", "t", "n", "w"].includes(key)) ||
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key)) ||
+        (e.altKey && e.key === "Tab")
       ) {
         e.preventDefault();
-        triggerCheatStrike("Restricted keyboard shortcut / DevTools attempt blocked!");
+        triggerInstantCheatFail("Blocked shortcut / attempt to open new tab or DevTools!");
       }
     });
 
-    function triggerCheatStrike(reason) {
-      if (!isQuizActive) return;
-      const now = Date.now();
-      // Cooldown of 1.5s so a single tab switch doesn't double-count blur + visibilitychange
-      if (now - lastViolationTime < 1500) return;
-      lastViolationTime = now;
-
-      cheatStrikes++;
-      const strikeHud = document.getElementById("hud-strikes");
-      strikeHud.textContent = `STRIKES: ${cheatStrikes}/${MAX_STRIKES}`;
-      strikeHud.style.color = cheatStrikes >= 2 ? "var(--danger)" : "var(--warn)";
-
+    function showWarningToast(msg) {
       const alertBox = document.getElementById("cheat-alert-banner");
       alertBox.classList.remove("hidden");
-      alertBox.textContent = `[ANTI-CHEAT VIOLATION ${cheatStrikes}/${MAX_STRIKES}]: ${reason}`;
+      alertBox.textContent = `[SECURITY ALERT]: ${msg}`;
+    }
 
-      if (cheatStrikes >= MAX_STRIKES) {
-        finishQuiz(true);
-      }
+    function triggerInstantCheatFail(reason) {
+      if (!isQuizActive) return;
+      cheatReason = reason;
+      finishQuiz(true);
     }
 
     function renderLessonCards() {
@@ -863,7 +857,7 @@
 
     function switchStudent() {
       if (isQuizActive) {
-        alert("Finish or submit your active quiz before changing student identity.");
+        triggerInstantCheatFail("Attempted to switch student during an active exam!");
         return;
       }
       activeStudent = { name: "", className: "" };
@@ -875,7 +869,7 @@
 
     function goToStudentArea() {
       if (isQuizActive) {
-        triggerCheatStrike("Attempted to leave active exam screen!");
+        triggerInstantCheatFail("Attempted to exit an active exam!");
         return;
       }
       hideAllViews();
@@ -904,17 +898,13 @@
     function launchQuiz() {
       currentQIndex = 0;
       currentScore = 0;
-      cheatStrikes = 0;
+      cheatReason = "";
       isQuizActive = true;
       document.body.classList.add("anticheat-lock");
 
       hideAllViews();
       document.getElementById("quiz-view").classList.remove("hidden");
       document.getElementById("cheat-alert-banner").classList.add("hidden");
-
-      const strikeHud = document.getElementById("hud-strikes");
-      strikeHud.textContent = `STRIKES: 0/${MAX_STRIKES}`;
-      strikeHud.style.color = "var(--green)";
 
       document.getElementById("hud-user").textContent = `NAME: ${activeStudent.name}`;
       document.getElementById("hud-class").textContent = `CLASS: ${activeStudent.className}`;
@@ -983,12 +973,9 @@
       const finalPoints = disqualified ? 0 : currentScore;
       const percent = Math.round((finalPoints / total) * 100);
 
-      let acStatus = "CLEAN (0 STRIKES)";
-      if (disqualified) {
-        acStatus = `FLAGGED - CHEATING (${cheatStrikes}/${MAX_STRIKES} STRIKES)`;
-      } else if (cheatStrikes > 0) {
-        acStatus = `WARNING (${cheatStrikes}/${MAX_STRIKES} STRIKES)`;
-      }
+      const acStatus = disqualified
+        ? `CHEATING DETECTED (${cheatReason})`
+        : "CLEAN (NO TAB SWITCH)";
 
       const logs = JSON.parse(localStorage.getItem("abdulla_obaid_web_logs") || "[]");
       logs.unshift({
@@ -1010,17 +997,17 @@
       const scoreEl = document.getElementById("res-score");
 
       if (disqualified) {
-        titleEl.textContent = "> EXAM TERMINATED // ANTI-CHEAT VIOLATION LOGGED";
+        titleEl.textContent = "> CHEATING DETECTED // EXAM TERMINATED";
         titleEl.style.color = "var(--danger)";
         scoreEl.style.color = "var(--danger)";
         acEl.style.color = "var(--danger)";
-        acEl.textContent = `STATUS: ${acStatus} — AUTOMATIC 0% RECORDED`;
+        acEl.textContent = `VIOLATION: ${cheatReason} — AUTOMATIC 0% LOGGED TO ADMIN`;
       } else {
         titleEl.textContent = "> AbdullaObaidWeb // EXECUTION COMPLETE";
         titleEl.style.color = "var(--green)";
         scoreEl.style.color = "var(--green)";
-        acEl.style.color = cheatStrikes > 0 ? "var(--warn)" : "var(--green)";
-        acEl.textContent = `ANTI-CHEAT REPORT: ${acStatus}`;
+        acEl.style.color = "var(--green)";
+        acEl.textContent = `ANTI-CHEAT STATUS: ${acStatus}`;
       }
 
       document.getElementById("res-student-info").textContent =
@@ -1039,7 +1026,7 @@
 
     function showAdminLogin() {
       if (isQuizActive) {
-        triggerCheatStrike("Attempted to open Admin Panel during active exam!");
+        triggerInstantCheatFail("Attempted to open Admin Panel during active exam!");
         return;
       }
       hideAllViews();
@@ -1075,9 +1062,8 @@
       }
 
       logs.forEach((entry, index) => {
-        const isFlagged = entry.anticheat && entry.anticheat.includes("FLAGGED");
-        const isWarn = entry.anticheat && entry.anticheat.includes("WARNING");
-        const acColor = isFlagged ? "var(--danger)" : isWarn ? "var(--warn)" : "var(--green)";
+        const isCheating = entry.anticheat && entry.anticheat.includes("CHEATING");
+        const acColor = isCheating ? "var(--danger)" : "var(--green)";
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -1086,8 +1072,8 @@
           <td style="color: var(--cyan);">${entry.className}</td>
           <td>${entry.module}</td>
           <td>${entry.score}</td>
-          <td style="color: var(--cyan); font-weight: bold;">${entry.percent}</td>
-          <td style="color: ${acColor}; font-weight: bold;">${entry.anticheat || "CLEAN (0 STRIKES)"}</td>
+          <td style="color: ${isCheating ? "var(--danger)" : "var(--cyan)"}; font-weight: bold;">${entry.percent}</td>
+          <td style="color: ${acColor}; font-weight: bold;">${entry.anticheat || "CLEAN"}</td>
           <td style="color: var(--muted); font-size: 0.8rem;">${entry.time}</td>
         `;
         tbody.appendChild(tr);
