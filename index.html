@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +27,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', 'Tahoma', 'Cairo', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', 'Rajdhani', 'Orbitron', system-ui, -apple-system, sans-serif;
     }
 
     body {
@@ -43,6 +43,7 @@
       overflow-x: hidden;
     }
 
+    /* Cyber Perspective Grid Overlay */
     body::before {
       content: "";
       position: fixed;
@@ -63,17 +64,18 @@
     /* Top Cyber HUD Bar */
     .topbar {
       width: 100%;
-      max-width: 1020px;
+      max-width: 1000px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border: 1px solid var(--cyan);
-      border-inline-start: 5px solid var(--magenta);
+      border-left: 5px solid var(--magenta);
       background: var(--panel);
       backdrop-filter: blur(10px);
       padding: 14px 22px;
       margin-bottom: 24px;
       box-shadow: 0 0 22px var(--cyan-glow);
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
       flex-wrap: wrap;
       gap: 12px;
     }
@@ -81,17 +83,19 @@
     .brand {
       font-weight: 800;
       font-size: 1.25rem;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       background: linear-gradient(90deg, var(--cyan), #fff, var(--magenta));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
     }
 
     .brand-tag {
-      font-size: 0.78rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.75rem;
       color: var(--cyan);
       display: block;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
 
     .nav-btns {
@@ -108,9 +112,10 @@
       cursor: pointer;
       font-weight: 700;
       font-size: 0.85rem;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       transition: all 0.2s ease;
+      clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
     }
 
     .cyber-btn:hover {
@@ -132,18 +137,6 @@
       box-shadow: 0 0 18px var(--magenta);
     }
 
-    .cyber-btn.green {
-      border-color: var(--green);
-      color: var(--green);
-      background: rgba(0, 255, 157, 0.08);
-    }
-
-    .cyber-btn.green:hover {
-      background: var(--green);
-      color: #050714;
-      box-shadow: 0 0 18px var(--green);
-    }
-
     .cyber-btn.danger {
       border-color: var(--danger);
       color: var(--danger);
@@ -159,7 +152,7 @@
     /* Main Cyber Container */
     .cyber-box {
       width: 100%;
-      max-width: 1020px;
+      max-width: 1000px;
       background: var(--panel);
       backdrop-filter: blur(12px);
       border: 1px solid var(--cyan-dim);
@@ -167,6 +160,7 @@
       border-bottom: 2px solid var(--magenta);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 25px var(--cyan-glow);
       padding: 30px;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
     }
 
     .cyber-header {
@@ -182,8 +176,9 @@
 
     h1, h2 {
       color: #fff;
-      font-size: 1.35rem;
-      letter-spacing: 0.5px;
+      font-size: 1.4rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       text-shadow: 0 0 10px var(--cyan-glow);
     }
 
@@ -218,6 +213,7 @@
       color: #fff;
       font-weight: 700;
       font-size: 0.98rem;
+      letter-spacing: 0.5px;
     }
 
     .student-banner-info span {
@@ -227,13 +223,15 @@
     /* Anti-Cheat Notice & Alert Banner */
     .anticheat-notice {
       background: rgba(255, 0, 127, 0.1);
-      border-inline-start: 4px solid var(--magenta);
-      border: 1px solid rgba(255, 0, 127, 0.35);
+      border-left: 4px solid var(--magenta);
+      border-top: 1px solid rgba(255, 0, 127, 0.35);
+      border-right: 1px solid rgba(255, 0, 127, 0.35);
+      border-bottom: 1px solid rgba(255, 0, 127, 0.35);
       color: #ffd6e8;
       padding: 14px 16px;
       margin-bottom: 20px;
-      font-size: 0.9rem;
-      line-height: 1.6;
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
     .anticheat-notice strong {
@@ -243,7 +241,7 @@
     .cheat-alert-box {
       background: rgba(255, 42, 85, 0.25);
       border: 1px solid var(--danger);
-      border-inline-start: 5px solid var(--danger);
+      border-left: 5px solid var(--danger);
       color: #fff;
       padding: 12px 16px;
       margin-bottom: 16px;
@@ -269,8 +267,10 @@
       display: block;
       color: var(--cyan);
       margin-bottom: 8px;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     .field input {
@@ -292,7 +292,7 @@
     /* Topic Grid */
     .topics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 16px;
       margin-top: 18px;
     }
@@ -300,26 +300,29 @@
     .topic-card {
       background: var(--panel-alt);
       border: 1px solid rgba(0, 240, 255, 0.22);
-      border-inline-start: 3px solid var(--cyan);
+      border-left: 3px solid var(--cyan);
       padding: 18px;
       cursor: pointer;
       transition: all 0.22s ease;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
     }
 
     .topic-card:hover {
       border-color: var(--magenta);
-      border-inline-start-color: var(--magenta);
+      border-left-color: var(--magenta);
       transform: translateY(-3px);
       box-shadow: 0 6px 22px var(--magenta-glow);
     }
 
     .topic-num {
       color: var(--magenta);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       margin-bottom: 6px;
     }
 
@@ -332,7 +335,8 @@
 
     .topic-meta {
       color: var(--cyan);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
     }
 
     /* Quiz HUD */
@@ -341,7 +345,7 @@
       justify-content: space-between;
       background: rgba(5, 7, 20, 0.9);
       border: 1px solid var(--cyan-dim);
-      border-inline-start: 4px solid var(--magenta);
+      border-left: 4px solid var(--magenta);
       padding: 12px 16px;
       margin-bottom: 20px;
       font-size: 0.88rem;
@@ -356,9 +360,9 @@
       font-weight: 600;
       color: #fff;
       margin-bottom: 22px;
-      line-height: 1.6;
-      padding-inline-start: 14px;
-      border-inline-start: 3px solid var(--cyan);
+      line-height: 1.5;
+      padding-left: 12px;
+      border-left: 3px solid var(--cyan);
     }
 
     .options-list {
@@ -373,15 +377,17 @@
       border: 1px solid rgba(0, 240, 255, 0.25);
       color: var(--text);
       padding: 15px 18px;
-      text-align: start;
+      text-align: left;
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.18s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
     }
 
     .opt-btn:hover:not(:disabled) {
       border-color: var(--cyan);
       background: rgba(0, 240, 255, 0.14);
+      transform: translateX(4px);
     }
 
     .opt-btn.correct {
@@ -414,13 +420,15 @@
     th, td {
       border-bottom: 1px solid rgba(0, 240, 255, 0.15);
       padding: 12px 14px;
-      text-align: start;
+      text-align: left;
     }
 
     th {
       background: rgba(0, 240, 255, 0.12);
       color: var(--cyan);
-      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      letter-spacing: 1px;
     }
 
     tr:hover {
@@ -459,7 +467,7 @@
       display: inline-block;
       margin-top: 8px;
       color: var(--green);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
     }
   </style>
@@ -470,12 +478,11 @@
   <div class="topbar">
     <div>
       <div class="brand">AbdullaObaidAIAcademy</div>
-      <span class="brand-tag" id="ui-brand-tag">CYBER NEURAL ASSESSMENT SYSTEM // BILINGUAL</span>
+      <span class="brand-tag">CYBER NEURAL ASSESSMENT SYSTEM // v3.0</span>
     </div>
     <div class="nav-btns">
-      <button class="cyber-btn green" id="lang-toggle-btn" onclick="toggleLanguage()">العربية (AR)</button>
-      <button class="cyber-btn" id="nav-student-btn" onclick="goToStudentArea()">Student Portal</button>
-      <button class="cyber-btn magenta" id="nav-admin-btn" onclick="showAdminLogin()">Admin Panel</button>
+      <button class="cyber-btn" onclick="goToStudentArea()">Student Portal</button>
+      <button class="cyber-btn magenta" onclick="showAdminLogin()">Admin Panel</button>
     </div>
   </div>
 
@@ -483,21 +490,25 @@
   <div class="cyber-box" id="student-login-view">
     <div class="cyber-header">
       <div>
-        <h1 id="ui-login-title"><span>//</span> Student Identity Verification</h1>
-        <p class="sub" id="ui-login-sub">Enter your Full Name and Class to authenticate into AbdullaObaidAIAcademy.</p>
+        <h1><span>//</span> Student Identity Verification</h1>
+        <p class="sub">Enter your Full Name and Class to authenticate into AbdullaObaidAIAcademy.</p>
       </div>
     </div>
 
-    <div class="anticheat-notice" id="ui-anticheat-notice"></div>
+    <div class="anticheat-notice">
+      <strong>[CYBER ANTI-CHEAT SHIELD ACTIVE]:</strong><br/>
+      • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong> and flags you for cheating in the Admin Panel.<br/>
+      • <strong>INPUT PROTECTION:</strong> Right-clicking, copying text, and DevTools shortcuts are blocked during active assessments.
+    </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
       <div class="form-grid">
         <div class="field">
-          <label for="student-name" id="ui-label-name">* Student Full Name (Required)</label>
+          <label for="student-name">* Student Full Name (Required)</label>
           <input type="text" id="student-name" placeholder="Enter your full name..." required />
         </div>
         <div class="field">
-          <label for="student-class" id="ui-label-class">* Class / Section (Required)</label>
+          <label for="student-class">* Class / Section (Required)</label>
           <input type="text" id="student-class" list="class-presets" placeholder="e.g. 11G1 or Grade 7 - A" required />
           <datalist id="class-presets">
             <option value="11G1"></option>
@@ -510,7 +521,7 @@
         </div>
       </div>
 
-      <button type="submit" class="cyber-btn" id="ui-btn-enter" style="width: 100%; padding: 14px; font-size: 0.95rem;">
+      <button type="submit" class="cyber-btn" style="width: 100%; padding: 14px; font-size: 0.95rem;">
         Initialize Session &amp; Unlock 10 Modules &gt;&gt;
       </button>
       <div id="student-error" class="error-text"></div>
@@ -523,18 +534,18 @@
       <div class="student-banner-info" id="active-student-badge">
         USER: --- | CLASS: ---
       </div>
-      <button class="cyber-btn magenta" id="ui-btn-switch" onclick="switchStudent()">Switch Student / Class</button>
+      <button class="cyber-btn magenta" onclick="switchStudent()">Switch Student / Class</button>
     </div>
 
     <div class="cyber-header">
       <div>
-        <h2 id="ui-modules-title"><span>//</span> AI Curriculum Modules (10 Questions Each)</h2>
-        <p class="sub" id="ui-modules-sub">Stay inside AbdullaObaidAIAcademy once a module starts — leaving the tab triggers instant disqualification.</p>
+        <h2><span>//</span> AI Curriculum Modules (10 Questions Each)</h2>
+        <p class="sub">Stay inside AbdullaObaidAIAcademy once a module starts — leaving the tab triggers instant disqualification.</p>
       </div>
     </div>
 
     <div style="margin-bottom: 18px;">
-      <button class="cyber-btn magenta" id="ui-btn-master" style="width: 100%; padding: 14px;" onclick="startAllModules()">
+      <button class="cyber-btn magenta" style="width: 100%; padding: 14px;" onclick="startAllModules()">
         Launch Master Exam — All 10 Lessons (100 Questions)
       </button>
     </div>
@@ -574,7 +585,7 @@
       <p class="sub" id="res-fraction"></p>
       <p id="res-anticheat-status" style="margin-top: 14px; font-weight: 700;"></p>
     </div>
-    <button class="cyber-btn" id="ui-btn-return" style="width: 100%; padding: 14px;" onclick="goToStudentArea()">
+    <button class="cyber-btn" style="width: 100%; padding: 14px;" onclick="goToStudentArea()">
       Return to Module Directory
     </button>
   </div>
@@ -583,22 +594,22 @@
   <div class="cyber-box hidden" id="admin-login-view">
     <div class="cyber-header">
       <div>
-        <h1 id="ui-admin-login-title"><span>//</span> Admin Root Authentication</h1>
-        <p class="sub" id="ui-admin-login-sub">Enter administrator credentials to access student records and anti-cheat logs.</p>
+        <h1><span>//</span> Admin Root Authentication</h1>
+        <p class="sub">Enter administrator credentials to access student records and anti-cheat logs.</p>
       </div>
     </div>
     <form onsubmit="handleAdminLogin(event)">
       <div class="form-grid">
         <div class="field">
-          <label for="admin-user" id="ui-label-admin-user">Admin Username</label>
+          <label for="admin-user">Admin Username</label>
           <input type="text" id="admin-user" placeholder="Enter username" required />
         </div>
         <div class="field">
-          <label for="admin-pass" id="ui-label-admin-pass">Access Code</label>
+          <label for="admin-pass">Access Code</label>
           <input type="password" id="admin-pass" placeholder="Enter password" required />
         </div>
       </div>
-      <button type="submit" class="cyber-btn magenta" id="ui-btn-admin-enter" style="width: 100%; padding: 13px;">Decrypt &amp; Enter</button>
+      <button type="submit" class="cyber-btn magenta" style="width: 100%; padding: 13px;">Decrypt &amp; Enter</button>
       <div id="admin-login-error" class="error-text"></div>
     </form>
   </div>
@@ -607,12 +618,12 @@
   <div class="cyber-box hidden" id="admin-dashboard">
     <div class="cyber-header">
       <div>
-        <h1 id="ui-admin-dash-title"><span>//</span> AbdullaObaidAIAcademy Admin Database</h1>
-        <p class="sub" id="ui-admin-dash-sub">Live student submissions, class rosters, scores, and anti-cheat verification.</p>
+        <h1><span>//</span> AbdullaObaidAIAcademy Admin Database</h1>
+        <p class="sub">Live student submissions, class rosters, scores, and anti-cheat verification.</p>
       </div>
       <div class="nav-btns">
-        <button class="cyber-btn" id="ui-btn-export" onclick="exportCSV()">Export CSV</button>
-        <button class="cyber-btn danger" id="ui-btn-wipe" onclick="clearLogs()">Wipe Logs</button>
+        <button class="cyber-btn" onclick="exportCSV()">Export CSV</button>
+        <button class="cyber-btn danger" onclick="clearLogs()">Wipe Logs</button>
       </div>
     </div>
 
@@ -621,13 +632,13 @@
         <thead>
           <tr>
             <th>#</th>
-            <th id="th-name">Student Name</th>
-            <th id="th-class">Class</th>
-            <th id="th-lesson">Lesson Completed</th>
-            <th id="th-score">Score</th>
-            <th id="th-percent">Percentage</th>
-            <th id="th-ac">Anti-Cheat Status</th>
-            <th id="th-time">Timestamp</th>
+            <th>Student Name</th>
+            <th>Class</th>
+            <th>Lesson Completed</th>
+            <th>Score</th>
+            <th>Percentage</th>
+            <th>Anti-Cheat Status</th>
+            <th>Timestamp</th>
           </tr>
         </thead>
         <tbody id="admin-table-body"></tbody>
@@ -636,680 +647,183 @@
   </div>
 
   <script>
-    let currentLang = "en";
-
-    const uiText = {
-      en: {
-        brandTag: "CYBER NEURAL ASSESSMENT SYSTEM // EN & AR",
-        langBtn: "العربية (AR)",
-        navStudent: "Student Portal",
-        navAdmin: "Admin Panel",
-        loginTitle: `<span>//</span> Student Identity Verification`,
-        loginSub: "Enter your Full Name and Class to authenticate into AbdullaObaidAIAcademy.",
-        anticheatNotice: `<strong>[CYBER ANTI-CHEAT SHIELD ACTIVE]:</strong><br/>
-          • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong> and flags you for cheating in the Admin Panel.<br/>
-          • <strong>INPUT PROTECTION:</strong> Right-clicking, copying text, and DevTools shortcuts are blocked during active assessments.`,
-        labelName: "* Student Full Name (Required)",
-        phName: "Enter your full name...",
-        labelClass: "* Class / Section (Required)",
-        phClass: "e.g. 11G1 or Grade 7 - A",
-        btnEnter: "Initialize Session & Unlock 10 Modules >>",
-        errMissing: "[ACCESS DENIED]: Both Student Name and Class are required.",
-        btnSwitch: "Switch Student / Class",
-        modulesTitle: `<span>//</span> AI Curriculum Modules (10 Questions Each)`,
-        modulesSub: "Stay inside AbdullaObaidAIAcademy once a module starts — leaving the tab triggers instant disqualification.",
-        btnMaster: "Launch Master Exam — All 10 Lessons (100 Questions)",
-        masterTitle: "ALL 10 LESSONS (100-QUESTION MASTER EXAM)",
-        cardMeta: "10 QUESTIONS // LAUNCH",
-        cardRecorded: "RECORDED",
-        nextBtn: "Proceed to Next Node >>",
-        finishBtn: "Complete & Transmit Results",
-        btnReturn: "Return to Module Directory",
-        adminLoginTitle: `<span>//</span> Admin Root Authentication`,
-        adminLoginSub: "Enter administrator credentials to access student records and anti-cheat logs.",
-        labelAdminUser: "Admin Username",
-        labelAdminPass: "Access Code",
-        btnAdminEnter: "Decrypt & Enter",
-        errAdmin: "[ACCESS DENIED]: Invalid credentials.",
-        adminDashTitle: `<span>//</span> AbdullaObaidAIAcademy Admin Database`,
-        adminDashSub: "Live student submissions, class rosters, scores, and anti-cheat verification.",
-        btnExport: "Export CSV",
-        btnWipe: "Wipe Logs",
-        thName: "Student Name",
-        thClass: "Class",
-        thLesson: "Lesson Completed",
-        thScore: "Score",
-        thPercent: "Percentage",
-        thAc: "Anti-Cheat Status",
-        thTime: "Timestamp",
-        noLogs: "No student submissions recorded yet.",
-        shieldActive: "SHIELD: ACTIVE"
-      },
-      ar: {
-        brandTag: "نظام التقييم الذكي السيبراني // عربي & إنجليزي",
-        langBtn: "English (EN)",
-        navStudent: "بوابة الطالب",
-        navAdmin: "لوحة المشرف",
-        loginTitle: `<span>//</span> التحقق من هوية الطالب`,
-        loginSub: "أدخل اسمك الكامل والصف الدراسي للدخول إلى أكاديمية AbdullaObaidAIAcademy.",
-        anticheatNotice: `<strong>[نظام مكافحة الغش السيبراني نشط]:</strong><br/>
-          • <strong>حظر تبديل التبويبات والمواقع:</strong> الانتقال إلى تبويب آخر أو فتح موقع/تطبيق آخر أو تصغير المتصفح أثناء الاختبار يؤدي فوراً إلى إنهاء الاختبار بدرجة <strong>0%</strong> وتسجيل مخالفة غش في لوحة المشرف.<br/>
-          • <strong>حماية الاختبار:</strong> يتم حظر النقر بالزر الأيمن ونسخ النصوص واختصارات المطورين أثناء التقييم.`,
-        labelName: "* اسم الطالب الكامل (مطلوب)",
-        phName: "اكتب اسمك الكامل هنا...",
-        labelClass: "* الصف / الشعبة (مطلوب)",
-        phClass: "مثال: 11G1 أو الصف السابع - أ",
-        btnEnter: "بدء الجلسة وفتح الدروس العشرة >>",
-        errMissing: "[تم رفض الدخول]: يجب إدخال اسم الطالب والصف الدراسي معاً.",
-        btnSwitch: "تغيير الطالب / الصف",
-        modulesTitle: `<span>//</span> وحدات منهج الذكاء الاصطناعي (10 أسئلة لكل درس)`,
-        modulesSub: "ابقَ داخل صفحة AbdullaObaidAIAcademy عند بدء الدرس — مغادرة الصفحة تؤدي للإلغاء الفوري.",
-        btnMaster: "بدء الاختبار الشامل — جميع الدروس العشرة (100 سؤال)",
-        masterTitle: "جميع الدروس العشرة (الاختبار الشامل - 100 سؤال)",
-        cardMeta: "10 أسئلة // ابدأ الدرس",
-        cardRecorded: "النتيجة المسجلة",
-        nextBtn: "السؤال التالي >>",
-        finishBtn: "إنهاء وإرسال النتيجة",
-        btnReturn: "العودة إلى قائمة الدروس",
-        adminLoginTitle: `<span>//</span> تسجيل دخول المشرف (Admin)`,
-        adminLoginSub: "أدخل بيانات المشرف لعرض أسماء الطلاب وصفوفهم ودرجاتهم وسجل مكافحة الغش.",
-        labelAdminUser: "اسم مستخدم المشرف",
-        labelAdminPass: "رمز الدخول",
-        btnAdminEnter: "دخول لوحة التحكم",
-        errAdmin: "[خطأ]: اسم المستخدم أو كلمة المرور غير صحيحة.",
-        adminDashTitle: `<span>//</span> قاعدة بيانات المشرف — AbdullaObaidAIAcademy`,
-        adminDashSub: "سجل مباشر لجميع الطلاب والصفوف والدروس والدرجات وحالة مكافحة الغش.",
-        btnExport: "تصدير ملف CSV",
-        btnWipe: "مسح السجلات",
-        thName: "اسم الطالب",
-        thClass: "الصف",
-        thLesson: "الدرس المكتمل",
-        thScore: "الدرجة",
-        thPercent: "النسبة المئوية",
-        thAc: "حالة مكافحة الغش",
-        thTime: "الوقت والتاريخ",
-        noLogs: "لا توجد سجلات طلاب مسجلة حتى الآن.",
-        shieldActive: "درع الحماية: نشط"
-      }
-    };
-
-    // 10 LESSONS × 10 QUESTIONS EACH IN BOTH ENGLISH AND ARABIC
+    // 10 LESSONS × 10 QUESTIONS EACH = 100 QUESTIONS TOTAL
     const curriculum = [
       {
         id: 1,
-        title: { en: "1. AI in Daily Life", ar: "1. الذكاء الاصطناعي في الحياة اليومية" },
-        unit: { en: "Module 0: AI Foundations and Applications", ar: "الوحدة 0: أساسيات وتطبيقات الذكاء الاصطناعي" },
+        title: "1. AI in Daily Life",
+        unit: "Module 0: AI Foundations and Applications",
         questions: [
-          {
-            q: { en: "1. Which of the following is an everyday example of AI?", ar: "1. أي مما يلي يعد مثالاً يومياً على الذكاء الاصطناعي؟" },
-            options: { en: ["A wooden ruler", "Voice assistants like Siri or Alexa", "A manual bicycle", "A printed book"], ar: ["مسطرة خشبية", "المساعدات الصوتية مثل Siri أو Alexa", "دراجة هوائية عادية", "كتاب ورقي مطبوع"] },
-            answer: 1
-          },
-          {
-            q: { en: "2. How do streaming apps like Netflix or YouTube use AI?", ar: "2. كيف تستخدم تطبيقات البث مثل Netflix أو YouTube الذكاء الاصطناعي؟" },
-            options: { en: ["By recommending videos based on your watch history", "By manufacturing TV screens", "By fixing broken cables", "By printing posters"], ar: ["باقتراح مقاطع فيديو بناءً على سجل المشاهدة", "بتصنيع شاشات التلفاز", "بإصلاح الكابلات التالفة", "بطباعة الملصقات"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. Which smartphone feature uses AI computer vision?", ar: "3. أي ميزة في الهواتف الذكية تستخدم الرؤية الحاسوبية بالذكاء الاصطناعي؟" },
-            options: { en: ["The charging port", "Face ID facial unlock", "The volume button", "The SIM card tray"], ar: ["منفذ الشحن", "فتح القفل بالتعرف على الوجه (Face ID)", "زر الصوت", "درج شريحة الاتصال"] },
-            answer: 1
-          },
-          {
-            q: { en: "4. How does a navigation app like Google Maps use AI?", ar: "4. كيف يستخدم تطبيق الخرائط مثل Google Maps الذكاء الاصطناعي؟" },
-            options: { en: ["By predicting traffic delays and finding faster routes", "By paving new roads", "By refilling car fuel", "By washing car windshields"], ar: ["بتوقع الازدحام المروري وإيجاد أسرع الطرق", "برصف طرق جديدة", "بتعبئة وقود السيارة", "بغسل زجاج السيارات"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What does an email spam filter use AI to do?", ar: "5. ماذا يفعل فلتر البريد العشوائي (Spam) باستخدام الذكاء الاصطناعي؟" },
-            options: { en: ["Delete all incoming emails", "Detect and block unwanted junk messages", "Change your password daily", "Turn off your monitor"], ar: ["حذف جميع الرسائل الواردة", "اكتشاف وحظر الرسائل المزعجة غير المرغوب فيها", "تغيير كلمة المرور يومياً", "إطفاء الشاشة"] },
-            answer: 1
-          },
-          {
-            q: { en: "6. How do online shopping sites use AI?", ar: "6. كيف تستخدم مواقع التسوق الإلكتروني الذكاء الاصطناعي؟" },
-            options: { en: ["By suggesting products you might like", "By driving delivery trucks manually", "By printing paper catalogs", "By turning off Wi-Fi"], ar: ["باقتراح منتجات قد تعجبك", "بقيادة شاحنات التوصيل يدوياً", "بطباعة كتالوجات ورقية", "بإيقاف شبكة Wi-Fi"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. Which smart home device uses AI to learn your temperature preferences?", ar: "7. أي جهاز منزلي ذكي يستخدم الذكاء الاصطناعي لتعلم درجة الحرارة المفضلة لديك؟" },
-            options: { en: ["A smart thermostat", "A standard light switch", "A wooden door", "A garden hose"], ar: ["منظم الحرارة الذكي (Smart Thermostat)", "مفتاح إضاءة عادي", "باب خشبي", "خرطوم حديقة"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. How does autocomplete on your phone keyboard work?", ar: "8. كيف تعمل ميزة الإكمال التلقائي في لوحة مفاتيح هاتفك؟" },
-            options: { en: ["AI predicts the next word you are likely to type", "A person types for you remotely", "It picks random letters", "It copies from your camera"], ar: ["يتنبأ الذكاء الاصطناعي بالكلمة التالية التي قد تكتبها", "يكتب شخص آخر بدلاً عنك عن بُعد", "يختار حروفاً عشوائية", "ينسخ من الكاميرا"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. Which medical tool uses AI to assist doctors?", ar: "9. أي أداة طبية تستخدم الذكاء الاصطناعي لمساعدة الأطباء؟" },
-            options: { en: ["Scanning X-rays to help spot signs of illness", "A cotton bandage", "A wooden tongue depressor", "A hospital bedsheet"], ar: ["فحص صور الأشعة للمساعدة في اكتشاف علامات المرض", "ضمادة قطنية", "خافض لسان خشبي", "غطاء سرير المستشفى"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. What makes an AI device different from a regular machine?", ar: "10. ما الذي يميز جهاز الذكاء الاصطناعي عن الآلة العادية؟" },
-            options: { en: ["It can learn from data and adapt its responses", "It never needs electricity", "It is always made of gold", "It has no software"], ar: ["يمكنه التعلم من البيانات وتكييف استجاباته", "لا يحتاج إلى كهرباء أبداً", "مصنوع دائماً من الذهب", "لا يحتوي على برمجيات"] },
-            answer: 0
-          }
+          { q: "1. Which of the following is an everyday example of AI?", options: ["A wooden ruler", "Voice assistants like Siri or Alexa", "A manual bicycle", "A printed book"], answer: 1 },
+          { q: "2. How do streaming apps like Netflix or YouTube use AI?", options: ["By recommending videos based on your watch history", "By manufacturing TV screens", "By fixing broken cables", "By printing posters"], answer: 0 },
+          { q: "3. Which smartphone feature uses AI computer vision?", options: ["The charging port", "Face ID facial unlock", "The volume button", "The SIM card tray"], answer: 1 },
+          { q: "4. How does a navigation app like Google Maps use AI?", options: ["By predicting traffic delays and finding faster routes", "By paving new roads", "By refilling car fuel", "By washing car windshields"], answer: 0 },
+          { q: "5. What does an email spam filter use AI to do?", options: ["Delete all incoming emails", "Detect and block unwanted junk messages", "Change your password daily", "Turn off your monitor"], answer: 1 },
+          { q: "6. How do online shopping sites use AI?", options: ["By suggesting products you might like", "By driving delivery trucks manually", "By printing paper catalogs", "By turning off Wi-Fi"], answer: 0 },
+          { q: "7. Which smart home device uses AI to learn your temperature preferences?", options: ["A smart thermostat", "A standard light switch", "A wooden door", "A garden hose"], answer: 0 },
+          { q: "8. How does autocomplete on your phone keyboard work?", options: ["AI predicts the next word you are likely to type", "A person types for you remotely", "It picks random letters", "It copies from your camera"], answer: 0 },
+          { q: "9. Which medical tool uses AI to assist doctors?", options: ["Scanning X-rays to help spot signs of illness", "A cotton bandage", "A wooden tongue depressor", "A hospital bedsheet"], answer: 0 },
+          { q: "10. What makes an AI device different from a regular machine?", options: ["It can learn from data and adapt its responses", "It never needs electricity", "It is always made of gold", "It has no software"], answer: 0 }
         ]
       },
       {
         id: 2,
-        title: { en: "2. Responsible AI Use", ar: "2. الاستخدام المسؤول للذكاء الاصطناعي" },
-        unit: { en: "Unit 2: Grade 5 - AI Problem Solving", ar: "الوحدة 2: حل المشكلات بالذكاء الاصطناعي" },
+        title: "2. Responsible AI Use",
+        unit: "Unit 2: Grade 5 - AI Problem Solving",
         questions: [
-          {
-            q: { en: "1. What does 'Responsible AI' mean?", ar: "1. ماذا يعني مصطلح «الذكاء الاصطناعي المسؤول»؟" },
-            options: { en: ["Designing and using AI safely, fairly, and ethically", "Using AI to cheat on homework", "Letting AI make all human laws", "Never turning off computers"], ar: ["تصميم واستخدام الذكاء الاصطناعي بأمان وعدالة وأخلاق", "استخدام الذكاء الاصطناعي للغش في الواجبات", "ترك الذكاء الاصطناعي يضع جميع القوانين", "عدم إطفاء الحواسيب أبداً"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. Why should you verify facts generated by an AI chatbot?", ar: "2. لماذا يجب التحقق من المعلومات التي ينتجها روبوت الدردشة الذكي؟" },
-            options: { en: ["AI can make mistakes or invent false information", "AI only works on weekends", "AI deletes your files", "AI refuses to use numbers"], ar: ["لأن الذكاء الاصطناعي قد يخطئ أو يختلق معلومات غير صحيحة", "لأنه يعمل في عطلة نهاية الأسبوع فقط", "لأنه يحذف ملفاتك", "لأنه يرفض استخدام الأرقام"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. What is 'AI bias'?", ar: "3. ما هو «تحيز الذكاء الاصطناعي» (AI Bias)؟" },
-            options: { en: ["When AI makes unfair decisions due to unbalanced training data", "When a laptop battery dies", "When a screen turns blue", "When a keyboard gets stuck"], ar: ["عندما يتخذ الذكاء الاصطناعي قرارات غير عادلة بسبب بيانات تدريب غير متوازنة", "عندما تنفد بطارية الحاسوب", "عندما تصبح الشاشة زرقاء", "عندما تتعطل لوحة المفاتيح"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. Why is protecting personal privacy important when using AI tools?", ar: "4. لماذا تعد حماية الخصوصية الشخصية مهمة عند استخدام أدوات الذكاء الاصطناعي؟" },
-            options: { en: ["Sensitive data entered into AI might be stored or exposed", "AI will steal your chair", "Privacy slows down the internet", "Passwords stop working"], ar: ["لأن البيانات الحساسة المُدخلة قد يتم تخزينها أو كشفها", "لأن الذكاء الاصطناعي سيسرق كرسيك", "لأن الخصوصية تبطئ الإنترنت", "لأن كلمات المرور تتوقف عن العمل"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What is a 'deepfake'?", ar: "5. ما هو «التزييف العميق» (Deepfake)؟" },
-            options: { en: ["AI-generated fake audio, image, or video that looks real", "A deep ocean submarine", "A broken hard drive", "A type of antivirus"], ar: ["صوت أو صورة أو فيديو مزيف بالذكاء الاصطناعي يبدو حقيقياً", "غواصة في أعماق المحيط", "قرص صلب معطل", "نوع من مضادات الفيروسات"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. If a facial recognition system only works well for one group of people, what is the problem?", ar: "6. إذا كان نظام التعرف على الوجوه يعمل بدقة لمجموعة واحدة فقط من الناس، فما المشكلة؟" },
-            options: { en: ["Training data bias", "Too much screen brightness", "Low Wi-Fi signal", "Outdated mouse drivers"], ar: ["تحيز في بيانات التدريب", "سطوع الشاشة الزائد", "ضعف إشارة الواي فاي", "تعريف الفأرة قديم"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. Who is responsible when an AI system causes harm?", ar: "7. من المسؤول عندما يتسبب نظام ذكاء اصطناعي في ضرر؟" },
-            options: { en: ["The humans who designed, deployed, or misused it", "Nobody at all", "The electrical outlet", "The computer mouse"], ar: ["البشر الذين صمموه أو نشروه أو أساؤوا استخدامه", "لا أحد على الإطلاق", "مقبس الكهرباء", "فأرة الحاسوب"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. What does 'transparency' in AI mean?", ar: "8. ماذا تعني «الشفافية» في الذكاء الاصطناعي؟" },
-            options: { en: ["Being clear about when AI is used and how it makes decisions", "Making computer monitors out of clear glass", "Hiding all source code", "Deleting user logs"], ar: ["الوضوح حول متى يُستخدم الذكاء الاصطناعي وكيف يتخذ قراراته", "صنع شاشات من الزجاج الشفاف", "إخفاء جميع الأكواد البرمجية", "حذف سجلات المستخدمين"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. Which is an ethical use of AI in school?", ar: "9. أي مما يلي يعد استخداماً أخلاقياً للذكاء الاصطناعي في المدرسة؟" },
-            options: { en: ["Using AI to quiz yourself and explain difficult topics", "Submitting AI-written essays as your own work", "Using AI to spread rumors", "Generating fake test scores"], ar: ["استخدامه لاختبار نفسك وشرح الدروس الصعبة", "تسليم مقالات كتبها الذكاء الاصطناعي وكأنها مجهودك", "استخدامه لنشر الشائعات", "توليد درجات اختبار مزيفة"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. How can developers reduce bias in an AI model?", ar: "10. كيف يمكن للمطورين تقليل التحيز في نموذج الذكاء الاصطناعي؟" },
-            options: { en: ["By training it on diverse, fair, and representative data", "By using less data", "By turning off testing", "By ignoring errors"], ar: ["بتدريبه على بيانات متنوعة وعادلة وشاملة", "باستخدام بيانات أقل", "بإيقاف الاختبار", "بتجاهل الأخطاء"] },
-            answer: 0
-          }
+          { q: "1. What does 'Responsible AI' mean?", options: ["Designing and using AI safely, fairly, and ethically", "Using AI to cheat on homework", "Letting AI make all human laws", "Never turning off computers"], answer: 0 },
+          { q: "2. Why should you verify facts generated by an AI chatbot?", options: ["AI can make mistakes or invent false information", "AI only works on weekends", "AI deletes your files", "AI refuses to use numbers"], answer: 0 },
+          { q: "3. What is 'AI bias'?", options: ["When AI makes unfair decisions due to unbalanced training data", "When a laptop battery dies", "When a screen turns blue", "When a keyboard gets stuck"], answer: 0 },
+          { q: "4. Why is protecting personal privacy important when using AI tools?", options: ["Sensitive data entered into AI might be stored or exposed", "AI will steal your chair", "Privacy slows down the internet", "Passwords stop working"], answer: 0 },
+          { q: "5. What is a 'deepfake'?", options: ["AI-generated fake audio, image, or video that looks real", "A deep ocean submarine", "A broken hard drive", "A type of antivirus"], answer: 0 },
+          { q: "6. If a facial recognition system only works well for one group of people, what is the problem?", options: ["Training data bias", "Too much screen brightness", "Low Wi-Fi signal", "Outdated mouse drivers"], answer: 0 },
+          { q: "7. Who is responsible when an AI system causes harm?", options: ["The humans who designed, deployed, or misused it", "Nobody at all", "The electrical outlet", "The computer mouse"], answer: 0 },
+          { q: "8. What does 'transparency' in AI mean?", options: ["Being clear about when AI is used and how it makes decisions", "Making computer monitors out of clear glass", "Hiding all source code", "Deleting user logs"], answer: 0 },
+          { q: "9. Which is an ethical use of AI in school?", options: ["Using AI to quiz yourself and explain difficult topics", "Submitting AI-written essays as your own work", "Using AI to spread rumors", "Generating fake test scores"], answer: 0 },
+          { q: "10. How can developers reduce bias in an AI model?", options: ["By training it on diverse, fair, and representative data", "By using less data", "By turning off testing", "By ignoring errors"], answer: 0 }
         ]
       },
       {
         id: 3,
-        title: { en: "3. Kinds of AI Problems", ar: "3. أنواع مشكلات الذكاء الاصطناعي" },
-        unit: { en: "Unit 3: Grade 5 - Computer Representation & Search", ar: "الوحدة 3: تمثيل المعلومات والبحث" },
+        title: "3. Kinds of AI Problems",
+        unit: "Unit 3: Grade 5 - Computer Representation & Search",
         questions: [
-          {
-            q: { en: "1. Sorting emails into 'Spam' and 'Inbox' is what kind of AI problem?", ar: "1. تصنيف رسائل البريد الإلكتروني إلى «عشوائي» و«وارد» هو نوع من مشكلات:" },
-            options: { en: ["Classification", "3D Printing", "Hardware Repair", "Battery Charging"], ar: ["التصنيف (Classification)", "الطباعة ثلاثية الأبعاد", "إصلاح الأجهزة", "شحن البطارية"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. Predicting tomorrow's temperature using past weather records is:", ar: "2. التنبؤ بدرجة حرارة الغد باستخدام سجلات الطقس السابقة يسمى:" },
-            options: { en: ["Prediction / Regression", "Image Drawing", "File Compression", "Audio Recording"], ar: ["التنبؤ / الانحدار (Regression)", "رسم الصور", "ضغط الملفات", "تسجيل الصوت"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. Finding the shortest path through a maze or city map is:", ar: "3. إيجاد أقصر مسار عبر متاهة أو خريطة مدينة هو:" },
-            options: { en: ["Search and Pathfinding", "Spell Checking", "Video Editing", "Password Hashing"], ar: ["البحث وإيجاد المسارات (Pathfinding)", "التدقيق الإملائي", "تحرير الفيديو", "تشفير كلمات المرور"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. Identifying whether a photo contains a dog, cat, or bird is:", ar: "4. تحديد ما إذا كانت الصورة تحتوي على كلب أو قطة أو طائر هو:" },
-            options: { en: ["Image Classification", "Text Translation", "Volume Control", "Disk Formatting"], ar: ["تصنيف الصور (Image Classification)", "ترجمة النصوص", "التحكم بالصوت", "تهيئة القرص"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. Grouping customers with similar shopping habits without pre-made labels is:", ar: "5. تجميع العملاء ذوي عادات التسوق المتشابهة دون تصنيفات مسبقة يسمى:" },
-            options: { en: ["Clustering", "Sorting alphabetically", "Deleting duplicates", "Printing receipts"], ar: ["التجميع العنقودي (Clustering)", "الترتيب الأبجدي", "حذف التكرارات", "طباعة الإيصالات"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. Converting spoken words into written text is called:", ar: "6. تحويل الكلمات المنطوقة إلى نص مكتوب يسمى:" },
-            options: { en: ["Speech Recognition", "Image Cropping", "Screen Mirroring", "Data Backup"], ar: ["التعرف على الكلام (Speech Recognition)", "قص الصور", "عكس الشاشة", "النسخ الاحتياطي"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. Translating a sentence from English to Spanish is an example of:", ar: "7. ترجمة جملة من الإنجليزية إلى العربية أو الإسبانية هي مثال على:" },
-            options: { en: ["Natural Language Processing (NLP)", "Computer Vision", "Robotics Hardware", "Cloud Storage"], ar: ["معالجة اللغات الطبيعية (NLP)", "الرؤية الحاسوبية", "أجهزة الروبوتات", "التخزين السحابي"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. Detecting unusual credit card purchases to stop theft is:", ar: "8. اكتشاف عمليات الشراء غير المعتادة بالبطاقة البنكية لمنع السرقة هو:" },
-            options: { en: ["Anomaly Detection", "Video Streaming", "File Renaming", "Color Grading"], ar: ["اكتشاف الشذوذ (Anomaly Detection)", "بث الفيديو", "إعادة تسمية الملفات", "تعديل الألوان"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. Teaching a robotic arm to pick up objects without dropping them involves:", ar: "9. تعليم ذراع روبوتية التقاط الأشياء دون إسقاطها يتضمن:" },
-            options: { en: ["Control and Robotics", "Spreadsheet Formatting", "Web Hosting", "Email Forwarding"], ar: ["التحكم والروبوتات", "تنسيق الجداول", "استضافة المواقع", "إعادة توجيه البريد"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. Which problem involves generating new text, music, or images?", ar: "10. أي نوع يتضمن توليد نصوص أو موسيقى أو صور جديدة؟" },
-            options: { en: ["Generative AI", "Binary Search", "File Compression", "Disk Defragmentation"], ar: ["الذكاء الاصطناعي التوليدي (Generative AI)", "البحث الثنائي", "ضغط الملفات", "إلغاء تجزئة القرص"] },
-            answer: 0
-          }
+          { q: "1. Sorting emails into 'Spam' and 'Inbox' is what kind of AI problem?", options: ["Classification", "3D Printing", "Hardware Repair", "Battery Charging"], answer: 0 },
+          { q: "2. Predicting tomorrow's temperature using past weather records is:", options: ["Prediction / Regression", "Image Drawing", "File Compression", "Audio Recording"], answer: 0 },
+          { q: "3. Finding the shortest path through a maze or city map is:", options: ["Search and Pathfinding", "Spell Checking", "Video Editing", "Password Hashing"], answer: 0 },
+          { q: "4. Identifying whether a photo contains a dog, cat, or bird is:", options: ["Image Classification", "Text Translation", "Volume Control", "Disk Formatting"], answer: 0 },
+          { q: "5. Grouping customers with similar shopping habits without pre-made labels is:", options: ["Clustering", "Sorting alphabetically", "Deleting duplicates", "Printing receipts"], answer: 0 },
+          { q: "6. Converting spoken words into written text is called:", options: ["Speech Recognition", "Image Cropping", "Screen Mirroring", "Data Backup"], answer: 0 },
+          { q: "7. Translating a sentence from English to Spanish is an example of:", options: ["Natural Language Processing (NLP)", "Computer Vision", "Robotics Hardware", "Cloud Storage"], answer: 0 },
+          { q: "8. Detecting unusual credit card purchases to stop theft is:", options: ["Anomaly Detection", "Video Streaming", "File Renaming", "Color Grading"], answer: 0 },
+          { q: "9. Teaching a robotic arm to pick up objects without dropping them involves:", options: ["Control and Robotics", "Spreadsheet Formatting", "Web Hosting", "Email Forwarding"], answer: 0 },
+          { q: "10. Which problem involves generating new text, music, or images?", options: ["Generative AI", "Binary Search", "File Compression", "Disk Defragmentation"], answer: 0 }
         ]
       },
       {
         id: 4,
-        title: { en: "4. Making Graphs", ar: "4. إنشاء الرسوم البيانية (Graphs)" },
-        unit: { en: "Unit 4: Grade 6 - How AI Makes Decisions", ar: "الوحدة 4: كيف يتخذ الذكاء الاصطناعي القرارات" },
+        title: "4. Making Graphs",
+        unit: "Unit 4: Grade 6 - How AI Makes Decisions",
         questions: [
-          {
-            q: { en: "1. In computer science, what are the two main parts of a Graph?", ar: "1. في علوم الحاسوب، ما هما الجزءان الرئيسيان للرسم البياني (Graph)؟" },
-            options: { en: ["Nodes (vertices) and Edges (connections)", "Rows and columns", "Pixels and frames", "Speakers and mics"], ar: ["العُقد (Nodes) والحواف/الروابط (Edges)", "الصفوف والأعمدة", "البكسلات والإطارات", "السماعات والميكروفونات"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. How does a map app represent intersections and roads as a graph?", ar: "2. كيف يمثل تطبيق الخرائط التقاطعات والطرق كرسم بياني؟" },
-            options: { en: ["Intersections are Nodes, and roads are Edges", "Roads are Nodes, and cars are Edges", "Maps do not use graphs", "Cities are deleted"], ar: ["التقاطعات هي العُقد (Nodes)، والطرق هي الروابط (Edges)", "الطرق هي العُقد والسيارات هي الروابط", "الخرائط لا تستخدم الرسوم البيانية", "يتم حذف المدن"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. What is a 'Decision Tree' in AI?", ar: "3. ما هي «شجرة القرار» (Decision Tree) في الذكاء الاصطناعي؟" },
-            options: { en: ["A flowchart-like graph that asks questions to reach a decision", "A real tree outside a data center", "A list of usernames", "A type of monitor"], ar: ["مخطط شجري يطرح أسئلة متتالية للوصول إلى قرار", "شجرة حقيقية خارج مركز البيانات", "قائمة أسماء مستخدمين", "نوع من الشاشات"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. In a social network graph, what do the Nodes usually represent?", ar: "4. في الرسم البياني للشبكات الاجتماعية، ماذا تمثل العُقد (Nodes) عادةً؟" },
-            options: { en: ["People / User accounts", "Wi-Fi routers", "Keyboard keys", "Battery percentages"], ar: ["الأشخاص / حسابات المستخدمين", "أجهزة توجيه الواي فاي", "أزرار لوحة المفاتيح", "نسب البطارية"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What is a 'weighted edge' in a graph?", ar: "5. ما هي «الحافة الموزونة» (Weighted Edge) في الرسم البياني؟" },
-            options: { en: ["A connection with a number value, like distance or travel time", "A thick black line on paper", "A broken link", "A heavy computer cable"], ar: ["رابط يحمل قيمة رقمية مثل المسافة أو وقت السفر", "خط أسود سميك على الورق", "رابط معطل", "كابل حاسوب ثقيل"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. Why do AI search algorithms use graphs?", ar: "6. لماذا تستخدم خوارزميات البحث في الذكاء الاصطناعي الرسوم البيانية؟" },
-            options: { en: ["To explore possible states and find the best path to a goal", "To draw cartoons", "To play music louder", "To cool down the CPU"], ar: ["لاستكشاف الحالات الممكنة وإيجاد أفضل مسار للهدف", "لرسم الرسوم المتحركة", "لرفع صوت الموسيقى", "لتبريد المعالج"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. In a Decision Tree, what is the very first starting point at the top called?", ar: "7. في شجرة القرار، ماذا تسمى نقطة البداية الأولى في الأعلى؟" },
-            options: { en: ["The Root Node", "The Leaf Node", "The Branch End", "The Trunk"], ar: ["عقدة الجذر (Root Node)", "عقدة الورقة (Leaf Node)", "نهاية الفرع", "الجذع"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. What are the final decision endpoints at the bottom of a Decision Tree called?", ar: "8. ماذا تسمى نقاط القرار النهائية في أسفل شجرة القرار؟" },
-            options: { en: ["Leaf Nodes", "Root Nodes", "Seeds", "Stems"], ar: ["عُقد الأوراق (Leaf Nodes)", "عُقد الجذر", "البذور", "السيقان"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. Which search strategy explores all neighbors at the current depth before going deeper?", ar: "9. أي استراتيجية بحث تستكشف جميع الجيران في المستوى الحالي قبل التعمق أكثر؟" },
-            options: { en: ["Breadth-First Search (BFS)", "Random Guessing", "Reverse Deletion", "Binary Sorting"], ar: ["البحث بالعرض أولاً (BFS)", "التخمين العشوائي", "الحذف العكسي", "الفرز الثنائي"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. What does a 'directed graph' mean?", ar: "10. ماذا يعني «الرسم البياني الموجه» (Directed Graph)؟" },
-            options: { en: ["Edges have a specific one-way direction (like one-way streets)", "The graph has no nodes", "All edges are invisible", "The graph only works offline"], ar: ["الروابط لها اتجاه واحد محدد (مثل الشوارع ذات الاتجاه الواحد)", "الرسم البياني بلا عُقد", "جميع الروابط غير مرئية", "يعمل دون إنترنت فقط"] },
-            answer: 0
-          }
+          { q: "1. In computer science, what are the two main parts of a Graph?", options: ["Nodes (vertices) and Edges (connections)", "Rows and columns", "Pixels and frames", "Speakers and mics"], answer: 0 },
+          { q: "2. How does a map app represent intersections and roads as a graph?", options: ["Intersections are Nodes, and roads are Edges", "Roads are Nodes, and cars are Edges", "Maps do not use graphs", "Cities are deleted"], answer: 0 },
+          { q: "3. What is a 'Decision Tree' in AI?", options: ["A flowchart-like graph that asks questions to reach a decision", "A real tree outside a data center", "A list of usernames", "A type of monitor"], answer: 0 },
+          { q: "4. In a social network graph, what do the Nodes usually represent?", options: ["People / User accounts", "Wi-Fi routers", "Keyboard keys", "Battery percentages"], answer: 0 },
+          { q: "5. What is a 'weighted edge' in a graph?", options: ["A connection with a number value, like distance or travel time", "A thick black line on paper", "A broken link", "A heavy computer cable"], answer: 0 },
+          { q: "6. Why do AI search algorithms use graphs?", options: ["To explore possible states and find the best path to a goal", "To draw cartoons", "To play music louder", "To cool down the CPU"], answer: 0 },
+          { q: "7. In a Decision Tree, what is the very first starting point at the top called?", options: ["The Root Node", "The Leaf Node", "The Branch End", "The Trunk"], answer: 0 },
+          { q: "8. What are the final decision endpoints at the bottom of a Decision Tree called?", options: ["Leaf Nodes", "Root Nodes", "Seeds", "Stems"], answer: 0 },
+          { q: "9. Which search strategy explores all neighbors at the current depth before going deeper?", options: ["Breadth-First Search (BFS)", "Random Guessing", "Reverse Deletion", "Binary Sorting"], answer: 0 },
+          { q: "10. What does a 'directed graph' mean?", options: ["Edges have a specific one-way direction (like one-way streets)", "The graph has no nodes", "All edges are invisible", "The graph only works offline"], answer: 0 }
         ]
       },
       {
         id: 5,
-        title: { en: "5. Labeling Takes Work", ar: "5. تصنيف البيانات يتطلب جهداً" },
-        unit: { en: "Unit 5: Grade 6 - Training and Evaluating AI Models", ar: "الوحدة 5: تدريب وتقييم نماذج الذكاء الاصطناعي" },
+        title: "5. Labeling Takes Work",
+        unit: "Unit 5: Grade 6 - Training and Evaluating AI Models",
         questions: [
-          {
-            q: { en: "1. What does 'data labeling' mean in machine learning?", ar: "1. ماذا يعني «تصنيف/وسم البيانات» (Data Labeling) في تعلم الآلة؟" },
-            options: { en: ["Tagging raw data with the correct answers so AI can learn", "Putting stickers on laptops", "Naming Wi-Fi networks", "Deleting old files"], ar: ["تزويد البيانات الخام بالإجابات الصحيحة ليتعلم منها الذكاء الاصطناعي", "وضع ملصقات على الحواسيب", "تسمية شبكات الواي فاي", "حذف الملفات القديمة"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. To train an AI to spot stop signs, what must humans provide first?", ar: "2. لتدريب الذكاء الاصطناعي على اكتشاف إشارات التوقف، ماذا يجب أن يوفر البشر أولاً؟" },
-            options: { en: ["Many street photos with stop signs labeled", "A real metal stop sign", "An empty folder", "Only photos of bicycles"], ar: ["العديد من صور الشوارع مع تحديد إشارات التوقف فيها", "إشارة توقف معدنية حقيقية", "مجلد فارغ", "صور دراجات فقط"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. What happens if training data is inaccurately labeled?", ar: "3. ماذا يحدث إذا تم تصنيف بيانات التدريب بشكل غير دقيق؟" },
-            options: { en: ["The AI learns wrong patterns and makes bad predictions", "The AI becomes smarter", "The computer runs faster", "Nothing changes"], ar: ["سيتعلم الذكاء الاصطناعي أنماطاً خاطئة ويقدم تنبؤات سيئة", "يصبح الذكاء الاصطناعي أذكى", "يعمل الحاسوب بشكل أسرع", "لا يتغير شيء"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. Why is data labeling often time-consuming?", ar: "4. لماذا يستغرق تصنيف البيانات وقتاً طويلاً غالباً؟" },
-            options: { en: ["AI models often require thousands or millions of labeled examples", "Keyboards only work slowly", "Labels erase themselves every hour", "Computers cannot save text"], ar: ["لأن نماذج الذكاء الاصطناعي تتطلب آلاف أو ملايين الأمثلة المصنفة", "لأن لوحة المفاتيح تعمل ببطء", "لأن التصنيفات تُمحى كل ساعة", "لأن الحواسيب لا تحفظ النصوص"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What is a 'bounding box' in image labeling?", ar: "5. ما هو «المربع المحيط» (Bounding Box) في تصنيف الصور؟" },
-            options: { en: ["A rectangle drawn around an object in a photo to show where it is", "The cardboard box a laptop comes in", "A border around a webpage", "A folder icon"], ar: ["مستطيل يُرسم حول كائن في الصورة لتحديد مكانه", "الصندوق الكرتوني للحاسوب", "إطار حول صفحة الويب", "أيقونة مجلد"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. Who typically creates labels for large AI datasets?", ar: "6. من يقوم عادةً بإنشاء التصنيفات لمجموعات بيانات الذكاء الاصطناعي الكبيرة؟" },
-            options: { en: ["Human annotators and domain experts", "Only video game consoles", "Printers", "Power cables"], ar: ["المصنفون البشريون والخبراء المختصون", "أجهزة ألعاب الفيديو فقط", "الطابعات", "كابلات الطاقة"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. What is 'ground truth' in AI training?", ar: "7. ما هي «الحقيقة المرجعية» (Ground Truth) في تدريب الذكاء الاصطناعي؟" },
-            options: { en: ["The verified, accurate labels used as the standard for training and testing", "Soil samples under a building", "The bottom of a monitor", "A rumor on the internet"], ar: ["التصنيفات الدقيقة والمؤكدة المستخدمة كمعيار للتدريب والاختبار", "عينات تربة تحت مبنى", "أسفل الشاشة", "شائعة على الإنترنت"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. Why do CAPTCHA tests sometimes ask you to click on traffic lights or crosswalks?", ar: "8. لماذا تطلب اختبارات CAPTCHA أحياناً النقر على إشارات المرور أو ممرات المشاة؟" },
-            options: { en: ["They help verify you are human while helping label image data", "To test your eyesight for glasses", "To turn off traffic lights", "To drain your battery"], ar: ["للتحقق من أنك إنسان والمساعدة في تصنيف بيانات الصور في الوقت نفسه", "لفحص نظرك", "لإطفاء إشارات المرور", "لاستنزاف البطارية"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. If two human labelers disagree on how to label an unclear image, what is needed?", ar: "9. إذا اختلف مصنفان بشريان حول كيفية تصنيف صورة غير واضحة، فما المطلوب؟" },
-            options: { en: ["Clear labeling guidelines and quality review", "Deleting the entire computer", "Ignoring all data", "Turning off the internet"], ar: ["إرشادات تصنيف واضحة ومراجعة للجودة", "حذف نظام الحاسوب بالكامل", "تجاهل جميع البيانات", "فصل الإنترنت"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. Which type of data can be labeled for AI?", ar: "10. أي نوع من البيانات يمكن تصنيفه للذكاء الاصطناعي؟" },
-            options: { en: ["Images, text, audio clips, and videos", "Only numbers from 1 to 10", "Only black-and-white drawings", "Only PDF files"], ar: ["الصور والنصوص والمقاطع الصوتية والفيديوهات", "الأرقام من 1 إلى 10 فقط", "الرسومات بالأبيض والأسود فقط", "ملفات PDF فقط"] },
-            answer: 0
-          }
+          { q: "1. What does 'data labeling' mean in machine learning?", options: ["Tagging raw data with the correct answers so AI can learn", "Putting stickers on laptops", "Naming Wi-Fi networks", "Deleting old files"], answer: 0 },
+          { q: "2. To train an AI to spot stop signs, what must humans provide first?", options: ["Many street photos with stop signs labeled", "A real metal stop sign", "An empty folder", "Only photos of bicycles"], answer: 0 },
+          { q: "3. What happens if training data is inaccurately labeled?", options: ["The AI learns wrong patterns and makes bad predictions", "The AI becomes smarter", "The computer runs faster", "Nothing changes"], answer: 0 },
+          { q: "4. Why is data labeling often time-consuming?", options: ["AI models often require thousands or millions of labeled examples", "Keyboards only work slowly", "Labels erase themselves every hour", "Computers cannot save text"], answer: 0 },
+          { q: "5. What is a 'bounding box' in image labeling?", options: ["A rectangle drawn around an object in a photo to show where it is", "The cardboard box a laptop comes in", "A border around a webpage", "A folder icon"], answer: 0 },
+          { q: "6. Who typically creates labels for large AI datasets?", options: ["Human annotators and domain experts", "Only video game consoles", "Printers", "Power cables"], answer: 0 },
+          { q: "7. What is 'ground truth' in AI training?", options: ["The verified, accurate labels used as the standard for training and testing", "Soil samples under a building", "The bottom of a monitor", "A rumor on the internet"], answer: 0 },
+          { q: "8. Why do CAPTCHA tests sometimes ask you to click on traffic lights or crosswalks?", options: ["They help verify you are human while helping label image data", "To test your eyesight for glasses", "To turn off traffic lights", "To drain your battery"], answer: 0 },
+          { q: "9. If two human labelers disagree on how to label an unclear image, what is needed?", options: ["Clear labeling guidelines and quality review", "Deleting the entire computer", "Ignoring all data", "Turning off the internet"], answer: 0 },
+          { q: "10. Which type of data can be labeled for AI?", options: ["Images, text, audio clips, and videos", "Only numbers from 1 to 10", "Only black-and-white drawings", "Only PDF files"], answer: 0 }
         ]
       },
       {
         id: 6,
-        title: { en: "6. Training a Model", ar: "6. تدريب النموذج (Training a Model)" },
-        unit: { en: "Unit 6: Grade 7 - How AI Learns", ar: "الوحدة 6: كيف يتعلم الذكاء الاصطناعي" },
+        title: "6. Training a Model",
+        unit: "Unit 6: Grade 7 - How AI Learns",
         questions: [
-          {
-            q: { en: "1. What is an 'AI Model'?", ar: "1. ما هو «نموذج الذكاء الاصطناعي» (AI Model)؟" },
-            options: { en: ["A program trained on data to find patterns and make predictions", "A fashion model using a tablet", "A plastic robot toy", "A keyboard shortcut"], ar: ["برنامج مُدرَّب على البيانات لاكتشاف الأنماط وتقديم التنبؤات", "عارض أزياء يستخدم جهازاً لوحياً", "لعبة روبوت بلاستيكية", "اختصار لوحة مفاتيح"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. Why do developers split data into a 'Training Set' and a 'Testing Set'?", ar: "2. لماذا يقسم المطورون البيانات إلى «مجموعة تدريب» و«مجموعة اختبار»؟" },
-            options: { en: ["To check if the AI generalizes to new data instead of memorizing", "To save hard drive space", "Because computers only read half a file", "To slow down training"], ar: ["للتأكد من قدرة النموذج على التعميم على بيانات جديدة بدلاً من الحفظ فقط", "لتوفير مساحة القرص الصلب", "لأن الحاسوب يقرأ نصف الملف فقط", "لإبطاء التدريب"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. What is 'overfitting'?", ar: "3. ما هو «فرط التخصيص» (Overfitting)؟" },
-            options: { en: ["When an AI memorizes training data too closely and fails on new data", "When a laptop case is too tight", "When a hard drive is full", "When a screen is too wide"], ar: ["عندما يحفظ النموذج بيانات التدريب بدقة مفرطة ويفشل مع البيانات الجديدة", "عندما تكون حقيبة الحاسوب ضيقة", "عندما يمتلئ القرص الصلب", "عندما تكون الشاشة عريضة جداً"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. What is 'underfitting'?", ar: "4. ما هو «نقص التخصيص» (Underfitting)؟" },
-            options: { en: ["When a model is too simple to capture the patterns in the data", "When a cable is too short", "When a battery is at 10%", "When text is too small"], ar: ["عندما يكون النموذج أبسط من أن يلتقط الأنماط الموجودة في البيانات", "عندما يكون الكابل قصيراً", "عندما تكون البطارية 10%", "عندما يكون الخط صغيراً"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What does 'model accuracy' measure?", ar: "5. ماذا تقيس «دقة النموذج» (Model Accuracy)؟" },
-            options: { en: ["The percentage of predictions the model gets right", "How fast the cooling fan spins", "The weight of the server", "The screen resolution"], ar: ["النسبة المئوية للتنبؤات الصحيحة التي يحققها النموذج", "سرعة دوران مروحة التبريد", "وزن الخادم", "دقة الشاشة"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. What is an 'epoch' during model training?", ar: "6. ما هي «الدورة التدريبية» (Epoch) أثناء تدريب النموذج؟" },
-            options: { en: ["One complete pass through the entire training dataset", "A type of computer virus", "A broken pixel", "A brand of keyboard"], ar: ["تمريرة كاملة واحدة عبر مجموعة بيانات التدريب بأكملها", "نوع من فيروسات الحاسوب", "بكسل معطل", "ماركة لوحة مفاتيح"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. What happens if you train a model on only blurry nighttime photos?", ar: "7. ماذا يحدث إذا درّبت نموذجاً على صور ليلية ضبابية فقط؟" },
-            options: { en: ["It will struggle to recognize clear daytime photos", "It will work perfectly in all lighting", "It will fix the camera lens", "It will run twice as fast"], ar: ["سيواجه صعوبة في التعرف على الصور النهارية الواضحة", "سيعمل بامتياز في جميع الإضاءات", "سيصلح عدسة الكاميرا", "سيعمل بسرعة مضاعفة"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. What are 'features' in a dataset?", ar: "8. ما هي «السمات/الميزات» (Features) في مجموعة البيانات؟" },
-            options: { en: ["The measurable input properties used by the model to make predictions", "The stickers on a laptop", "The price tag of software", "The power buttons"], ar: ["الخصائص المدخلة القابلة للقياس التي يستخدمها النموذج للتنبؤ", "الملصقات على الحاسوب", "سعر البرنامج", "أزرار التشغيل"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. What is 'inference' in AI?", ar: "9. ما هو «الاستدلال» (Inference) في الذكاء الاصطناعي؟" },
-            options: { en: ["Using an already-trained model to make predictions on new data", "Deleting a model", "Unplugging a server", "Formatting a disk"], ar: ["استخدام نموذج مُدرَّب مسبقاً لتقديم تنبؤات على بيانات جديدة", "حذف النموذج", "فصل الخادم", "تهيئة القرص"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. How can you improve a poorly performing AI model?", ar: "10. كيف يمكنك تحسين أداء نموذج ذكاء اصطناعي ضعيف؟" },
-            options: { en: ["Provide better quality data, tune parameters, or refine features", "Shake the monitor", "Change the wallpaper", "Lower the volume"], ar: ["توفير بيانات ذات جودة أفضل وضبط المعاملات وتحسين السمات", "هز الشاشة", "تغيير خلفية الشاشة", "خفض الصوت"] },
-            answer: 0
-          }
+          { q: "1. What is an 'AI Model'?", options: ["A program trained on data to find patterns and make predictions", "A fashion model using a tablet", "A plastic robot toy", "A keyboard shortcut"], answer: 0 },
+          { q: "2. Why do developers split data into a 'Training Set' and a 'Testing Set'?", options: ["To check if the AI generalizes to new data instead of memorizing", "To save hard drive space", "Because computers only read half a file", "To slow down training"], answer: 0 },
+          { q: "3. What is 'overfitting'?", options: ["When an AI memorizes training data too closely and fails on new data", "When a laptop case is too tight", "When a hard drive is full", "When a screen is too wide"], answer: 0 },
+          { q: "4. What is 'underfitting'?", options: ["When a model is too simple to capture the patterns in the data", "When a cable is too short", "When a battery is at 10%", "When text is too small"], answer: 0 },
+          { q: "5. What does 'model accuracy' measure?", options: ["The percentage of predictions the model gets right", "How fast the cooling fan spins", "The weight of the server", "The screen resolution"], answer: 0 },
+          { q: "6. What is an 'epoch' during model training?", options: ["One complete pass through the entire training dataset", "A type of computer virus", "A broken pixel", "A brand of keyboard"], answer: 0 },
+          { q: "7. What happens if you train a model on only blurry nighttime photos?", options: ["It will struggle to recognize clear daytime photos", "It will work perfectly in all lighting", "It will fix the camera lens", "It will run twice as fast"], answer: 0 },
+          { q: "8. What are 'features' in a dataset?", options: ["The measurable input properties used by the model to make predictions", "The stickers on a laptop", "The price tag of software", "The power buttons"], answer: 0 },
+          { q: "9. What is 'inference' in AI?", options: ["Using an already-trained model to make predictions on new data", "Deleting a model", "Unplugging a server", "Formatting a disk"], answer: 0 },
+          { q: "10. How can you improve a poorly performing AI model?", options: ["Provide better quality data, tune parameters, or refine features", "Shake the monitor", "Change the wallpaper", "Lower the volume"], answer: 0 }
         ]
       },
       {
         id: 7,
-        title: { en: "7. Supervised Learning", ar: "7. التعلم الخاضع للإشراف (Supervised Learning)" },
-        unit: { en: "Unit 6: Grade 7 - How AI Learns", ar: "الوحدة 6: كيف يتعلم الذكاء الاصطناعي" },
+        title: "7. Supervised Learning",
+        unit: "Unit 6: Grade 7 - How AI Learns",
         questions: [
-          {
-            q: { en: "1. What defines Supervised Learning?", ar: "1. ما الذي يميز التعلم الخاضع للإشراف (Supervised Learning)؟" },
-            options: { en: ["The AI learns from labeled data where correct answers are provided", "The AI learns with zero data", "A teacher watches you type", "The AI only plays games"], ar: ["يتعلم الذكاء الاصطناعي من بيانات مصنفة مزودة بالإجابات الصحيحة", "يتعلم دون أي بيانات", "يراقبك المعلم أثناء الكتابة", "يلعب الألعاب فقط"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. Which is an example of Supervised Learning?", ar: "2. أي مما يلي يعد مثالاً على التعلم الخاضع للإشراف؟" },
-            options: { en: ["Training an AI on labeled X-rays to detect bone fractures", "Letting a robot wander randomly with no labels", "Formatting a USB stick", "Updating a web browser"], ar: ["تدريب الذكاء الاصطناعي على صور أشعة مصنفة لاكتشاف كسور العظام", "ترك روبوت يتجول عشوائياً دون تصنيفات", "تهيئة ذاكرة USB", "تحديث متصفح الويب"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. In Supervised Learning, what are the 'input' and 'target label'?", ar: "3. في التعلم الخاضع للإشراف، ما هما «المدخل» و«التصنيف المستهدف»؟" },
-            options: { en: ["Input is raw data (e.g., email text); Target is the label (e.g., 'Spam')", "Input is the mouse; Target is the desk", "Input is electricity; Target is heat", "There is no target"], ar: ["المدخل هو البيانات الخام (مثل نص البريد) والمستهدف هو التصنيف (مثل Spam)", "المدخل هو الفأرة والمستهدف هو المكتب", "المدخل هو الكهرباء والمستهدف هو الحرارة", "لا يوجد مستهدف"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. What are the two main categories of Supervised Learning tasks?", ar: "4. ما هما الفئتان الرئيسيتان لمهام التعلم الخاضع للإشراف؟" },
-            options: { en: ["Classification and Regression", "Addition and Subtraction", "Copying and Pasting", "Uploading and Downloading"], ar: ["التصنيف (Classification) والانحدار (Regression)", "الجمع والطرح", "النسخ واللصق", "الرفع والتنزيل"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. Predicting a house's price based on its size and location is:", ar: "5. التنبؤ بسعر منزل بناءً على مساحته وموقعه يُعد:" },
-            options: { en: ["Regression", "Classification", "Clustering", "Reinforcement"], ar: ["انحداراً (Regression)", "تصنيفاً", "تجميعاً عنقودياً", "تعززياً"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. Predicting whether a student passed or failed based on study hours is:", ar: "6. التنبؤ بنجاح الطالب أو رسوبه بناءً على ساعات الدراسة يُعد:" },
-            options: { en: ["Classification", "Image Generation", "File Compression", "Audio Mixing"], ar: ["تصنيفاً (Classification)", "توليد صور", "ضغط ملفات", "دمج صوتي"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. Why is it called 'Supervised' learning?", ar: "7. لماذا يُسمى بالتعلم «الخاضع للإشراف»؟" },
-            options: { en: ["Because the labeled answers act like a teacher guiding the model", "Because a camera watches the programmer", "Because it only runs during school hours", "Because it requires two monitors"], ar: ["لأن الإجابات المصنفة تعمل كمعلم يوجه النموذج", "لأن كاميرا تراقب المبرمج", "لأنه يعمل أثناء الدوام المدرسي فقط", "لأنه يتطلب شاشتين"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. What does the model compare its guess against during Supervised Learning?", ar: "8. بماذا يقارن النموذج تخمينه أثناء التعلم الخاضع للإشراف؟" },
-            options: { en: ["The true label from the training dataset", "A random number", "The current time", "The Wi-Fi password"], ar: ["بالتصنيف الحقيقي الموجود في بيانات التدريب", "برقم عشوائي", "بالوقت الحالي", "بكلمة مرور الواي فاي"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. Which dataset is best for Supervised Learning?", ar: "9. أي مجموعة بيانات هي الأنسب للتعلم الخاضع للإشراف؟" },
-            options: { en: ["10,000 voice recordings paired with their written transcripts", "10,000 blank audio files", "A list of random passwords", "An empty spreadsheet"], ar: ["10,000 تسجيل صوتي مقترن بنصوصها المكتوبة", "10,000 ملف صوتي فارغ", "قائمة كلمات مرور عشوائية", "جدول بيانات فارغ"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. What is a major challenge of Supervised Learning?", ar: "10. ما هو التحدي الرئيسي في التعلم الخاضع للإشراف؟" },
-            options: { en: ["Collecting and labeling large amounts of accurate training data", "It never uses math", "It cannot run on modern computers", "It only works with text"], ar: ["جمع وتصنيف كميات كبيرة من بيانات التدريب الدقيقة", "أنه لا يستخدم الرياضيات أبداً", "لا يعمل على الحواسيب الحديثة", "يعمل مع النصوص فقط"] },
-            answer: 0
-          }
+          { q: "1. What defines Supervised Learning?", options: ["The AI learns from labeled data where correct answers are provided", "The AI learns with zero data", "A teacher watches you type", "The AI only plays games"], answer: 0 },
+          { q: "2. Which is an example of Supervised Learning?", options: ["Training an AI on labeled X-rays to detect bone fractures", "Letting a robot wander randomly with no labels", "Formatting a USB stick", "Updating a web browser"], answer: 0 },
+          { q: "3. In Supervised Learning, what are the 'input' and 'target label'?", options: ["Input is raw data (e.g., email text); Target is the label (e.g., 'Spam')", "Input is the mouse; Target is the desk", "Input is electricity; Target is heat", "There is no target"], answer: 0 },
+          { q: "4. What are the two main categories of Supervised Learning tasks?", options: ["Classification and Regression", "Addition and Subtraction", "Copying and Pasting", "Uploading and Downloading"], answer: 0 },
+          { q: "5. Predicting a house's price based on its size and location is:", options: ["Regression", "Classification", "Clustering", "Reinforcement"], answer: 0 },
+          { q: "6. Predicting whether a student passed or failed based on study hours is:", options: ["Classification", "Image Generation", "File Compression", "Audio Mixing"], answer: 0 },
+          { q: "7. Why is it called 'Supervised' learning?", options: ["Because the labeled answers act like a teacher guiding the model", "Because a camera watches the programmer", "Because it only runs during school hours", "Because it requires two monitors"], answer: 0 },
+          { q: "8. What does the model compare its guess against during Supervised Learning?", options: ["The true label from the training dataset", "A random number", "The current time", "The Wi-Fi password"], answer: 0 },
+          { q: "9. Which dataset is best for Supervised Learning?", options: ["10,000 voice recordings paired with their written transcripts", "10,000 blank audio files", "A list of random passwords", "An empty spreadsheet"], answer: 0 },
+          { q: "10. What is a major challenge of Supervised Learning?", options: ["Collecting and labeling large amounts of accurate training data", "It never uses math", "It cannot run on modern computers", "It only works with text"], answer: 0 }
         ]
       },
       {
         id: 8,
-        title: { en: "8. Reinforcement Learning", ar: "8. التعلم المعزز (Reinforcement Learning)" },
-        unit: { en: "Unit 7: Grade 8 - Understanding Neural Networks", ar: "الوحدة 7: فهم الشبكات العصبية" },
+        title: "8. Reinforcement Learning",
+        unit: "Unit 7: Grade 8 - Understanding Neural Networks",
         questions: [
-          {
-            q: { en: "1. How does Reinforcement Learning train an AI?", ar: "1. كيف يُدرِّب التعلم المعزز (Reinforcement Learning) الذكاء الاصطناعي؟" },
-            options: { en: ["Through trial and error using rewards and penalties", "By reading a dictionary once", "By copying text files", "By turning off the screen"], ar: ["من خلال التجربة والخطأ باستخدام المكافآت والعقوبات", "بقراءة قاموس مرة واحدة", "بنسخ الملفات النصية", "بإطفاء الشاشة"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. Which example best fits Reinforcement Learning?", ar: "2. أي مثال يوضح التعلم المعزز بأفضل شكل؟" },
-            options: { en: ["An AI learning chess by earning +1 for wins and -1 for losses", "Sorting names alphabetically", "Printing a document", "Calculating a tip"], ar: ["ذكاء اصطناعي يتعلم الشطرنج بحصوله على +1 للفوز و -1 للخسارة", "ترتيب الأسماء أبجدياً", "طباعة مستند", "حساب فاتورة"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. In Reinforcement Learning, what is the 'Agent'?", ar: "3. في التعلم المعزز، ما هو «الوكيل» (Agent)؟" },
-            options: { en: ["The AI learner making decisions in an environment", "A secret spy", "The power cord", "The monitor stand"], ar: ["المتعلم الذكي الذي يتخذ القرارات داخل البيئة", "جاسوس سري", "سلك الكهرباء", "حامل الشاشة"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. What is the 'Environment' in Reinforcement Learning?", ar: "4. ما هي «البيئة» (Environment) في التعلم المعزز؟" },
-            options: { en: ["The world or simulation the agent interacts with", "The weather outside", "The computer desk", "The screen saver"], ar: ["العالم أو المحاكاة التي يتفاعل معها الوكيل", "الطقس في الخارج", "مكتب الحاسوب", "شاشة التوقف"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What does a positive 'Reward' tell the RL agent?", ar: "5. ماذا تخبر «المكافأة» الإيجابية الوكيل في التعلم المعزز؟" },
-            options: { en: ["That its recent action was helpful and should be repeated", "To shut down immediately", "To delete its memory", "To ignore the goal"], ar: ["أن الإجراء الأخير كان مفيداً ويجب تكراره", "أن يتوقف فوراً", "أن يحذف ذاكرته", "أن يتجاهل الهدف"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. What is a 'Policy' in Reinforcement Learning?", ar: "6. ما هي «السياسة» (Policy) في التعلم المعزز؟" },
-            options: { en: ["The agent's strategy for choosing actions in different states", "A school dress code", "A software license agreement", "An antivirus scan"], ar: ["استراتيجية الوكيل لاختيار الإجراءات في الحالات المختلفة", "الزي المدرسي", "اتفاقية ترخيص البرنامج", "فحص الفيروسات"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. What is the balance between 'Exploration' and 'Exploitation'?", ar: "7. ما هو التوازن بين «الاستكشاف» و«الاستغلال»؟" },
-            options: { en: ["Trying new actions vs. using known actions that give high rewards", "Turning Wi-Fi on and off", "Saving and deleting files", "Zooming in and out"], ar: ["تجربة إجراءات جديدة مقابل استخدام إجراءات معروفة تعطي مكافآت عالية", "تشغيل وإيقاف الواي فاي", "حفظ وحذف الملفات", "التكبير والتصغير"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. Which real-world application uses Reinforcement Learning?", ar: "8. أي تطبيق واقعي يستخدم التعلم المعزز؟" },
-            options: { en: ["Training robots to walk and balance", "Spell-checking a single word", "Changing desktop icons", "Compressing a ZIP file"], ar: ["تدريب الروبوتات على المشي والتوازن", "التدقيق الإملائي لكلمة واحدة", "تغيير أيقونات سطح المكتب", "ضغط ملف ZIP"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. Does Reinforcement Learning require pre-labeled input/output pairs like Supervised Learning?", ar: "9. هل يتطلب التعلم المعزز أزواج مدخلات ومخرجات مصنفة مسبقاً مثل التعلم الخاضع للإشراف؟" },
-            options: { en: ["No, it learns from reward signals generated by its actions", "Yes, every move must be labeled beforehand", "It uses no numbers at all", "It only works with spreadsheets"], ar: ["لا، بل يتعلم من إشارات المكافأة الناتجة عن أفعاله", "نعم، يجب تصنيف كل حركة مسبقاً", "لا يستخدم الأرقام أبداً", "يعمل مع الجداول فقط"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. What happens over thousands of episodes in Reinforcement Learning?", ar: "10. ماذا يحدث بعد آلاف المحاولات في التعلم المعزز؟" },
-            options: { en: ["The agent gradually discovers strategies that maximize total reward", "The agent forgets how to move", "The computer slows down permanently", "The rewards disappear"], ar: ["يكتشف الوكيل تدريجياً استراتيجيات تعظّم إجمالي المكافآت", "ينسى الوكيل كيفية الحركة", "يتباطأ الحاسوب للأبد", "تختفي المكافآت"] },
-            answer: 0
-          }
+          { q: "1. How does Reinforcement Learning train an AI?", options: ["Through trial and error using rewards and penalties", "By reading a dictionary once", "By copying text files", "By turning off the screen"], answer: 0 },
+          { q: "2. Which example best fits Reinforcement Learning?", options: ["An AI learning chess by earning +1 for wins and -1 for losses", "Sorting names alphabetically", "Printing a document", "Calculating a tip"], answer: 0 },
+          { q: "3. In Reinforcement Learning, what is the 'Agent'?", options: ["The AI learner making decisions in an environment", "A secret spy", "The power cord", "The monitor stand"], answer: 0 },
+          { q: "4. What is the 'Environment' in Reinforcement Learning?", options: ["The world or simulation the agent interacts with", "The weather outside", "The computer desk", "The screen saver"], answer: 0 },
+          { q: "5. What does a positive 'Reward' tell the RL agent?", options: ["That its recent action was helpful and should be repeated", "To shut down immediately", "To delete its memory", "To ignore the goal"], answer: 0 },
+          { q: "6. What is a 'Policy' in Reinforcement Learning?", options: ["The agent's strategy for choosing actions in different states", "A school dress code", "A software license agreement", "An antivirus scan"], answer: 0 },
+          { q: "7. What is the balance between 'Exploration' and 'Exploitation'?", options: ["Trying new actions vs. using known actions that give high rewards", "Turning Wi-Fi on and off", "Saving and deleting files", "Zooming in and out"], answer: 0 },
+          { q: "8. Which real-world application uses Reinforcement Learning?", options: ["Training robots to walk and balance", "Spell-checking a single word", "Changing desktop icons", "Compressing a ZIP file"], answer: 0 },
+          { q: "9. Does Reinforcement Learning require pre-labeled input/output pairs like Supervised Learning?", options: ["No, it learns from reward signals generated by its actions", "Yes, every move must be labeled beforehand", "It uses no numbers at all", "It only works with spreadsheets"], answer: 0 },
+          { q: "10. What happens over thousands of episodes in Reinforcement Learning?", options: ["The agent gradually discovers strategies that maximize total reward", "The agent forgets how to move", "The computer slows down permanently", "The rewards disappear"], answer: 0 }
         ]
       },
       {
         id: 9,
-        title: { en: "9. Parts of a Neural Network", ar: "9. أجزاء الشبكة العصبية (Neural Network)" },
-        unit: { en: "Unit 7: Grade 8 - Understanding Neural Networks", ar: "الوحدة 7: فهم الشبكات العصبية" },
+        title: "9. Parts of a Neural Network",
+        unit: "Unit 7: Grade 8 - Understanding Neural Networks",
         questions: [
-          {
-            q: { en: "1. What inspired the structure of Artificial Neural Networks?", ar: "1. ما الذي ألهم تصميم الشبكات العصبية الاصطناعية؟" },
-            options: { en: ["The human brain and its biological neurons", "A spider web", "A bicycle chain", "A bookshelf"], ar: ["الدماغ البشري وخلاياه العصبية الحيوية", "شبكة العنكبوت", "سلسلة الدراجة", "رف الكتب"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. What are the three main layer types in a neural network?", ar: "2. ما هي الأنواع الثلاثة الرئيسية للطبقات في الشبكة العصبية؟" },
-            options: { en: ["Input Layer, Hidden Layer(s), Output Layer", "Top, Middle, Bottom", "Red, Green, Blue", "Start, Pause, Stop"], ar: ["طبقة الإدخال، الطبقات المخفية، طبقة الإخراج", "الأعلى والوسط والأسفل", "الأحمر والأخضر والأزرق", "البدء والإيقاف المؤقت والتوقف"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. What is the job of the 'Input Layer'?", ar: "3. ما هي وظيفة «طبقة الإدخال» (Input Layer)؟" },
-            options: { en: ["To receive the raw data (like pixels or numbers) into the network", "To display the final answer", "To cool the processor", "To save files to USB"], ar: ["استقبال البيانات الخام (مثل البكسلات أو الأرقام) إلى داخل الشبكة", "عرض الإجابة النهائية", "تبريد المعالج", "حفظ الملفات على USB"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. What is the job of the 'Output Layer'?", ar: "4. ما هي وظيفة «طبقة الإخراج» (Output Layer)؟" },
-            options: { en: ["To produce the network's final prediction or classification", "To load raw images", "To connect to Wi-Fi", "To delete old data"], ar: ["إنتاج التنبؤ أو التصنيف النهائي للشبكة", "تحميل الصور الخام", "الاتصال بالواي فاي", "حذف البيانات القديمة"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. Where does most of the pattern extraction happen in a deep neural network?", ar: "5. أين يحدث معظم استخلاص الأنماط في الشبكة العصبية العميقة؟" },
-            options: { en: ["In the Hidden Layers", "In the power supply", "In the mouse pad", "In the monitor cable"], ar: ["في الطبقات المخفية (Hidden Layers)", "في مزود الطاقة", "في لوحة الفأرة", "في كابل الشاشة"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. What is an artificial 'Neuron' (or node)?", ar: "6. ما هي «الخلية العصبية الاصطناعية» (Neuron)؟" },
-            options: { en: ["A math unit that takes inputs, applies weights and a bias, and outputs a value", "A tiny battery", "A screen pixel", "A keyboard switch"], ar: ["وحدة رياضية تأخذ المدخلات وتطبق الأوزان والانحياز وتُخرج قيمة", "بطارية صغيرة", "بكسل في الشاشة", "مفتاح في لوحة المفاتيح"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. What does an 'Activation Function' do inside a neuron?", ar: "7. ماذا تفعل «دالة التنشيط» (Activation Function) داخل الخلية العصبية؟" },
-            options: { en: ["Decides whether and how strongly the neuron should fire its signal", "Turns on the monitor", "Starts the operating system", "Connects Bluetooth"], ar: ["تقرر ما إذا كانت الخلية ستطلق إشارتها ومدى قوتها", "تشغل الشاشة", "تبدأ نظام التشغيل", "تصل البلوتوث"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. Why is a neural network with many hidden layers called 'Deep Learning'?", ar: "8. لماذا تُسمى الشبكة العصبية ذات الطبقات المخفية المتعددة «التعلم العميق» (Deep Learning)؟" },
-            options: { en: ["Because of the depth of its multiple stacked hidden layers", "Because the computer sits in a deep basement", "Because it uses deep blue colors", "Because it takes years to turn on"], ar: ["بسبب عمق طبقاتها المخفية المتعددة المتراكبة", "لأن الحاسوب يوضع في قبو عميق", "لأنها تستخدم اللون الأزرق الداكن", "لأن تشغيلها يستغرق سنوات"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. What is a 'Bias' value in a neuron?", ar: "9. ما هي قيمة «الانحياز» (Bias) في الخلية العصبية؟" },
-            options: { en: ["An extra adjustable number that shifts the activation threshold", "An unfair opinion", "A broken wire", "A screen glare"], ar: ["رقم إضافي قابل للتعديل يزيح عتبة التنشيط", "رأي غير عادل", "سلك مقطوع", "انعكاس الشاشة"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. How does information flow in a standard feedforward neural network?", ar: "10. كيف تتدفق المعلومات في الشبكة العصبية الأمامية القياسية؟" },
-            options: { en: ["From Input Layer -> Hidden Layers -> Output Layer", "From Output Layer -> Input Layer only", "In random circles", "Through the speakers"], ar: ["من طبقة الإدخال -> الطبقات المخفية -> طبقة الإخراج", "من طبقة الإخراج إلى الإدخال فقط", "في دوائر عشوائية", "عبر السماعات"] },
-            answer: 0
-          }
+          { q: "1. What inspired the structure of Artificial Neural Networks?", options: ["The human brain and its biological neurons", "A spider web", "A bicycle chain", "A bookshelf"], answer: 0 },
+          { q: "2. What are the three main layer types in a neural network?", options: ["Input Layer, Hidden Layer(s), Output Layer", "Top, Middle, Bottom", "Red, Green, Blue", "Start, Pause, Stop"], answer: 0 },
+          { q: "3. What is the job of the 'Input Layer'?", options: ["To receive the raw data (like pixels or numbers) into the network", "To display the final answer", "To cool the processor", "To save files to USB"], answer: 0 },
+          { q: "4. What is the job of the 'Output Layer'?", options: ["To produce the network's final prediction or classification", "To load raw images", "To connect to Wi-Fi", "To delete old data"], answer: 0 },
+          { q: "5. Where does most of the pattern extraction happen in a deep neural network?", options: ["In the Hidden Layers", "In the power supply", "In the mouse pad", "In the monitor cable"], answer: 0 },
+          { q: "6. What is an artificial 'Neuron' (or node)?", options: ["A math unit that takes inputs, applies weights and a bias, and outputs a value", "A tiny battery", "A screen pixel", "A keyboard switch"], answer: 0 },
+          { q: "7. What does an 'Activation Function' do inside a neuron?", options: ["Decides whether and how strongly the neuron should fire its signal", "Turns on the monitor", "Starts the operating system", "Connects Bluetooth"], answer: 0 },
+          { q: "8. Why is a neural network with many hidden layers called 'Deep Learning'?", options: ["Because of the depth of its multiple stacked hidden layers", "Because the computer sits in a deep basement", "Because it uses deep blue colors", "Because it takes years to turn on"], answer: 0 },
+          { q: "9. What is a 'Bias' value in a neuron?", options: ["An extra adjustable number that shifts the activation threshold", "An unfair opinion", "A broken wire", "A screen glare"], answer: 0 },
+          { q: "10. How does information flow in a standard feedforward neural network?", options: ["From Input Layer -> Hidden Layers -> Output Layer", "From Output Layer -> Input Layer only", "In random circles", "Through the speakers"], answer: 0 }
         ]
       },
       {
         id: 10,
-        title: { en: "10. Training by Changing Weights", ar: "10. التدريب عن طريق تغيير الأوزان (Weights)" },
-        unit: { en: "Module 152: AI Foundations and Applications", ar: "الوحدة 152: أساسيات وتطبيقات الذكاء الاصطناعي" },
+        title: "10. Training by Changing Weights",
+        unit: "Module 152: AI Foundations and Applications",
         questions: [
-          {
-            q: { en: "1. In a neural network, what is a 'Weight'?", ar: "1. في الشبكة العصبية، ما هو «الوزن» (Weight)؟" },
-            options: { en: ["A number that controls how strongly one neuron's signal affects the next", "How heavy the computer is", "The thickness of the font", "The length of a cable"], ar: ["رقم يتحكم في مدى قوة تأثير إشارة خلية عصبية على الخلية التالية", "وزن الحاسوب بالكيلوغرام", "سُمك الخط", "طول الكابل"] },
-            answer: 0
-          },
-          {
-            q: { en: "2. How are weights usually set before training begins?", ar: "2. كيف يتم ضبط الأوزان عادةً قبل بدء التدريب؟" },
-            options: { en: ["Initialized to small random numbers", "All set to zero forever", "Set to the user's birthday", "Typed in manually by the user"], ar: ["تُهيأ بأرقام عشوائية صغيرة", "تُضبط جميعها على الصفر للأبد", "تُضبط على تاريخ ميلاد المستخدم", "يكتبها المستخدم يدوياً"] },
-            answer: 0
-          },
-          {
-            q: { en: "3. What happens when a neural network makes a wrong prediction during training?", ar: "3. ماذا يحدث عندما تُصدر الشبكة العصبية تنبؤاً خاطئاً أثناء التدريب؟" },
-            options: { en: ["It adjusts its weights slightly to reduce the error next time", "It deletes itself", "It shuts down the PC", "It locks the weights forever"], ar: ["تعدّل أوزانها قليلاً لتقليل الخطأ في المرة القادمة", "تحذف نفسها", "تغلق الحاسوب", "تقفل الأوزان للأبد"] },
-            answer: 0
-          },
-          {
-            q: { en: "4. What is a 'Loss Function' (or Cost Function)?", ar: "4. ما هي «دالة الخسارة» (Loss Function)؟" },
-            options: { en: ["A formula that measures how far off the network's prediction is from the truth", "A tool that finds lost files", "A battery-saving mode", "A broken key"], ar: ["معادلة تقيس مدى بُعد تنبؤ الشبكة عن الإجابة الصحيحة", "أداة للبحث عن الملفات المفقودة", "وضع توفير البطارية", "مفتاح مكسور"] },
-            answer: 0
-          },
-          {
-            q: { en: "5. What is 'Backpropagation'?", ar: "5. ما هو «الانتشار العكسي» (Backpropagation)؟" },
-            options: { en: ["The algorithm that sends error signals backward to update network weights", "Walking backward from a desk", "Reversing a video clip", "Uninstalling updates"], ar: ["الخوارزمية التي ترسل إشارات الخطأ للخلف لتحديث أوزان الشبكة", "المشي للخلف", "عكس مقطع فيديو", "إلغاء التحديثات"] },
-            answer: 0
-          },
-          {
-            q: { en: "6. What is 'Gradient Descent'?", ar: "6. ما هو «الانحدار التدريجي» (Gradient Descent)؟" },
-            options: { en: ["An optimization method that steps weights downhill toward lower error", "Sliding down a hill", "Lowering screen brightness", "Decreasing volume"], ar: ["طريقة تحسين تحرك الأوزان تدريجياً نحو تقليل الخطأ", "التزلج على تل", "خفض سطوع الشاشة", "خفض الصوت"] },
-            answer: 0
-          },
-          {
-            q: { en: "7. What does the 'Learning Rate' control?", ar: "7. فيمَ يتحكم «معدل التعلم» (Learning Rate)؟" },
-            options: { en: ["How big of a step the weights take during each update", "How fast a student reads", "Internet download speed", "Typing speed"], ar: ["مقدار الخطوة التي تتغير بها الأوزان في كل تحديث", "سرعة قراءة الطالب", "سرعة تنزيل الإنترنت", "سرعة الكتابة"] },
-            answer: 0
-          },
-          {
-            q: { en: "8. What happens if the Learning Rate is set way too high?", ar: "8. ماذا يحدث إذا تم ضبط معدل التعلم على قيمة مرتفعة جداً؟" },
-            options: { en: ["The weights can overshoot the best solution and fail to learn properly", "The AI learns instantly with 100% perfection", "The monitor turns off", "Nothing happens"], ar: ["قد تتجاوز الأوزان الحل الأمثل وتفشل في التعلم بشكل صحيح", "يتعلم فوراً بدقة 100%", "تنطفئ الشاشة", "لا يحدث شيء"] },
-            answer: 0
-          },
-          {
-            q: { en: "9. If a connection between two neurons has a high positive weight, what does it mean?", ar: "9. إذا كان الرابط بين خليتين عصبيتين يمتلك وزناً موجباً مرتفعاً، فماذا يعني ذلك؟" },
-            options: { en: ["That connection has a strong positive influence on the next neuron", "That connection is broken", "That connection is ignored", "That connection deletes data"], ar: ["أن هذا الرابط له تأثير إيجابي قوي على الخلية التالية", "أن الرابط معطل", "أن الرابط مهمل", "أن الرابط يحذف البيانات"] },
-            answer: 0
-          },
-          {
-            q: { en: "10. When is neural network training considered complete?", ar: "10. متى يُعد تدريب الشبكة العصبية مكتملاً؟" },
-            options: { en: ["When the weights produce consistently low error on both training and test data", "After the very first guess", "When the keyboard breaks", "Before any data is shown"], ar: ["عندما تنتج الأوزان نسبة خطأ منخفضة باستمرار على بيانات التدريب والاختبار", "بعد أول تخمين", "عند تعطل لوحة المفاتيح", "قبل عرض أي بيانات"] },
-            answer: 0
-          }
+          { q: "1. In a neural network, what is a 'Weight'?", options: ["A number that controls how strongly one neuron's signal affects the next", "How heavy the computer is", "The thickness of the font", "The length of a cable"], answer: 0 },
+          { q: "2. How are weights usually set before training begins?", options: ["Initialized to small random numbers", "All set to zero forever", "Set to the user's birthday", "Typed in manually by the user"], answer: 0 },
+          { q: "3. What happens when a neural network makes a wrong prediction during training?", options: ["It adjusts its weights slightly to reduce the error next time", "It deletes itself", "It shuts down the PC", "It locks the weights forever"], answer: 0 },
+          { q: "4. What is a 'Loss Function' (or Cost Function)?", options: ["A formula that measures how far off the network's prediction is from the truth", "A tool that finds lost files", "A battery-saving mode", "A broken key"], answer: 0 },
+          { q: "5. What is 'Backpropagation'?", options: ["The algorithm that sends error signals backward to update network weights", "Walking backward from a desk", "Reversing a video clip", "Uninstalling updates"], answer: 0 },
+          { q: "6. What is 'Gradient Descent'?", options: ["An optimization method that steps weights downhill toward lower error", "Sliding down a hill", "Lowering screen brightness", "Decreasing volume"], answer: 0 },
+          { q: "7. What does the 'Learning Rate' control?", options: ["How big of a step the weights take during each update", "How fast a student reads", "Internet download speed", "Typing speed"], answer: 0 },
+          { q: "8. What happens if the Learning Rate is set way too high?", options: ["The weights can overshoot the best solution and fail to learn properly", "The AI learns instantly with 100% perfection", "The monitor turns off", "Nothing happens"], answer: 0 },
+          { q: "9. If a connection between two neurons has a high positive weight, what does it mean?", options: ["That connection has a strong positive influence on the next neuron", "That connection is broken", "That connection is ignored", "That connection deletes data"], answer: 0 },
+          { q: "10. When is neural network training considered complete?", options: ["When the weights produce consistently low error on both training and test data", "After the very first guess", "When the keyboard breaks", "Before any data is shown"], answer: 0 }
         ]
       }
     ];
 
     // STATE VARIABLES
     let activeStudent = { name: "", className: "" };
-    let activeModuleId = null; // null = Master Exam
+    let activeModuleTitle = "";
     let activeQuestions = [];
     let currentQIndex = 0;
     let currentScore = 0;
@@ -1318,30 +832,357 @@
     let isQuizActive = false;
     let cheatReason = "";
 
-    function toggleLanguage() {
-      currentLang = currentLang === "en" ? "ar" : "en";
-      applyLanguage();
+    document.addEventListener("visibilitychange", () => {
+      if (isQuizActive && document.hidden) {
+        triggerInstantCheatFail("Switched browser tab or opened another website/app!");
+      }
+    });
+
+    window.addEventListener("blur", () => {
+      if (isQuizActive) {
+        triggerInstantCheatFail("Left the AbdullaObaidAIAcademy quiz window (switched window/app)!");
+      }
+    });
+
+    document.addEventListener("contextmenu", (e) => {
+      if (isQuizActive) {
+        e.preventDefault();
+        showWarningToast("Right-click is disabled during the exam!");
+      }
+    });
+
+    document.addEventListener("copy", (e) => {
+      if (isQuizActive) {
+        e.preventDefault();
+        triggerInstantCheatFail("Attempted to copy exam content!");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!isQuizActive) return;
+      const key = e.key.toLowerCase();
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && ["c", "x", "u", "s", "p", "a", "t", "n", "w"].includes(key)) ||
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key)) ||
+        (e.altKey && e.key === "Tab")
+      ) {
+        e.preventDefault();
+        triggerInstantCheatFail("Blocked shortcut / attempt to open new tab or DevTools!");
+      }
+    });
+
+    function showWarningToast(msg) {
+      const alertBox = document.getElementById("cheat-alert-banner");
+      alertBox.classList.remove("hidden");
+      alertBox.textContent = `[SECURITY ALERT]: ${msg}`;
     }
 
-    function applyLanguage() {
-      const t = uiText[currentLang];
-      document.documentElement.lang = currentLang;
-      document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+    function triggerInstantCheatFail(reason) {
+      if (!isQuizActive) return;
+      cheatReason = reason;
+      finishQuiz(true);
+    }
 
-      document.getElementById("ui-brand-tag").textContent = t.brandTag;
-      document.getElementById("lang-toggle-btn").textContent = t.langBtn;
-      document.getElementById("nav-student-btn").textContent = t.navStudent;
-      document.getElementById("nav-admin-btn").textContent = t.navAdmin;
+    function renderLessonCards() {
+      const topicsContainer = document.getElementById("topics-container");
+      topicsContainer.innerHTML = "";
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
 
-      document.getElementById("ui-login-title").innerHTML = t.loginTitle;
-      document.getElementById("ui-login-sub").textContent = t.loginSub;
-      document.getElementById("ui-anticheat-notice").innerHTML = t.anticheatNotice;
-      document.getElementById("ui-label-name").textContent = t.labelName;
-      document.getElementById("student-name").placeholder = t.phName;
-      document.getElementById("ui-label-class").textContent = t.labelClass;
-      document.getElementById("student-class").placeholder = t.phClass;
-      document.getElementById("ui-btn-enter").textContent = t.btnEnter;
+      curriculum.forEach((mod) => {
+        const prevAttempt = logs.find(
+          (l) =>
+            l.name.toLowerCase() === activeStudent.name.toLowerCase() &&
+            l.className.toLowerCase() === activeStudent.className.toLowerCase() &&
+            l.module === mod.title
+        );
 
-      document.getElementById("ui-btn-switch").textContent = t.btnSwitch;
-      document.getElementById("ui-modules-title").innerHTML = t.modulesTitle;
-      document.getElementById
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        card.innerHTML = `
+          <div>
+            <div class="topic-num">${mod.unit}</div>
+            <div class="topic-title">${mod.title}</div>
+          </div>
+          <div>
+            <div class="topic-meta">[ ${mod.questions.length} QUESTIONS // LAUNCH ]</div>
+            ${prevAttempt ? `<div class="badge-done">RECORDED: ${prevAttempt.score} (${prevAttempt.percent})</div>` : ""}
+          </div>
+        `;
+        card.onclick = () => startSingleModule(mod);
+        topicsContainer.appendChild(card);
+      });
+    }
+
+    function handleStudentCheckIn(e) {
+      e.preventDefault();
+      const nameInput = document.getElementById("student-name").value.trim();
+      const classInput = document.getElementById("student-class").value.trim();
+      const errBox = document.getElementById("student-error");
+
+      if (!nameInput || !classInput) {
+        errBox.textContent = "[ACCESS DENIED]: Both Student Name and Class are required.";
+        return;
+      }
+
+      errBox.textContent = "";
+      activeStudent = { name: nameInput, className: classInput };
+      document.getElementById("active-student-badge").innerHTML =
+        `STUDENT: <span>${activeStudent.name}</span> &nbsp;|&nbsp; CLASS: <span>${activeStudent.className}</span>`;
+
+      renderLessonCards();
+      hideAllViews();
+      document.getElementById("student-home").classList.remove("hidden");
+    }
+
+    function switchStudent() {
+      if (isQuizActive) {
+        triggerInstantCheatFail("Attempted to switch student during an active exam!");
+        return;
+      }
+      activeStudent = { name: "", className: "" };
+      document.getElementById("student-name").value = "";
+      document.getElementById("student-class").value = "";
+      hideAllViews();
+      document.getElementById("student-login-view").classList.remove("hidden");
+    }
+
+    function goToStudentArea() {
+      if (isQuizActive) {
+        triggerInstantCheatFail("Attempted to exit an active exam!");
+        return;
+      }
+      hideAllViews();
+      if (!activeStudent.name || !activeStudent.className) {
+        document.getElementById("student-login-view").classList.remove("hidden");
+      } else {
+        renderLessonCards();
+        document.getElementById("student-home").classList.remove("hidden");
+      }
+    }
+
+    function startSingleModule(mod) {
+      if (!activeStudent.name || !activeStudent.className) return goToStudentArea();
+      activeModuleTitle = mod.title;
+      activeQuestions = [...mod.questions];
+      launchQuiz();
+    }
+
+    function startAllModules() {
+      if (!activeStudent.name || !activeStudent.className) return goToStudentArea();
+      activeModuleTitle = "ALL 10 LESSONS (100-QUESTION MASTER EXAM)";
+      activeQuestions = curriculum.flatMap((m) => m.questions);
+      launchQuiz();
+    }
+
+    function launchQuiz() {
+      currentQIndex = 0;
+      currentScore = 0;
+      cheatReason = "";
+      isQuizActive = true;
+      document.body.classList.add("anticheat-lock");
+
+      hideAllViews();
+      document.getElementById("quiz-view").classList.remove("hidden");
+      document.getElementById("cheat-alert-banner").classList.add("hidden");
+
+      document.getElementById("hud-user").textContent = `NAME: ${activeStudent.name}`;
+      document.getElementById("hud-class").textContent = `CLASS: ${activeStudent.className}`;
+      document.getElementById("hud-module").textContent = `LESSON: ${activeModuleTitle}`;
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const nextBtn = document.getElementById("next-q-btn");
+      nextBtn.classList.add("hidden");
+
+      const qObj = activeQuestions[currentQIndex];
+      document.getElementById("hud-progress").textContent = `Q: ${currentQIndex + 1}/${activeQuestions.length}`;
+      document.getElementById("hud-score").textContent = `SCORE: ${currentScore}`;
+      document.getElementById("question-display").textContent = qObj.q;
+
+      const optBox = document.getElementById("options-display");
+      optBox.innerHTML = "";
+
+      qObj.options.forEach((optText, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "opt-btn";
+        btn.textContent = `[0${idx + 1}]  ${optText}`;
+        btn.onclick = () => handleAnswer(idx, btn);
+        optBox.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(selectedIdx, btnElement) {
+      const correctIdx = activeQuestions[currentQIndex].answer;
+      const allBtns = document.querySelectorAll(".opt-btn");
+
+      allBtns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === correctIdx) b.classList.add("correct");
+      });
+
+      if (selectedIdx === correctIdx) {
+        currentScore++;
+        document.getElementById("hud-score").textContent = `SCORE: ${currentScore}`;
+      } else {
+        btnElement.classList.add("wrong");
+      }
+
+      const nextBtn = document.getElementById("next-q-btn");
+      nextBtn.textContent = currentQIndex === activeQuestions.length - 1
+        ? "Complete & Transmit Results"
+        : "Proceed to Next Node >>";
+      nextBtn.classList.remove("hidden");
+    }
+
+    function nextQuestion() {
+      currentQIndex++;
+      if (currentQIndex < activeQuestions.length) {
+        renderQuestion();
+      } else {
+        finishQuiz(false);
+      }
+    }
+
+    function finishQuiz(disqualified = false) {
+      isQuizActive = false;
+      document.body.classList.remove("anticheat-lock");
+
+      const total = activeQuestions.length;
+      const finalPoints = disqualified ? 0 : currentScore;
+      const percent = Math.round((finalPoints / total) * 100);
+
+      const acStatus = disqualified
+        ? `CHEATING DETECTED (${cheatReason})`
+        : "CLEAN (NO TAB SWITCH)";
+
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      logs.unshift({
+        name: activeStudent.name,
+        className: activeStudent.className,
+        module: activeModuleTitle,
+        score: `${finalPoints}/${total}`,
+        percent: `${percent}%`,
+        anticheat: acStatus,
+        time: new Date().toLocaleString()
+      });
+      localStorage.setItem("abdulla_obaid_ai_academy_logs", JSON.stringify(logs));
+
+      hideAllViews();
+      document.getElementById("result-view").classList.remove("hidden");
+
+      const titleEl = document.getElementById("result-header-title");
+      const acEl = document.getElementById("res-anticheat-status");
+      const scoreEl = document.getElementById("res-score");
+
+      if (disqualified) {
+        titleEl.innerHTML = `<span style="color:var(--danger)">//</span> CHEATING DETECTED — EXAM TERMINATED`;
+        titleEl.style.color = "var(--danger)";
+        scoreEl.classList.add("cheated");
+        acEl.style.color = "var(--danger)";
+        acEl.textContent = `VIOLATION: ${cheatReason} — AUTOMATIC 0% LOGGED TO ADMIN`;
+      } else {
+        titleEl.innerHTML = `<span>//</span> AbdullaObaidAIAcademy Transmission Complete`;
+        titleEl.style.color = "#fff";
+        scoreEl.classList.remove("cheated");
+        acEl.style.color = "var(--green)";
+        acEl.textContent = `ANTI-CHEAT STATUS: ${acStatus}`;
+      }
+
+      document.getElementById("res-student-info").textContent =
+        `NAME: ${activeStudent.name}  |  CLASS: ${activeStudent.className}  |  ${activeModuleTitle}`;
+      scoreEl.textContent = `${percent}%`;
+      document.getElementById("res-fraction").textContent =
+        `ACCURACY: ${finalPoints} OUT OF ${total} NODES VERIFIED`;
+    }
+
+    // NAVIGATION & ADMIN PANEL LOGIC
+    function hideAllViews() {
+      ["student-login-view", "student-home", "quiz-view", "result-view", "admin-login-view", "admin-dashboard"].forEach((id) => {
+        document.getElementById(id).classList.add("hidden");
+      });
+    }
+
+    function showAdminLogin() {
+      if (isQuizActive) {
+        triggerInstantCheatFail("Attempted to open Admin Panel during active exam!");
+        return;
+      }
+      hideAllViews();
+      document.getElementById("admin-login-error").textContent = "";
+      document.getElementById("admin-login-view").classList.remove("hidden");
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById("admin-user").value.trim();
+      const p = document.getElementById("admin-pass").value.trim();
+
+      if (u === "qua" && p === "231") {
+        document.getElementById("admin-user").value = "";
+        document.getElementById("admin-pass").value = "";
+        renderAdminDashboard();
+      } else {
+        document.getElementById("admin-login-error").textContent = "[ACCESS DENIED]: Invalid credentials.";
+      }
+    }
+
+    function renderAdminDashboard() {
+      hideAllViews();
+      document.getElementById("admin-dashboard").classList.remove("hidden");
+
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      const tbody = document.getElementById("admin-table-body");
+      tbody.innerHTML = "";
+
+      if (logs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--muted);">No student submissions recorded yet.</td></tr>`;
+        return;
+      }
+
+      logs.forEach((entry, index) => {
+        const isCheating = entry.anticheat && entry.anticheat.includes("CHEATING");
+        const acColor = isCheating ? "var(--danger)" : "var(--green)";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td style="color: #fff; font-weight: 700;">${entry.name}</td>
+          <td style="color: var(--cyan); font-weight: 700;">${entry.className}</td>
+          <td>${entry.module}</td>
+          <td>${entry.score}</td>
+          <td style="color: ${isCheating ? "var(--danger)" : "var(--magenta)"}; font-weight: 700;">${entry.percent}</td>
+          <td style="color: ${acColor}; font-weight: 700;">${entry.anticheat || "CLEAN"}</td>
+          <td style="color: var(--muted); font-size: 0.82rem;">${entry.time}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function clearLogs() {
+      if (confirm("Are you sure you want to wipe all AbdullaObaidAIAcademy student records?")) {
+        localStorage.removeItem("abdulla_obaid_ai_academy_logs");
+        renderAdminDashboard();
+      }
+    }
+
+    function exportCSV() {
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      if (logs.length === 0) return alert("No records to export.");
+
+      let csv = "Student Name,Class,Lesson,Score,Percentage,Anti-Cheat Status,Timestamp\n";
+      logs.forEach((r) => {
+        csv += `"${r.name}","${r.className}","${r.module}","${r.score}","${r.percent}","${r.anticheat || "CLEAN"}","${r.time}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "AbdullaObaidAIAcademy_student_scores.csv";
+      a.click();
+    }
+  </script>
+</body>
+</html>
