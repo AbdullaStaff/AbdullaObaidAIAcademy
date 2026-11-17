@@ -98,6 +98,23 @@
       letter-spacing: 2px;
     }
 
+    .partners-badge {
+      margin-top: 6px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: #fff;
+      background: rgba(255, 0, 127, 0.12);
+      border: 1px solid rgba(255, 0, 127, 0.45);
+      padding: 4px 10px;
+      display: inline-block;
+      letter-spacing: 0.5px;
+    }
+
+    .partners-badge span {
+      color: var(--magenta);
+      font-weight: 700;
+    }
+
     .nav-btns {
       display: flex;
       gap: 10px;
@@ -470,6 +487,38 @@
       font-size: 0.8rem;
       font-weight: 700;
     }
+
+    /* Partners Footer */
+    .partners-footer {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 22px;
+      padding: 14px 20px;
+      background: var(--panel);
+      border: 1px solid var(--cyan-dim);
+      border-left: 4px solid var(--cyan);
+      border-right: 4px solid var(--magenta);
+      text-align: center;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88rem;
+      color: var(--muted);
+      clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+    }
+
+    .partners-footer strong {
+      color: var(--cyan);
+      letter-spacing: 1px;
+    }
+
+    .partner-tag {
+      display: inline-block;
+      margin: 4px 6px;
+      padding: 4px 12px;
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--cyan-dim);
+      color: #fff;
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
@@ -479,6 +528,9 @@
     <div>
       <div class="brand">AbdullaObaidAIAcademy</div>
       <span class="brand-tag">CYBER NEURAL ASSESSMENT SYSTEM // v3.0</span>
+      <div class="partners-badge">
+        <span>MADE BY PARTNERS:</span> AbdullaObaid • AliSalem • SaifAhamed
+      </div>
     </div>
     <div class="nav-btns">
       <button class="cyber-btn" onclick="goToStudentArea()">Student Portal</button>
@@ -644,6 +696,14 @@
         <tbody id="admin-table-body"></tbody>
       </table>
     </div>
+  </div>
+
+  <!-- PARTNERS FOOTER -->
+  <div class="partners-footer">
+    <strong>// WEBSITE DEVELOPED BY PARTNERS:</strong>
+    <span class="partner-tag">AbdullaObaid</span>
+    <span class="partner-tag">AliSalem</span>
+    <span class="partner-tag">SaifAhamed</span>
   </div>
 
   <script>
@@ -828,10 +888,11 @@
     let currentQIndex = 0;
     let currentScore = 0;
 
-    // ANTI-CHEAT STATE (STRICT: INSTANT DISQUALIFICATION ON TAB / WEB SWITCH)
+    // ANTI-CHEAT STATE
     let isQuizActive = false;
     let cheatReason = "";
 
+    // ANTI-CHEAT LISTENERS
     document.addEventListener("visibilitychange", () => {
       if (isQuizActive && document.hidden) {
         triggerInstantCheatFail("Switched browser tab or opened another website/app!");
@@ -840,7 +901,7 @@
 
     window.addEventListener("blur", () => {
       if (isQuizActive) {
-        triggerInstantCheatFail("Left the AbdullaObaidAIAcademy quiz window (switched window/app)!");
+        triggerInstantCheatFail("Left the AbdullaObaidAIAcademy quiz window!");
       }
     });
 
@@ -884,6 +945,7 @@
       finishQuiz(true);
     }
 
+    // POPULATE LESSON CARDS
     function renderLessonCards() {
       const topicsContainer = document.getElementById("topics-container");
       topicsContainer.innerHTML = "";
@@ -905,7 +967,7 @@
             <div class="topic-title">${mod.title}</div>
           </div>
           <div>
-            <div class="topic-meta">[ ${mod.questions.length} QUESTIONS // LAUNCH ]</div>
+            <div class="topic-meta">[ 10 QUESTIONS // LAUNCH ]</div>
             ${prevAttempt ? `<div class="badge-done">RECORDED: ${prevAttempt.score} (${prevAttempt.percent})</div>` : ""}
           </div>
         `;
@@ -914,6 +976,7 @@
       });
     }
 
+    // MANDATORY STUDENT GATE HANDLER
     function handleStudentCheckIn(e) {
       e.preventDefault();
       const nameInput = document.getElementById("student-name").value.trim();
@@ -972,217 +1035,4 @@
       if (!activeStudent.name || !activeStudent.className) return goToStudentArea();
       activeModuleTitle = "ALL 10 LESSONS (100-QUESTION MASTER EXAM)";
       activeQuestions = curriculum.flatMap((m) => m.questions);
-      launchQuiz();
-    }
-
-    function launchQuiz() {
-      currentQIndex = 0;
-      currentScore = 0;
-      cheatReason = "";
-      isQuizActive = true;
-      document.body.classList.add("anticheat-lock");
-
-      hideAllViews();
-      document.getElementById("quiz-view").classList.remove("hidden");
-      document.getElementById("cheat-alert-banner").classList.add("hidden");
-
-      document.getElementById("hud-user").textContent = `NAME: ${activeStudent.name}`;
-      document.getElementById("hud-class").textContent = `CLASS: ${activeStudent.className}`;
-      document.getElementById("hud-module").textContent = `LESSON: ${activeModuleTitle}`;
-      renderQuestion();
-    }
-
-    function renderQuestion() {
-      const nextBtn = document.getElementById("next-q-btn");
-      nextBtn.classList.add("hidden");
-
-      const qObj = activeQuestions[currentQIndex];
-      document.getElementById("hud-progress").textContent = `Q: ${currentQIndex + 1}/${activeQuestions.length}`;
-      document.getElementById("hud-score").textContent = `SCORE: ${currentScore}`;
-      document.getElementById("question-display").textContent = qObj.q;
-
-      const optBox = document.getElementById("options-display");
-      optBox.innerHTML = "";
-
-      qObj.options.forEach((optText, idx) => {
-        const btn = document.createElement("button");
-        btn.className = "opt-btn";
-        btn.textContent = `[0${idx + 1}]  ${optText}`;
-        btn.onclick = () => handleAnswer(idx, btn);
-        optBox.appendChild(btn);
-      });
-    }
-
-    function handleAnswer(selectedIdx, btnElement) {
-      const correctIdx = activeQuestions[currentQIndex].answer;
-      const allBtns = document.querySelectorAll(".opt-btn");
-
-      allBtns.forEach((b, i) => {
-        b.disabled = true;
-        if (i === correctIdx) b.classList.add("correct");
-      });
-
-      if (selectedIdx === correctIdx) {
-        currentScore++;
-        document.getElementById("hud-score").textContent = `SCORE: ${currentScore}`;
-      } else {
-        btnElement.classList.add("wrong");
-      }
-
-      const nextBtn = document.getElementById("next-q-btn");
-      nextBtn.textContent = currentQIndex === activeQuestions.length - 1
-        ? "Complete & Transmit Results"
-        : "Proceed to Next Node >>";
-      nextBtn.classList.remove("hidden");
-    }
-
-    function nextQuestion() {
-      currentQIndex++;
-      if (currentQIndex < activeQuestions.length) {
-        renderQuestion();
-      } else {
-        finishQuiz(false);
-      }
-    }
-
-    function finishQuiz(disqualified = false) {
-      isQuizActive = false;
-      document.body.classList.remove("anticheat-lock");
-
-      const total = activeQuestions.length;
-      const finalPoints = disqualified ? 0 : currentScore;
-      const percent = Math.round((finalPoints / total) * 100);
-
-      const acStatus = disqualified
-        ? `CHEATING DETECTED (${cheatReason})`
-        : "CLEAN (NO TAB SWITCH)";
-
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
-      logs.unshift({
-        name: activeStudent.name,
-        className: activeStudent.className,
-        module: activeModuleTitle,
-        score: `${finalPoints}/${total}`,
-        percent: `${percent}%`,
-        anticheat: acStatus,
-        time: new Date().toLocaleString()
-      });
-      localStorage.setItem("abdulla_obaid_ai_academy_logs", JSON.stringify(logs));
-
-      hideAllViews();
-      document.getElementById("result-view").classList.remove("hidden");
-
-      const titleEl = document.getElementById("result-header-title");
-      const acEl = document.getElementById("res-anticheat-status");
-      const scoreEl = document.getElementById("res-score");
-
-      if (disqualified) {
-        titleEl.innerHTML = `<span style="color:var(--danger)">//</span> CHEATING DETECTED — EXAM TERMINATED`;
-        titleEl.style.color = "var(--danger)";
-        scoreEl.classList.add("cheated");
-        acEl.style.color = "var(--danger)";
-        acEl.textContent = `VIOLATION: ${cheatReason} — AUTOMATIC 0% LOGGED TO ADMIN`;
-      } else {
-        titleEl.innerHTML = `<span>//</span> AbdullaObaidAIAcademy Transmission Complete`;
-        titleEl.style.color = "#fff";
-        scoreEl.classList.remove("cheated");
-        acEl.style.color = "var(--green)";
-        acEl.textContent = `ANTI-CHEAT STATUS: ${acStatus}`;
-      }
-
-      document.getElementById("res-student-info").textContent =
-        `NAME: ${activeStudent.name}  |  CLASS: ${activeStudent.className}  |  ${activeModuleTitle}`;
-      scoreEl.textContent = `${percent}%`;
-      document.getElementById("res-fraction").textContent =
-        `ACCURACY: ${finalPoints} OUT OF ${total} NODES VERIFIED`;
-    }
-
-    // NAVIGATION & ADMIN PANEL LOGIC
-    function hideAllViews() {
-      ["student-login-view", "student-home", "quiz-view", "result-view", "admin-login-view", "admin-dashboard"].forEach((id) => {
-        document.getElementById(id).classList.add("hidden");
-      });
-    }
-
-    function showAdminLogin() {
-      if (isQuizActive) {
-        triggerInstantCheatFail("Attempted to open Admin Panel during active exam!");
-        return;
-      }
-      hideAllViews();
-      document.getElementById("admin-login-error").textContent = "";
-      document.getElementById("admin-login-view").classList.remove("hidden");
-    }
-
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const u = document.getElementById("admin-user").value.trim();
-      const p = document.getElementById("admin-pass").value.trim();
-
-      if (u === "qua" && p === "231") {
-        document.getElementById("admin-user").value = "";
-        document.getElementById("admin-pass").value = "";
-        renderAdminDashboard();
-      } else {
-        document.getElementById("admin-login-error").textContent = "[ACCESS DENIED]: Invalid credentials.";
-      }
-    }
-
-    function renderAdminDashboard() {
-      hideAllViews();
-      document.getElementById("admin-dashboard").classList.remove("hidden");
-
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
-      const tbody = document.getElementById("admin-table-body");
-      tbody.innerHTML = "";
-
-      if (logs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--muted);">No student submissions recorded yet.</td></tr>`;
-        return;
-      }
-
-      logs.forEach((entry, index) => {
-        const isCheating = entry.anticheat && entry.anticheat.includes("CHEATING");
-        const acColor = isCheating ? "var(--danger)" : "var(--green)";
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td style="color: #fff; font-weight: 700;">${entry.name}</td>
-          <td style="color: var(--cyan); font-weight: 700;">${entry.className}</td>
-          <td>${entry.module}</td>
-          <td>${entry.score}</td>
-          <td style="color: ${isCheating ? "var(--danger)" : "var(--magenta)"}; font-weight: 700;">${entry.percent}</td>
-          <td style="color: ${acColor}; font-weight: 700;">${entry.anticheat || "CLEAN"}</td>
-          <td style="color: var(--muted); font-size: 0.82rem;">${entry.time}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function clearLogs() {
-      if (confirm("Are you sure you want to wipe all AbdullaObaidAIAcademy student records?")) {
-        localStorage.removeItem("abdulla_obaid_ai_academy_logs");
-        renderAdminDashboard();
-      }
-    }
-
-    function exportCSV() {
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
-      if (logs.length === 0) return alert("No records to export.");
-
-      let csv = "Student Name,Class,Lesson,Score,Percentage,Anti-Cheat Status,Timestamp\n";
-      logs.forEach((r) => {
-        csv += `"${r.name}","${r.className}","${r.module}","${r.score}","${r.percent}","${r.anticheat || "CLEAN"}","${r.time}"\n`;
-      });
-
-      const blob = new Blob([csv], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "AbdullaObaidAIAcademy_student_scores.csv";
-      a.click();
-    }
-  </script>
-</body>
-</html>
+      launch
