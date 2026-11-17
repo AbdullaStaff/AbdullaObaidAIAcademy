@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI_NEXUS // STUDENT & ADMIN TERMINAL</title>
+  <title>AbdullaObaidWeb // AI Quiz & Anti-Cheat Terminal</title>
   <style>
     :root {
       --bg: #030705;
@@ -14,6 +14,7 @@
       --green-glow: rgba(0, 255, 65, 0.25);
       --cyan: #00e5ff;
       --danger: #ff2a55;
+      --warn: #ffbe0b;
       --text: #c8f7d4;
       --muted: #5c8a68;
     }
@@ -39,10 +40,15 @@
       padding: 20px;
     }
 
+    body.anticheat-lock {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
     /* Top Bar */
     .topbar {
       width: 100%;
-      max-width: 960px;
+      max-width: 980px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -58,7 +64,7 @@
     .brand {
       color: var(--green);
       font-weight: bold;
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       text-shadow: 0 0 8px var(--green-glow);
     }
 
@@ -119,7 +125,7 @@
     /* Main Terminal Box */
     .terminal-box {
       width: 100%;
-      max-width: 960px;
+      max-width: 980px;
       background: var(--panel);
       border: 1px solid var(--green);
       box-shadow: 0 0 25px var(--green-glow);
@@ -171,6 +177,26 @@
       color: var(--cyan);
       font-weight: bold;
       font-size: 0.95rem;
+    }
+
+    /* Anti-Cheat Notice & Alert Banner */
+    .anticheat-notice {
+      background: rgba(255, 42, 85, 0.1);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+    }
+
+    .cheat-alert-box {
+      background: rgba(255, 42, 85, 0.2);
+      border: 2px solid var(--danger);
+      color: #fff;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255, 42, 85, 0.4);
     }
 
     /* Forms */
@@ -259,8 +285,8 @@
       background: var(--bg);
       border: 1px solid var(--green-dim);
       padding: 10px 14px;
-      margin-bottom: 20px;
-      font-size: 0.9rem;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
       color: var(--cyan);
       flex-wrap: wrap;
       gap: 8px;
@@ -318,7 +344,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     th, td {
@@ -355,13 +381,21 @@
       margin: 10px 0;
       text-shadow: 0 0 15px var(--green-glow);
     }
+
+    .badge-done {
+      display: inline-block;
+      margin-top: 6px;
+      color: var(--cyan);
+      font-size: 0.78rem;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
 
   <!-- TOP NAVIGATION -->
   <div class="topbar">
-    <div class="brand">ROOT@AI-ACADEMY:~# <span>_</span></div>
+    <div class="brand">AbdullaObaidWeb // ROOT@TERMINAL:~# <span>_</span></div>
     <div class="nav-btns">
       <button class="term-btn" onclick="goToStudentArea()">[ STUDENT PORTAL ]</button>
       <button class="term-btn" onclick="showAdminLogin()">[ ADMIN PANEL ]</button>
@@ -372,20 +406,32 @@
   <div class="terminal-box" id="student-login-view">
     <div class="terminal-header">
       <div>
-        <h1>> STUDENT IDENTITY CHECK-IN (REQUIRED)</h1>
-        <p class="sub">Enter your Full Name and Class to unlock the AI Curriculum Terminal.</p>
+        <h1>> AbdullaObaidWeb // STUDENT CHECK-IN (REQUIRED)</h1>
+        <p class="sub">Enter your Full Name and Class below to unlock the AI Curriculum.</p>
       </div>
+    </div>
+
+    <div class="anticheat-notice">
+      [ANTI-CHEAT SHIELD ACTIVE]: Switching tabs, minimizing the browser, right-clicking, copying text, or opening DevTools during a quiz is strictly monitored. 3 violations = automatic 0% disqualification logged to Admin.
     </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
       <div class="form-grid">
         <div class="field">
           <label for="student-name">* STUDENT FULL NAME (REQUIRED):</label>
-          <input type="text" id="student-name" placeholder="Enter your full name" required />
+          <input type="text" id="student-name" placeholder="Type your full name..." required />
         </div>
         <div class="field">
-          <label for="student-class">* CLASS / GRADE (REQUIRED):</label>
-          <input type="text" id="student-class" placeholder="e.g. Grade 6 - A" required />
+          <label for="student-class">* CLASS / SECTION (REQUIRED):</label>
+          <input type="text" id="student-class" list="class-presets" placeholder="e.g. 11G1 or Grade 7 - A" required />
+          <datalist id="class-presets">
+            <option value="11G1"></option>
+            <option value="11G2"></option>
+            <option value="Grade 5 - A"></option>
+            <option value="Grade 6 - A"></option>
+            <option value="Grade 7 - A"></option>
+            <option value="Grade 8 - A"></option>
+          </datalist>
         </div>
       </div>
 
@@ -396,19 +442,19 @@
     </form>
   </div>
 
-  <!-- 2. LESSON DIRECTORY (UNLOCKED AFTER NAME & CLASS ENTERED) -->
+  <!-- 2. LESSON DIRECTORY -->
   <div class="terminal-box hidden" id="student-home">
     <div class="student-banner">
       <div class="student-banner-info" id="active-student-badge">
-        ACTIVE STUDENT: --- | CLASS: ---
+        STUDENT: --- | CLASS: ---
       </div>
-      <button class="term-btn cyan" onclick="switchStudent()">[ CHANGE NAME / CLASS ]</button>
+      <button class="term-btn cyan" onclick="switchStudent()">[ CHANGE STUDENT / CLASS ]</button>
     </div>
 
     <div class="terminal-header">
       <div>
-        <h2>> SELECT TARGET LESSON (10 QUESTIONS EACH)</h2>
-        <p class="sub">Choose any lesson below (10 questions) or take the Master Exam (100 questions).</p>
+        <h2>> AbdullaObaidWeb // SELECT TARGET LESSON (10 QUESTIONS EACH)</h2>
+        <p class="sub">Anti-Cheat monitoring begins automatically when you start any lesson.</p>
       </div>
     </div>
 
@@ -424,12 +470,15 @@
   <!-- 3. QUIZ EXECUTION TERMINAL -->
   <div class="terminal-box hidden" id="quiz-view">
     <div class="status-bar">
-      <span id="hud-user">STUDENT: ---</span>
+      <span id="hud-user">NAME: ---</span>
       <span id="hud-class">CLASS: ---</span>
       <span id="hud-module">LESSON: ---</span>
       <span id="hud-progress">Q: 1/10</span>
       <span id="hud-score">SCORE: 0</span>
+      <span id="hud-strikes" style="color: var(--green);">STRIKES: 0/3</span>
     </div>
+
+    <div id="cheat-alert-banner" class="cheat-alert-box hidden"></div>
 
     <div class="q-text" id="question-display"></div>
     <div class="options-list" id="options-display"></div>
@@ -442,12 +491,13 @@
   <!-- 4. RESULT TERMINAL -->
   <div class="terminal-box hidden" id="result-view">
     <div class="terminal-header">
-      <h1>> EXECUTION COMPLETE // SENT TO ADMIN LOGS</h1>
+      <h1 id="result-header-title">> EXECUTION COMPLETE // SAVED TO ADMIN ROSTER</h1>
     </div>
     <div class="score-display">
       <p class="sub" id="res-student-info"></p>
       <div class="big-score" id="res-score">0%</div>
       <p class="sub" id="res-fraction"></p>
+      <p id="res-anticheat-status" style="margin-top: 10px; font-weight: bold;"></p>
     </div>
     <button class="term-btn" style="width: 100%; padding: 14px;" onclick="goToStudentArea()">
       [ RETURN TO LESSON DIRECTORY ]
@@ -458,8 +508,8 @@
   <div class="terminal-box hidden" id="admin-login-view">
     <div class="terminal-header">
       <div>
-        <h1>> RESTRICTED ADMIN AUTHENTICATION</h1>
-        <p class="sub">Enter root credentials to view all student names, classes, and scores.</p>
+        <h1>> AbdullaObaidWeb // ADMIN AUTHENTICATION</h1>
+        <p class="sub">Enter root credentials to view student scores & anti-cheat logs.</p>
       </div>
     </div>
     <form onsubmit="handleAdminLogin(event)">
@@ -482,8 +532,8 @@
   <div class="terminal-box hidden" id="admin-dashboard">
     <div class="terminal-header">
       <div>
-        <h1>> ADMIN DATABASE // STUDENT RECORDS</h1>
-        <p class="sub">Live records of every student's Name, Class, Lesson, and Score.</p>
+        <h1>> AbdullaObaidWeb // ADMIN STUDENT RECORDS</h1>
+        <p class="sub">Live records of every student's Name, Class, Lesson, Score, and Anti-Cheat Status.</p>
       </div>
       <div class="nav-btns">
         <button class="term-btn" onclick="exportCSV()">[ EXPORT CSV ]</button>
@@ -501,6 +551,7 @@
             <th>Lesson Completed</th>
             <th>Score</th>
             <th>Percentage</th>
+            <th>Anti-Cheat Status</th>
             <th>Timestamp</th>
           </tr>
         </thead>
@@ -691,21 +742,102 @@
     let currentQIndex = 0;
     let currentScore = 0;
 
-    // RENDER LESSON CARDS ON LOAD
-    const topicsContainer = document.getElementById("topics-container");
-    curriculum.forEach((mod) => {
-      const card = document.createElement("div");
-      card.className = "topic-card";
-      card.innerHTML = `
-        <div>
-          <div class="topic-num">${mod.unit}</div>
-          <div class="topic-title">${mod.title}</div>
-        </div>
-        <div class="topic-meta">[ ${mod.questions.length} QUESTIONS // LAUNCH LESSON ]</div>
-      `;
-      card.onclick = () => startSingleModule(mod);
-      topicsContainer.appendChild(card);
+    // ANTI-CHEAT STATE
+    let isQuizActive = false;
+    let cheatStrikes = 0;
+    let lastViolationTime = 0;
+    const MAX_STRIKES = 3;
+
+    // ANTI-CHEAT EVENT LISTENERS
+    document.addEventListener("visibilitychange", () => {
+      if (isQuizActive && document.hidden) {
+        triggerCheatStrike("Tab switch or browser minimized detected!");
+      }
     });
+
+    window.addEventListener("blur", () => {
+      if (isQuizActive) {
+        triggerCheatStrike("Window focus lost (clicked outside quiz window)!");
+      }
+    });
+
+    document.addEventListener("contextmenu", (e) => {
+      if (isQuizActive) {
+        e.preventDefault();
+        triggerCheatStrike("Right-click context menu blocked during exam!");
+      }
+    });
+
+    document.addEventListener("copy", (e) => {
+      if (isQuizActive) {
+        e.preventDefault();
+        triggerCheatStrike("Copying question text is blocked!");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!isQuizActive) return;
+      const key = e.key.toLowerCase();
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && ["c", "x", "u", "s", "p", "a"].includes(key)) ||
+        (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key))
+      ) {
+        e.preventDefault();
+        triggerCheatStrike("Restricted keyboard shortcut / DevTools attempt blocked!");
+      }
+    });
+
+    function triggerCheatStrike(reason) {
+      if (!isQuizActive) return;
+      const now = Date.now();
+      // Cooldown of 1.5s so a single tab switch doesn't double-count blur + visibilitychange
+      if (now - lastViolationTime < 1500) return;
+      lastViolationTime = now;
+
+      cheatStrikes++;
+      const strikeHud = document.getElementById("hud-strikes");
+      strikeHud.textContent = `STRIKES: ${cheatStrikes}/${MAX_STRIKES}`;
+      strikeHud.style.color = cheatStrikes >= 2 ? "var(--danger)" : "var(--warn)";
+
+      const alertBox = document.getElementById("cheat-alert-banner");
+      alertBox.classList.remove("hidden");
+      alertBox.textContent = `[ANTI-CHEAT VIOLATION ${cheatStrikes}/${MAX_STRIKES}]: ${reason}`;
+
+      if (cheatStrikes >= MAX_STRIKES) {
+        finishQuiz(true);
+      }
+    }
+
+    function renderLessonCards() {
+      const topicsContainer = document.getElementById("topics-container");
+      topicsContainer.innerHTML = "";
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_web_logs") || "[]");
+
+      curriculum.forEach((mod) => {
+        const prevAttempt = logs.find(
+          (l) =>
+            l.name.toLowerCase() === activeStudent.name.toLowerCase() &&
+            l.className.toLowerCase() === activeStudent.className.toLowerCase() &&
+            l.module === mod.title
+        );
+
+        const card = document.createElement("div");
+        card.className = "topic-card";
+        card.innerHTML = `
+          <div>
+            <div class="topic-num">${mod.unit}</div>
+            <div class="topic-title">${mod.title}</div>
+          </div>
+          <div>
+            <div class="topic-meta">[ ${mod.questions.length} QUESTIONS // LAUNCH LESSON ]</div>
+            ${prevAttempt ? `<div class="badge-done">RECORDED: ${prevAttempt.score} (${prevAttempt.percent})</div>` : ""}
+          </div>
+        `;
+        card.onclick = () => startSingleModule(mod);
+        topicsContainer.appendChild(card);
+      });
+    }
 
     // STEP 1: STUDENT CHECK-IN (NAME & CLASS REQUIRED)
     function handleStudentCheckIn(e) {
@@ -722,13 +854,18 @@
       errBox.textContent = "";
       activeStudent = { name: nameInput, className: classInput };
       document.getElementById("active-student-badge").textContent =
-        `ACTIVE STUDENT: ${activeStudent.name}  |  CLASS: ${activeStudent.className}`;
+        `STUDENT: ${activeStudent.name}  |  CLASS: ${activeStudent.className}`;
 
+      renderLessonCards();
       hideAllViews();
       document.getElementById("student-home").classList.remove("hidden");
     }
 
     function switchStudent() {
+      if (isQuizActive) {
+        alert("Finish or submit your active quiz before changing student identity.");
+        return;
+      }
       activeStudent = { name: "", className: "" };
       document.getElementById("student-name").value = "";
       document.getElementById("student-class").value = "";
@@ -737,10 +874,15 @@
     }
 
     function goToStudentArea() {
+      if (isQuizActive) {
+        triggerCheatStrike("Attempted to leave active exam screen!");
+        return;
+      }
       hideAllViews();
       if (!activeStudent.name || !activeStudent.className) {
         document.getElementById("student-login-view").classList.remove("hidden");
       } else {
+        renderLessonCards();
         document.getElementById("student-home").classList.remove("hidden");
       }
     }
@@ -762,9 +904,19 @@
     function launchQuiz() {
       currentQIndex = 0;
       currentScore = 0;
+      cheatStrikes = 0;
+      isQuizActive = true;
+      document.body.classList.add("anticheat-lock");
+
       hideAllViews();
       document.getElementById("quiz-view").classList.remove("hidden");
-      document.getElementById("hud-user").textContent = `STUDENT: ${activeStudent.name}`;
+      document.getElementById("cheat-alert-banner").classList.add("hidden");
+
+      const strikeHud = document.getElementById("hud-strikes");
+      strikeHud.textContent = `STRIKES: 0/${MAX_STRIKES}`;
+      strikeHud.style.color = "var(--green)";
+
+      document.getElementById("hud-user").textContent = `NAME: ${activeStudent.name}`;
       document.getElementById("hud-class").textContent = `CLASS: ${activeStudent.className}`;
       document.getElementById("hud-module").textContent = `LESSON: ${activeModuleTitle}`;
       renderQuestion();
@@ -819,32 +971,63 @@
       if (currentQIndex < activeQuestions.length) {
         renderQuestion();
       } else {
-        finishQuiz();
+        finishQuiz(false);
       }
     }
 
-    function finishQuiz() {
-      const total = activeQuestions.length;
-      const percent = Math.round((currentScore / total) * 100);
+    function finishQuiz(disqualified = false) {
+      isQuizActive = false;
+      document.body.classList.remove("anticheat-lock");
 
-      const logs = JSON.parse(localStorage.getItem("ai_academy_logs") || "[]");
+      const total = activeQuestions.length;
+      const finalPoints = disqualified ? 0 : currentScore;
+      const percent = Math.round((finalPoints / total) * 100);
+
+      let acStatus = "CLEAN (0 STRIKES)";
+      if (disqualified) {
+        acStatus = `FLAGGED - CHEATING (${cheatStrikes}/${MAX_STRIKES} STRIKES)`;
+      } else if (cheatStrikes > 0) {
+        acStatus = `WARNING (${cheatStrikes}/${MAX_STRIKES} STRIKES)`;
+      }
+
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_web_logs") || "[]");
       logs.unshift({
         name: activeStudent.name,
         className: activeStudent.className,
         module: activeModuleTitle,
-        score: `${currentScore}/${total}`,
+        score: `${finalPoints}/${total}`,
         percent: `${percent}%`,
+        anticheat: acStatus,
         time: new Date().toLocaleString()
       });
-      localStorage.setItem("ai_academy_logs", JSON.stringify(logs));
+      localStorage.setItem("abdulla_obaid_web_logs", JSON.stringify(logs));
 
       hideAllViews();
       document.getElementById("result-view").classList.remove("hidden");
+
+      const titleEl = document.getElementById("result-header-title");
+      const acEl = document.getElementById("res-anticheat-status");
+      const scoreEl = document.getElementById("res-score");
+
+      if (disqualified) {
+        titleEl.textContent = "> EXAM TERMINATED // ANTI-CHEAT VIOLATION LOGGED";
+        titleEl.style.color = "var(--danger)";
+        scoreEl.style.color = "var(--danger)";
+        acEl.style.color = "var(--danger)";
+        acEl.textContent = `STATUS: ${acStatus} — AUTOMATIC 0% RECORDED`;
+      } else {
+        titleEl.textContent = "> AbdullaObaidWeb // EXECUTION COMPLETE";
+        titleEl.style.color = "var(--green)";
+        scoreEl.style.color = "var(--green)";
+        acEl.style.color = cheatStrikes > 0 ? "var(--warn)" : "var(--green)";
+        acEl.textContent = `ANTI-CHEAT REPORT: ${acStatus}`;
+      }
+
       document.getElementById("res-student-info").textContent =
-        `STUDENT: ${activeStudent.name}  |  CLASS: ${activeStudent.className}  |  ${activeModuleTitle}`;
-      document.getElementById("res-score").textContent = `${percent}%`;
+        `NAME: ${activeStudent.name}  |  CLASS: ${activeStudent.className}  |  ${activeModuleTitle}`;
+      scoreEl.textContent = `${percent}%`;
       document.getElementById("res-fraction").textContent =
-        `ACCURACY: ${currentScore} OUT OF ${total} NODES VERIFIED`;
+        `ACCURACY: ${finalPoints} OUT OF ${total} NODES VERIFIED`;
     }
 
     // NAVIGATION & ADMIN PANEL LOGIC
@@ -855,6 +1038,10 @@
     }
 
     function showAdminLogin() {
+      if (isQuizActive) {
+        triggerCheatStrike("Attempted to open Admin Panel during active exam!");
+        return;
+      }
       hideAllViews();
       document.getElementById("admin-login-error").textContent = "";
       document.getElementById("admin-login-view").classList.remove("hidden");
@@ -878,16 +1065,20 @@
       hideAllViews();
       document.getElementById("admin-dashboard").classList.remove("hidden");
 
-      const logs = JSON.parse(localStorage.getItem("ai_academy_logs") || "[]");
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_web_logs") || "[]");
       const tbody = document.getElementById("admin-table-body");
       tbody.innerHTML = "";
 
       if (logs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--muted);">NO STUDENT SUBMISSIONS RECORDED YET.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--muted);">NO STUDENT SUBMISSIONS RECORDED YET.</td></tr>`;
         return;
       }
 
       logs.forEach((entry, index) => {
+        const isFlagged = entry.anticheat && entry.anticheat.includes("FLAGGED");
+        const isWarn = entry.anticheat && entry.anticheat.includes("WARNING");
+        const acColor = isFlagged ? "var(--danger)" : isWarn ? "var(--warn)" : "var(--green)";
+
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${index + 1}</td>
@@ -896,6 +1087,7 @@
           <td>${entry.module}</td>
           <td>${entry.score}</td>
           <td style="color: var(--cyan); font-weight: bold;">${entry.percent}</td>
+          <td style="color: ${acColor}; font-weight: bold;">${entry.anticheat || "CLEAN (0 STRIKES)"}</td>
           <td style="color: var(--muted); font-size: 0.8rem;">${entry.time}</td>
         `;
         tbody.appendChild(tr);
@@ -903,26 +1095,26 @@
     }
 
     function clearLogs() {
-      if (confirm("Are you sure you want to wipe all student records?")) {
-        localStorage.removeItem("ai_academy_logs");
+      if (confirm("Are you sure you want to wipe all AbdullaObaidWeb student records?")) {
+        localStorage.removeItem("abdulla_obaid_web_logs");
         renderAdminDashboard();
       }
     }
 
     function exportCSV() {
-      const logs = JSON.parse(localStorage.getItem("ai_academy_logs") || "[]");
+      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_web_logs") || "[]");
       if (logs.length === 0) return alert("No records to export.");
 
-      let csv = "Student Name,Class,Lesson,Score,Percentage,Timestamp\n";
+      let csv = "Student Name,Class,Lesson,Score,Percentage,Anti-Cheat Status,Timestamp\n";
       logs.forEach((r) => {
-        csv += `"${r.name}","${r.className}","${r.module}","${r.score}","${r.percent}","${r.time}"\n`;
+        csv += `"${r.name}","${r.className}","${r.module}","${r.score}","${r.percent}","${r.anticheat || "CLEAN"}","${r.time}"\n`;
       });
 
       const blob = new Blob([csv], { type: "text/csv" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "student_ai_scores.csv";
+      a.download = "AbdullaObaidWeb_student_scores.csv";
       a.click();
     }
   </script>
