@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AbdullaObaidAIAcademy // NEURAL AI CORE & ANTI-CHEAT SYSTEM</title>
+  <title>AbdullaObaidAIAcademy // UAE NATIONAL AI & ANTI-CHEAT SYSTEM</title>
   <style>
     :root {
-      --bg: #030612;
-      --bg-gradient: radial-gradient(circle at 20% 20%, #0d1b3e 0%, #040817 50%, #08041c 100%);
-      --panel: rgba(8, 15, 36, 0.88);
-      --panel-alt: rgba(13, 24, 54, 0.92);
-      --ai-blue: #00e5ff;
-      --ai-blue-dim: rgba(0, 229, 255, 0.28);
-      --ai-blue-glow: rgba(0, 229, 255, 0.35);
-      --ai-violet: #8b5cf6;
-      --ai-violet-glow: rgba(139, 92, 246, 0.35);
-      --ai-mint: #10b981;
+      --bg: #070908;
+      --bg-gradient: radial-gradient(circle at 18% 18%, #0a291a 0%, #070908 55%, #1c080a 100%);
+      --panel: rgba(12, 16, 15, 0.92);
+      --panel-alt: rgba(18, 25, 22, 0.95);
+      --uae-green: #00732f;
+      --uae-green-bright: #00b84c;
+      --uae-green-glow: rgba(0, 184, 76, 0.32);
+      --uae-red: #ff0000;
+      --uae-red-glow: rgba(255, 0, 0, 0.32);
+      --uae-gold: #d4af37;
+      --uae-gold-dim: rgba(212, 175, 55, 0.35);
+      --uae-white: #ffffff;
       --danger: #ff2a55;
-      --text: #e2e8f0;
-      --muted: #8fa4c8;
+      --text: #f3f6f4;
+      --muted: #9eb0a5;
     }
 
     * {
@@ -41,12 +43,17 @@
       overflow-x: hidden;
     }
 
-    /* Live Animated Neural Network Canvas */
-    #neural-bg {
+    /* Subtle Geometric Mashrabiya / Heritage Grid Overlay */
+    body::before {
+      content: "";
       position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      background-image: 
+        linear-gradient(45deg, rgba(212, 175, 55, 0.04) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(212, 175, 55, 0.04) 25%, transparent 25%),
+        linear-gradient(to right, rgba(0, 184, 76, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 184, 76, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
       pointer-events: none;
       z-index: -1;
     }
@@ -56,22 +63,38 @@
       -webkit-user-select: none;
     }
 
-    /* Top AI Neural HUD */
+    /* UAE Flag Ribbon Accent */
+    .uae-flag-strip {
+      width: 100%;
+      max-width: 1020px;
+      height: 6px;
+      display: flex;
+      border-radius: 6px 6px 0 0;
+      overflow: hidden;
+      margin-bottom: -2px;
+      z-index: 2;
+    }
+    .flag-red { width: 22%; background: var(--uae-red); }
+    .flag-green { width: 26%; background: var(--uae-green); }
+    .flag-white { width: 26%; background: var(--uae-white); }
+    .flag-black { width: 26%; background: #141414; }
+
+    /* Top UAE HUD Bar */
     .topbar {
       width: 100%;
       max-width: 1020px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid var(--ai-blue-dim);
-      border-left: 5px solid var(--ai-blue);
-      border-right: 5px solid var(--ai-violet);
-      border-radius: 14px;
+      border: 1px solid var(--uae-gold-dim);
+      border-left: 6px solid var(--uae-red);
+      border-right: 6px solid var(--uae-green-bright);
+      border-radius: 0 0 14px 14px;
       background: var(--panel);
       backdrop-filter: blur(14px);
       padding: 16px 24px;
       margin-bottom: 24px;
-      box-shadow: 0 0 28px var(--ai-blue-glow), inset 0 0 18px rgba(139, 92, 246, 0.12);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65), 0 0 22px var(--uae-green-glow);
       flex-wrap: wrap;
       gap: 14px;
     }
@@ -82,27 +105,22 @@
       gap: 12px;
     }
 
-    /* Pulsing AI Core Orb */
-    .ai-orb {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #fff 10%, var(--ai-blue) 55%, var(--ai-violet) 100%);
-      box-shadow: 0 0 14px var(--ai-blue), 0 0 26px var(--ai-violet);
-      animation: pulseOrb 2.2s infinite ease-in-out;
+    /* UAE Emblem Crest Icon */
+    .uae-crest {
+      width: 18px;
+      height: 18px;
+      border-radius: 4px;
+      transform: rotate(45deg);
+      background: linear-gradient(135deg, var(--uae-red) 0%, var(--uae-gold) 50%, var(--uae-green-bright) 100%);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.65);
       flex-shrink: 0;
-    }
-
-    @keyframes pulseOrb {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.28); opacity: 1; }
     }
 
     .brand {
       font-weight: 800;
       font-size: 1.3rem;
       letter-spacing: 1.2px;
-      background: linear-gradient(90deg, var(--ai-blue), #ffffff, var(--ai-violet));
+      background: linear-gradient(90deg, #ffffff, var(--uae-gold), var(--uae-green-bright));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       text-transform: uppercase;
@@ -111,7 +129,7 @@
     .brand-tag {
       font-family: 'Courier New', monospace;
       font-size: 0.75rem;
-      color: var(--ai-blue);
+      color: var(--uae-gold);
       display: block;
       letter-spacing: 1.8px;
       margin-top: 2px;
@@ -122,8 +140,8 @@
       font-family: 'Courier New', monospace;
       font-size: 0.78rem;
       color: #fff;
-      background: linear-gradient(90deg, rgba(0, 229, 255, 0.12), rgba(139, 92, 246, 0.16));
-      border: 1px solid rgba(139, 92, 246, 0.45);
+      background: linear-gradient(90deg, rgba(255, 0, 0, 0.14), rgba(0, 115, 47, 0.22));
+      border: 1px solid var(--uae-gold-dim);
       border-radius: 8px;
       padding: 5px 12px;
       display: inline-block;
@@ -131,7 +149,7 @@
     }
 
     .partners-badge span {
-      color: var(--ai-blue);
+      color: var(--uae-gold);
       font-weight: 700;
     }
 
@@ -141,11 +159,11 @@
       flex-wrap: wrap;
     }
 
-    .ai-btn {
-      background: rgba(0, 229, 255, 0.1);
-      border: 1px solid var(--ai-blue);
+    .uae-btn {
+      background: rgba(0, 115, 47, 0.18);
+      border: 1px solid var(--uae-green-bright);
       border-radius: 10px;
-      color: var(--ai-blue);
+      color: #6ee7b7;
       padding: 10px 18px;
       cursor: pointer;
       font-weight: 700;
@@ -155,53 +173,55 @@
       transition: all 0.22s ease;
     }
 
-    .ai-btn:hover {
-      background: linear-gradient(90deg, var(--ai-blue), #38bdf8);
-      color: #030612;
-      box-shadow: 0 0 20px var(--ai-blue-glow);
+    .uae-btn:hover {
+      background: var(--uae-green);
+      color: #ffffff;
+      border-color: var(--uae-gold);
+      box-shadow: 0 0 18px var(--uae-green-glow);
       transform: translateY(-2px);
     }
 
-    .ai-btn.violet {
-      border-color: var(--ai-violet);
-      color: #c4b5fd;
-      background: rgba(139, 92, 246, 0.14);
+    .uae-btn.red {
+      border-color: var(--uae-red);
+      color: #ff9999;
+      background: rgba(255, 0, 0, 0.14);
     }
 
-    .ai-btn.violet:hover {
-      background: linear-gradient(90deg, var(--ai-violet), #a855f7);
+    .uae-btn.red:hover {
+      background: var(--uae-red);
       color: #fff;
-      box-shadow: 0 0 20px var(--ai-violet-glow);
+      border-color: var(--uae-gold);
+      box-shadow: 0 0 18px var(--uae-red-glow);
     }
 
-    .ai-btn.danger {
-      border-color: var(--danger);
-      color: var(--danger);
-      background: rgba(255, 42, 85, 0.1);
+    .uae-btn.gold {
+      border-color: var(--uae-gold);
+      color: var(--uae-gold);
+      background: rgba(212, 175, 55, 0.12);
     }
 
-    .ai-btn.danger:hover {
-      background: var(--danger);
-      color: #fff;
-      box-shadow: 0 0 18px rgba(255, 42, 85, 0.45);
+    .uae-btn.gold:hover {
+      background: var(--uae-gold);
+      color: #070908;
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.45);
     }
 
-    /* Main AI Neural Container */
-    .ai-box {
+    /* Main UAE Container */
+    .uae-box {
       width: 100%;
       max-width: 1020px;
       background: var(--panel);
       backdrop-filter: blur(16px);
-      border: 1px solid var(--ai-blue-dim);
-      border-top: 2px solid var(--ai-blue);
-      border-bottom: 2px solid var(--ai-violet);
+      border: 1px solid var(--uae-gold-dim);
+      border-top: 3px solid var(--uae-green-bright);
+      border-bottom: 3px solid var(--uae-red);
       border-radius: 16px;
-      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 229, 255, 0.15);
+      box-shadow: 0 14px 44px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 115, 47, 0.18);
       padding: 30px;
     }
 
-    .ai-header {
-      border-bottom: 1px solid rgba(0, 229, 255, 0.2);
+    .uae-header {
+      border-bottom: 1px solid var(--uae-gold-dim);
       padding-bottom: 14px;
       margin-bottom: 22px;
       display: flex;
@@ -216,11 +236,10 @@
       font-size: 1.38rem;
       text-transform: uppercase;
       letter-spacing: 1.2px;
-      text-shadow: 0 0 12px var(--ai-blue-glow);
     }
 
     h1 span, h2 span {
-      color: var(--ai-blue);
+      color: var(--uae-gold);
     }
 
     .sub {
@@ -235,8 +254,9 @@
 
     /* Active Student Banner */
     .student-banner {
-      background: linear-gradient(90deg, rgba(0, 229, 255, 0.12), rgba(139, 92, 246, 0.16));
-      border: 1px solid var(--ai-blue-dim);
+      background: linear-gradient(90deg, rgba(255, 0, 0, 0.14), rgba(0, 115, 47, 0.22));
+      border: 1px solid var(--uae-gold-dim);
+      border-left: 4px solid var(--uae-red);
       border-radius: 12px;
       padding: 14px 18px;
       margin-bottom: 22px;
@@ -255,16 +275,16 @@
     }
 
     .student-banner-info span {
-      color: var(--ai-blue);
+      color: var(--uae-gold);
     }
 
     /* Anti-Cheat Notice & Alert Banner */
     .anticheat-notice {
-      background: rgba(139, 92, 246, 0.12);
-      border: 1px solid rgba(139, 92, 246, 0.4);
-      border-left: 4px solid var(--ai-violet);
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid rgba(255, 0, 0, 0.35);
+      border-left: 5px solid var(--uae-red);
       border-radius: 10px;
-      color: #e9d5ff;
+      color: #ffe4e6;
       padding: 14px 16px;
       margin-bottom: 20px;
       font-size: 0.88rem;
@@ -272,19 +292,19 @@
     }
 
     .anticheat-notice strong {
-      color: var(--ai-blue);
+      color: var(--uae-gold);
     }
 
     .cheat-alert-box {
-      background: rgba(255, 42, 85, 0.22);
-      border: 1px solid var(--danger);
-      border-left: 5px solid var(--danger);
+      background: rgba(255, 0, 0, 0.24);
+      border: 1px solid var(--uae-red);
+      border-left: 5px solid var(--uae-red);
       border-radius: 10px;
       color: #fff;
       padding: 12px 16px;
       margin-bottom: 16px;
       font-weight: 700;
-      box-shadow: 0 0 18px rgba(255, 42, 85, 0.35);
+      box-shadow: 0 0 18px rgba(255, 0, 0, 0.35);
     }
 
     /* Forms */
@@ -292,169 +312,4 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px;
-      margin-bottom: 22px;
-    }
-
-    @media (max-width: 600px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .field label {
-      display: block;
-      color: var(--ai-blue);
-      margin-bottom: 8px;
-      font-size: 0.84rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .field input {
-      width: 100%;
-      background: rgba(3, 6, 18, 0.85);
-      border: 1px solid var(--ai-blue-dim);
-      border-radius: 10px;
-      color: #fff;
-      padding: 13px 14px;
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.2s;
-    }
-
-    .field input:focus {
-      border-color: var(--ai-blue);
-      box-shadow: 0 0 16px var(--ai-blue-glow);
-    }
-
-    /* Topic Grid (AI Neural Nodes) */
-    .topics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
-      gap: 16px;
-      margin-top: 18px;
-    }
-
-    .topic-card {
-      background: var(--panel-alt);
-      border: 1px solid rgba(0, 229, 255, 0.22);
-      border-left: 4px solid var(--ai-blue);
-      border-radius: 12px;
-      padding: 18px;
-      cursor: pointer;
-      transition: all 0.24s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-    .topic-card:hover {
-      border-color: var(--ai-violet);
-      border-left-color: var(--ai-violet);
-      transform: translateY(-4px);
-      box-shadow: 0 8px 26px var(--ai-violet-glow);
-    }
-
-    .topic-num {
-      color: #c4b5fd;
-      font-size: 0.76rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-
-    .topic-title {
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.08rem;
-      margin-bottom: 10px;
-    }
-
-    .topic-meta {
-      color: var(--ai-blue);
-      font-size: 0.8rem;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* Quiz HUD */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      background: rgba(3, 6, 18, 0.9);
-      border: 1px solid var(--ai-blue-dim);
-      border-left: 4px solid var(--ai-violet);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--ai-blue);
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .q-text {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #fff;
-      margin-bottom: 22px;
-      line-height: 1.55;
-      padding-left: 14px;
-      border-left: 3px solid var(--ai-blue);
-    }
-
-    .options-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .opt-btn {
-      background: rgba(13, 24, 54, 0.8);
-      border: 1px solid rgba(0, 229, 255, 0.25);
-      border-radius: 10px;
-      color: var(--text);
-      padding: 15px 18px;
-      text-align: left;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.18s;
-    }
-
-    .opt-btn:hover:not(:disabled) {
-      border-color: var(--ai-blue);
-      background: rgba(0, 229, 255, 0.14);
-      transform: translateX(5px);
-    }
-
-    .opt-btn.correct {
-      border-color: var(--ai-mint);
-      background: rgba(16, 185, 129, 0.2);
-      color: #6ee7b7;
-      font-weight: 700;
-      box-shadow: 0 0 14px rgba(16, 185, 129, 0.28);
-    }
-
-    .opt-btn.wrong {
-      border-color: var(--danger);
-      background: rgba(255, 42, 85, 0.22);
-      color: #fda4af;
-    }
-
-    /* Admin Table */
-    .table-wrap {
-      overflow-x: auto;
-      margin-top: 18px;
-      border: 1px solid var(--ai-blue-dim);
-      border-radius: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.9rem;
-    }
+      margin
