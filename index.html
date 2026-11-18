@@ -43,7 +43,6 @@
       overflow-x: hidden;
     }
 
-    /* Subtle Geometric Mashrabiya / Heritage Grid Overlay */
     body::before {
       content: "";
       position: fixed;
@@ -63,7 +62,6 @@
       -webkit-user-select: none;
     }
 
-    /* Allow typing inside AI chat even during quiz */
     .ai-chat-panel, .ai-chat-panel * {
       user-select: text !important;
       -webkit-user-select: text !important;
@@ -288,6 +286,18 @@
 
     .student-banner-info span {
       color: var(--uae-gold);
+    }
+
+    .saved-pill {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      background: rgba(0, 184, 76, 0.2);
+      border: 1px solid var(--uae-green-bright);
+      color: #6ee7b7;
+      vertical-align: middle;
     }
 
     /* Anti-Cheat Notice & Alert Banner */
@@ -824,7 +834,8 @@
     </div>
     <div class="nav-btns">
       <button class="uae-btn" onclick="goToStudentArea()">Student Portal</button>
-      <button class="uae-btn red" onclick="showAdminLogin()">Admin Panel</button>
+      <button class="uae-btn gold" onclick="showAdminLogin()">Admin Panel</button>
+      <button class="uae-btn red hidden" id="top-logout-btn" onclick="logoutStudent()">Logout</button>
     </div>
   </div>
 
@@ -833,14 +844,15 @@
     <div class="uae-header">
       <div>
         <h1><span>[UAE]</span> Student Identity Verification</h1>
-        <p class="sub">Enter your Full Name and Class to access AbdullaObaidAIAcademy.</p>
+        <p class="sub">Your Name, Class, and Quiz Progress are automatically saved to this browser.</p>
       </div>
     </div>
 
     <div class="anticheat-notice">
       <strong>[UAE SMART ANTI-CHEAT SHIELD ACTIVE]:</strong><br/>
-      • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong> and flags you for cheating in the Admin Panel.<br/>
-      • <strong>SMART AI ASSISTANT GUARD:</strong> You can chat with the AI Study Assistant anytime—even during a quiz—for general concepts, <strong>but</strong> if you ask it to solve or answer a quiz question, the AI Assistant immediately shuts down and locks for the rest of your exam!
+      • <strong>AUTO-SAVE ENABLED:</strong> When you join, your Name, Class, and completed lesson scores are saved automatically until you click <strong>Logout</strong>.<br/>
+      • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong>.<br/>
+      • <strong>SMART AI ASSISTANT GUARD:</strong> You can chat with the AI Study Assistant anytime, <strong>but</strong> if you ask it to solve, explain, or answer a quiz question during an exam, the AI Assistant immediately closes and locks!
     </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
@@ -864,7 +876,7 @@
       </div>
 
       <button type="submit" class="uae-btn gold" style="width: 100%; padding: 14px; font-size: 0.95rem;">
-        Enter Portal &amp; Unlock 10 AI Modules &gt;&gt;
+        Save Profile &amp; Enter 10 AI Modules &gt;&gt;
       </button>
       <div id="student-error" class="error-text"></div>
     </form>
@@ -876,13 +888,13 @@
       <div class="student-banner-info" id="active-student-badge">
         USER: --- | CLASS: ---
       </div>
-      <button class="uae-btn red" onclick="switchStudent()">Switch Student / Class</button>
+      <button class="uae-btn red" onclick="logoutStudent()">Logout</button>
     </div>
 
     <div class="uae-header">
       <div>
         <h2><span>[UAE]</span> AI Curriculum Modules (10 Questions Each)</h2>
-        <p class="sub">Open the AI Study Assistant in the bottom-right corner to chat and study anytime!</p>
+        <p class="sub">Your profile &amp; scores are saved automatically. Click Logout when finished.</p>
       </div>
     </div>
 
@@ -961,7 +973,7 @@
     <div class="uae-header">
       <div>
         <h1><span>[UAE]</span> AbdullaObaidAIAcademy Admin Database</h1>
-        <p class="sub">Live student submissions, class rosters, scores, and anti-cheat verification.</p>
+        <p class="sub">Live student logins, class rosters, scores, and anti-cheat verification.</p>
       </div>
       <div class="nav-btns">
         <button class="uae-btn gold" onclick="exportCSV()">Export CSV</button>
@@ -976,7 +988,7 @@
             <th>#</th>
             <th>Student Name</th>
             <th>Class</th>
-            <th>Lesson Completed</th>
+            <th>Activity / Lesson</th>
             <th>Score</th>
             <th>Percentage</th>
             <th>Anti-Cheat Status</th>
@@ -1017,7 +1029,7 @@
     </div>
     <div class="ai-chat-messages" id="ai-chat-messages">
       <div class="ai-msg bot">
-        Marhaba! I am your <strong>AbdullaObaidAIAcademy AI Assistant</strong>. You can keep this chat open to ask about AI concepts—<strong>WARNING:</strong> if you ask me to solve or answer a quiz question during an exam, I will immediately close and lock for the rest of the test!
+        Marhaba! I am your <strong>AbdullaObaidAIAcademy AI Assistant</strong>. Ask me about general AI concepts—<strong>WARNING:</strong> if you ask me to solve, explain, or answer a quiz question during an exam, I will immediately close and lock!
       </div>
     </div>
     <div class="ai-quick-chips">
@@ -1207,6 +1219,10 @@
       }
     ];
 
+    // STORAGE KEYS
+    const LOGS_STORAGE_KEY = "abdulla_obaid_ai_academy_logs";
+    const SESSION_STORAGE_KEY = "abdulla_obaid_active_student";
+
     // STATE VARIABLES
     let activeStudent = { name: "", className: "" };
     let activeModuleTitle = "";
@@ -1220,10 +1236,50 @@
     let aiBannedThisExam = false;
     let aiBanCount = 0;
 
+    // AUTO-RESTORE SAVED STUDENT SESSION ON PAGE LOAD
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedSession = localStorage.getItem(SESSION_STORAGE_KEY);
+      if (savedSession) {
+        try {
+          const parsed = JSON.parse(savedSession);
+          if (parsed && parsed.name && parsed.className) {
+            activeStudent = parsed;
+            activateStudentSessionUI(false);
+          }
+        } catch (err) {
+          localStorage.removeItem(SESSION_STORAGE_KEY);
+        }
+      }
+    });
+
+    function activateStudentSessionUI(logJoinEvent = false) {
+      document.getElementById("active-student-badge").innerHTML =
+        `STUDENT: <span>${activeStudent.name}</span> &nbsp;|&nbsp; CLASS: <span>${activeStudent.className}</span> <span class="saved-pill">DATA SAVED</span>`;
+      document.getElementById("top-logout-btn").classList.remove("hidden");
+
+      if (logJoinEvent) {
+        const logs = JSON.parse(localStorage.getItem(LOGS_STORAGE_KEY) || "[]");
+        logs.unshift({
+          name: activeStudent.name,
+          className: activeStudent.className,
+          module: "JOINED ACADEMY (SESSION SAVED)",
+          score: "---",
+          percent: "---",
+          anticheat: "VERIFIED LOGIN",
+          time: new Date().toLocaleString()
+        });
+        localStorage.setItem(LOGS_STORAGE_KEY, JSON.stringify(logs));
+      }
+
+      renderLessonCards();
+      hideAllViews();
+      document.getElementById("student-home").classList.remove("hidden");
+    }
+
     // OPEN-CHAT AI STUDY ASSISTANT WITH SMART ANTI-CHEAT DETECTOR
     function toggleAIAssistant() {
       if (aiBannedThisExam && isQuizActive) {
-        showWarningToast("AI Assistant was CLOSED & LOCKED because you asked it to solve a quiz question!");
+        showWarningToast("AI Assistant was CLOSED & LOCKED because you asked it to solve/explain a quiz question!");
         return;
       }
       const panel = document.getElementById("ai-chat-panel");
@@ -1254,40 +1310,37 @@
         panel.classList.add("hidden");
         fab.classList.add("locked");
         label.textContent = "AI Closed (Answer Request)";
-        showWarningToast("AI Assistant CLOSED because you asked it to solve/answer a question!");
+        showWarningToast("AI Assistant CLOSED because you asked it to solve/explain a quiz question!");
       }, 900);
     }
 
-    // Detects if student asks AI to solve/answer a quiz question
+    // Detects if student asks AI to solve, explain, or answer a quiz question
     function isAskingToSolveQuiz(userText) {
       const cleanUser = userText.toLowerCase().replace(/[^a-z0-9\s]/g, " ").trim();
 
-      // 1. Direct solve / answer trigger phrases
       const solvePhrases = [
         "solve", "answer", "which option", "what is the answer", "whats the answer",
         "what's the answer", "give me the answer", "tell me the answer",
         "correct option", "correct answer", "option 1", "option 2", "option 3", "option 4",
         "01", "02", "03", "04", "help me answer", "solve this", "solve question",
-        "do this question", "pick the right", "which one is right", "which one is correct"
+        "do this question", "pick the right", "which one is right", "which one is correct",
+        "this q", "this question", "explene this", "explain this", "explane", "explain for me"
       ];
 
       if (solvePhrases.some((phrase) => cleanUser.includes(phrase))) {
         return true;
       }
 
-      // 2. Check if user pasted text matching the active quiz question or any of its 4 options
       if (isQuizActive && activeQuestions[currentQIndex]) {
         const currentQ = activeQuestions[currentQIndex];
         const qClean = currentQ.q.toLowerCase().replace(/^\d+\.\s*/, "").replace(/[^a-z0-9\s]/g, " ").trim();
 
-        // Check if a significant chunk of the question text was pasted
         const qWords = qClean.split(/\s+/).filter((w) => w.length > 3);
         const matchedWords = qWords.filter((w) => cleanUser.includes(w));
-        if (qWords.length >= 3 && matchedWords.length >= Math.ceil(qWords.length * 0.65)) {
+        if (qWords.length >= 3 && matchedWords.length >= Math.ceil(qWords.length * 0.6)) {
           return true;
         }
 
-        // Check if user pasted one of the multiple-choice options
         for (const opt of currentQ.options) {
           const optClean = opt.toLowerCase().replace(/[^a-z0-9\s]/g, " ").trim();
           if (optClean.length > 6 && cleanUser.includes(optClean)) {
@@ -1318,7 +1371,6 @@
       appendChatMessage(text, "user");
       input.value = "";
 
-      // Check if student tried to get AI to solve/answer a question during the quiz
       if (isQuizActive && isAskingToSolveQuiz(text)) {
         lockAndCloseAIAssistant("Attempted to ask AI to solve/answer a quiz question!");
         return;
@@ -1342,7 +1394,7 @@
       const q = query.toLowerCase();
 
       if (q.includes("hello") || q.includes("hi") || q.includes("marhaba") || q.includes("salam")) {
-        return `Marhaba! How can I help you understand AI today? Ask me about any lesson topic (like Neural Networks, Supervised Learning, Graphs, or Weights).`;
+        return `Marhaba${activeStudent.name ? " " + activeStudent.name : ""}! Ask me about any general AI lesson topic (Neural Networks, Supervised Learning, Graphs, or Weights).`;
       }
       if (q.includes("supervised") || q.includes("reinforcement") || q.includes("rl")) {
         return `<strong>Supervised vs. Reinforcement Learning:</strong><br/>
@@ -1393,7 +1445,7 @@
       if (q.includes("partner") || q.includes("who made") || q.includes("creator")) {
         return `<strong>AbdullaObaidAIAcademy</strong> was created by partners: <strong>AbdullaObaid</strong>, <strong>AliSalem</strong>, and <strong>SaifAhamed</strong>.`;
       }
-      return `I am here to explain AI concepts! Ask me about <em>Neural Networks</em>, <em>Supervised vs Reinforcement Learning</em>, <em>Weights & Backpropagation</em>, <em>Graphs</em>, <em>Data Labeling</em>, or <em>Responsible AI</em>. (Remember: do not ask me to solve quiz questions during an exam!)`;
+      return `I am here to explain general AI concepts! Ask me about <em>Neural Networks</em>, <em>Supervised vs Reinforcement Learning</em>, <em>Weights & Backpropagation</em>, <em>Graphs</em>, <em>Data Labeling</em>, or <em>Responsible AI</em>.`;
     }
 
     // ANTI-CHEAT LISTENERS
@@ -1453,7 +1505,7 @@
     function renderLessonCards() {
       const topicsContainer = document.getElementById("topics-container");
       topicsContainer.innerHTML = "";
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      const logs = JSON.parse(localStorage.getItem(LOGS_STORAGE_KEY) || "[]");
 
       curriculum.forEach((mod) => {
         const prevAttempt = logs.find(
@@ -1472,7 +1524,7 @@
           </div>
           <div>
             <div class="topic-meta">[ 10 QUESTIONS // START ]</div>
-            ${prevAttempt ? `<div class="badge-done">RECORDED: ${prevAttempt.score} (${prevAttempt.percent})</div>` : ""}
+            ${prevAttempt ? `<div class="badge-done">SAVED SCORE: ${prevAttempt.score} (${prevAttempt.percent})</div>` : ""}
           </div>
         `;
         card.onclick = () => startSingleModule(mod);
@@ -1480,7 +1532,7 @@
       });
     }
 
-    // MANDATORY STUDENT GATE HANDLER
+    // MANDATORY STUDENT GATE HANDLER (SAVES DATA ON JOIN)
     function handleStudentCheckIn(e) {
       e.preventDefault();
       const nameInput = document.getElementById("student-name").value.trim();
@@ -1494,22 +1546,28 @@
 
       errBox.textContent = "";
       activeStudent = { name: nameInput, className: classInput };
-      document.getElementById("active-student-badge").innerHTML =
-        `STUDENT: <span>${activeStudent.name}</span> &nbsp;|&nbsp; CLASS: <span>${activeStudent.className}</span>`;
 
-      renderLessonCards();
-      hideAllViews();
-      document.getElementById("student-home").classList.remove("hidden");
+      // Save student profile permanently to browser storage
+      localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(activeStudent));
+
+      activateStudentSessionUI(true);
     }
 
-    function switchStudent() {
+    // LOGOUT FUNCTION
+    function logoutStudent() {
       if (isQuizActive) {
-        triggerInstantCheatFail("Attempted to switch student during an active exam!");
+        triggerInstantCheatFail("Attempted to logout during an active exam!");
         return;
       }
+
+      // Clear saved active session
+      localStorage.removeItem(SESSION_STORAGE_KEY);
       activeStudent = { name: "", className: "" };
+
       document.getElementById("student-name").value = "";
       document.getElementById("student-class").value = "";
+      document.getElementById("top-logout-btn").classList.add("hidden");
+
       hideAllViews();
       document.getElementById("student-login-view").classList.remove("hidden");
     }
@@ -1521,8 +1579,10 @@
       }
       hideAllViews();
       if (!activeStudent.name || !activeStudent.className) {
+        document.getElementById("top-logout-btn").classList.add("hidden");
         document.getElementById("student-login-view").classList.remove("hidden");
       } else {
+        document.getElementById("top-logout-btn").classList.remove("hidden");
         renderLessonCards();
         document.getElementById("student-home").classList.remove("hidden");
       }
@@ -1631,7 +1691,7 @@
         acStatus = "CLEAN (AI ASSISTANT LOCKED AFTER ANSWER REQUEST)";
       }
 
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      const logs = JSON.parse(localStorage.getItem(LOGS_STORAGE_KEY) || "[]");
       logs.unshift({
         name: activeStudent.name,
         className: activeStudent.className,
@@ -1641,7 +1701,7 @@
         anticheat: acStatus,
         time: new Date().toLocaleString()
       });
-      localStorage.setItem("abdulla_obaid_ai_academy_logs", JSON.stringify(logs));
+      localStorage.setItem(LOGS_STORAGE_KEY, JSON.stringify(logs));
 
       hideAllViews();
       document.getElementById("result-view").classList.remove("hidden");
@@ -1655,9 +1715,9 @@
         titleEl.style.color = "var(--uae-red)";
         scoreEl.classList.add("cheated");
         acEl.style.color = "var(--uae-red)";
-        acEl.textContent = `VIOLATION: ${cheatReason} — AUTOMATIC 0% LOGGED TO ADMIN`;
+        acEl.textContent = `VIOLATION: ${cheatReason} — AUTOMATIC 0% SAVED TO ADMIN`;
       } else {
-        titleEl.innerHTML = `<span>[UAE]</span> AbdullaObaidAIAcademy Assessment Complete`;
+        titleEl.innerHTML = `<span>[UAE]</span> AbdullaObaidAIAcademy Assessment Saved`;
         titleEl.style.color = "#fff";
         scoreEl.classList.remove("cheated");
         acEl.style.color = aiBanCount > 0 ? "var(--uae-gold)" : "#6ee7b7";
@@ -1706,12 +1766,12 @@
       hideAllViews();
       document.getElementById("admin-dashboard").classList.remove("hidden");
 
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      const logs = JSON.parse(localStorage.getItem(LOGS_STORAGE_KEY) || "[]");
       const tbody = document.getElementById("admin-table-body");
       tbody.innerHTML = "";
 
       if (logs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--muted);">No student submissions recorded yet.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color: var(--muted);">No student records saved yet.</td></tr>`;
         return;
       }
 
@@ -1737,16 +1797,16 @@
 
     function clearLogs() {
       if (confirm("Are you sure you want to wipe all AbdullaObaidAIAcademy student records?")) {
-        localStorage.removeItem("abdulla_obaid_ai_academy_logs");
+        localStorage.removeItem(LOGS_STORAGE_KEY);
         renderAdminDashboard();
       }
     }
 
     function exportCSV() {
-      const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
+      const logs = JSON.parse(localStorage.getItem(LOGS_STORAGE_KEY) || "[]");
       if (logs.length === 0) return alert("No records to export.");
 
-      let csv = "Student Name,Class,Lesson,Score,Percentage,Anti-Cheat Status,Timestamp\n";
+      let csv = "Student Name,Class,Activity / Lesson,Score,Percentage,Anti-Cheat Status,Timestamp\n";
       logs.forEach((r) => {
         csv += `"${r.name}","${r.className}","${r.module}","${r.score}","${r.percent}","${r.anticheat || "CLEAN"}","${r.time}"\n`;
       });
