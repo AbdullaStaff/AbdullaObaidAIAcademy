@@ -109,7 +109,6 @@
       gap: 12px;
     }
 
-    /* True UAE Flag Icon */
     .uae-flag-icon {
       display: inline-flex;
       width: 36px;
@@ -816,7 +815,6 @@
   <div class="topbar">
     <div>
       <div class="brand-row">
-        <!-- UAE FLAG -->
         <div class="uae-flag-icon" title="United Arab Emirates">
           <div class="f-red"></div>
           <div class="f-stripes">
@@ -844,15 +842,16 @@
     <div class="uae-header">
       <div>
         <h1><span>[UAE]</span> Student Identity Verification</h1>
-        <p class="sub">Your Name, Class, and Quiz Progress are automatically saved to this browser.</p>
+        <p class="sub">Each student receives a unique randomized question &amp; answer order to prevent copying.</p>
       </div>
     </div>
 
     <div class="anticheat-notice">
       <strong>[UAE SMART ANTI-CHEAT SHIELD ACTIVE]:</strong><br/>
-      • <strong>AUTO-SAVE ENABLED:</strong> When you join, your Name, Class, and completed lesson scores are saved automatically until you click <strong>Logout</strong>.<br/>
-      • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong>.<br/>
-      • <strong>SMART AI ASSISTANT GUARD:</strong> You can chat with the AI Study Assistant anytime, <strong>but</strong> if you ask it to solve, explain, or answer a quiz question during an exam, the AI Assistant immediately closes and locks!
+      • <strong>UNIQUE STUDENT EXAM SEED:</strong> Every student gets a completely different order of questions and shuffled answer options (`[01]–[04]`), making side-by-side copying impossible.<br/>
+      • <strong>AUTO-SAVE SESSION:</strong> Your Name, Class, and completed lesson scores stay saved until you click <strong>Logout</strong>.<br/>
+      • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing during a quiz immediately terminates your exam with <strong>0%</strong>.<br/>
+      • <strong>SMART AI ASSISTANT GUARD:</strong> Asking the AI Assistant to solve, explain, or answer a quiz question during an exam immediately closes and locks the AI Assistant!
     </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
@@ -876,7 +875,7 @@
       </div>
 
       <button type="submit" class="uae-btn gold" style="width: 100%; padding: 14px; font-size: 0.95rem;">
-        Save Profile &amp; Enter 10 AI Modules &gt;&gt;
+        Save Profile &amp; Unlock Personalized Modules &gt;&gt;
       </button>
       <div id="student-error" class="error-text"></div>
     </form>
@@ -893,14 +892,14 @@
 
     <div class="uae-header">
       <div>
-        <h2><span>[UAE]</span> AI Curriculum Modules (10 Questions Each)</h2>
-        <p class="sub">Your profile &amp; scores are saved automatically. Click Logout when finished.</p>
+        <h2><span>[UAE]</span> AI Curriculum Modules (Unique Student Order)</h2>
+        <p class="sub">Every student gets a different question sequence and shuffled options to prevent cheating.</p>
       </div>
     </div>
 
     <div style="margin-bottom: 18px;">
       <button class="uae-btn gold" style="width: 100%; padding: 14px;" onclick="startAllModules()">
-        Launch Master Exam — All 10 Lessons (100 Questions)
+        Launch Master Exam — All 10 Lessons (100 Randomized Questions)
       </button>
     </div>
 
@@ -915,7 +914,7 @@
       <span id="hud-module">LESSON: ---</span>
       <span id="hud-progress">Q: 1/10</span>
       <span id="hud-score">SCORE: 0</span>
-      <span id="hud-shield" style="color: #6ee7b7;">SHIELD: ACTIVE</span>
+      <span id="hud-seed" style="color: #6ee7b7;">ID: #0000</span>
     </div>
 
     <div id="cheat-alert-banner" class="cheat-alert-box hidden"></div>
@@ -973,7 +972,7 @@
     <div class="uae-header">
       <div>
         <h1><span>[UAE]</span> AbdullaObaidAIAcademy Admin Database</h1>
-        <p class="sub">Live student logins, class rosters, scores, and anti-cheat verification.</p>
+        <p class="sub">Live student logins, unique exam IDs, scores, and anti-cheat verification.</p>
       </div>
       <div class="nav-btns">
         <button class="uae-btn gold" onclick="exportCSV()">Export CSV</button>
@@ -1052,16 +1051,16 @@
         title: "1. AI in Daily Life",
         unit: "Module 0: AI Foundations and Applications",
         questions: [
-          { q: "1. Which of the following is an everyday example of AI?", options: ["A wooden ruler", "Voice assistants like Siri or Alexa", "A manual bicycle", "A printed book"], answer: 1 },
-          { q: "2. How do streaming apps like Netflix or YouTube use AI?", options: ["By recommending videos based on your watch history", "By manufacturing TV screens", "By fixing broken cables", "By printing posters"], answer: 0 },
-          { q: "3. Which smartphone feature uses AI computer vision?", options: ["The charging port", "Face ID facial unlock", "The volume button", "The SIM card tray"], answer: 1 },
-          { q: "4. How does a navigation app like Google Maps use AI?", options: ["By predicting traffic delays and finding faster routes", "By paving new roads", "By refilling car fuel", "By washing car windshields"], answer: 0 },
-          { q: "5. What does an email spam filter use AI to do?", options: ["Delete all incoming emails", "Detect and block unwanted junk messages", "Change your password daily", "Turn off your monitor"], answer: 1 },
-          { q: "6. How do online shopping sites use AI?", options: ["By suggesting products you might like", "By driving delivery trucks manually", "By printing paper catalogs", "By turning off Wi-Fi"], answer: 0 },
-          { q: "7. Which smart home device uses AI to learn your temperature preferences?", options: ["A smart thermostat", "A standard light switch", "A wooden door", "A garden hose"], answer: 0 },
-          { q: "8. How does autocomplete on your phone keyboard work?", options: ["AI predicts the next word you are likely to type", "A person types for you remotely", "It picks random letters", "It copies from your camera"], answer: 0 },
-          { q: "9. Which medical tool uses AI to assist doctors?", options: ["Scanning X-rays to help spot signs of illness", "A cotton bandage", "A wooden tongue depressor", "A hospital bedsheet"], answer: 0 },
-          { q: "10. What makes an AI device different from a regular machine?", options: ["It can learn from data and adapt its responses", "It never needs electricity", "It is always made of gold", "It has no software"], answer: 0 }
+          { q: "Which of the following is an everyday example of AI?", options: ["A wooden ruler", "Voice assistants like Siri or Alexa", "A manual bicycle", "A printed book"], answer: 1 },
+          { q: "How do streaming apps like Netflix or YouTube use AI?", options: ["By recommending videos based on your watch history", "By manufacturing TV screens", "By fixing broken cables", "By printing posters"], answer: 0 },
+          { q: "Which smartphone feature uses AI computer vision?", options: ["The charging port", "Face ID facial unlock", "The volume button", "The SIM card tray"], answer: 1 },
+          { q: "How does a navigation app like Google Maps use AI?", options: ["By predicting traffic delays and finding faster routes", "By paving new roads", "By refilling car fuel", "By washing car windshields"], answer: 0 },
+          { q: "What does an email spam filter use AI to do?", options: ["Delete all incoming emails", "Detect and block unwanted junk messages", "Change your password daily", "Turn off your monitor"], answer: 1 },
+          { q: "How do online shopping sites use AI?", options: ["By suggesting products you might like", "By driving delivery trucks manually", "By printing paper catalogs", "By turning off Wi-Fi"], answer: 0 },
+          { q: "Which smart home device uses AI to learn your temperature preferences?", options: ["A smart thermostat", "A standard light switch", "A wooden door", "A garden hose"], answer: 0 },
+          { q: "How does autocomplete on your phone keyboard work?", options: ["AI predicts the next word you are likely to type", "A person types for you remotely", "It picks random letters", "It copies from your camera"], answer: 0 },
+          { q: "Which medical tool uses AI to assist doctors?", options: ["Scanning X-rays to help spot signs of illness", "A cotton bandage", "A wooden tongue depressor", "A hospital bedsheet"], answer: 0 },
+          { q: "What makes an AI device different from a regular machine?", options: ["It can learn from data and adapt its responses", "It never needs electricity", "It is always made of gold", "It has no software"], answer: 0 }
         ]
       },
       {
@@ -1069,16 +1068,16 @@
         title: "2. Responsible AI Use",
         unit: "Unit 2: Grade 5 - AI Problem Solving",
         questions: [
-          { q: "1. What does 'Responsible AI' mean?", options: ["Designing and using AI safely, fairly, and ethically", "Using AI to cheat on homework", "Letting AI make all human laws", "Never turning off computers"], answer: 0 },
-          { q: "2. Why should you verify facts generated by an AI chatbot?", options: ["AI can make mistakes or invent false information", "AI only works on weekends", "AI deletes your files", "AI refuses to use numbers"], answer: 0 },
-          { q: "3. What is 'AI bias'?", options: ["When AI makes unfair decisions due to unbalanced training data", "When a laptop battery dies", "When a screen turns blue", "When a keyboard gets stuck"], answer: 0 },
-          { q: "4. Why is protecting personal privacy important when using AI tools?", options: ["Sensitive data entered into AI might be stored or exposed", "AI will steal your chair", "Privacy slows down the internet", "Passwords stop working"], answer: 0 },
-          { q: "5. What is a 'deepfake'?", options: ["AI-generated fake audio, image, or video that looks real", "A deep ocean submarine", "A broken hard drive", "A type of antivirus"], answer: 0 },
-          { q: "6. If a facial recognition system only works well for one group of people, what is the problem?", options: ["Training data bias", "Too much screen brightness", "Low Wi-Fi signal", "Outdated mouse drivers"], answer: 0 },
-          { q: "7. Who is responsible when an AI system causes harm?", options: ["The humans who designed, deployed, or misused it", "Nobody at all", "The electrical outlet", "The computer mouse"], answer: 0 },
-          { q: "8. What does 'transparency' in AI mean?", options: ["Being clear about when AI is used and how it makes decisions", "Making computer monitors out of clear glass", "Hiding all source code", "Deleting user logs"], answer: 0 },
-          { q: "9. Which is an ethical use of AI in school?", options: ["Using AI to quiz yourself and explain difficult topics", "Submitting AI-written essays as your own work", "Using AI to spread rumors", "Generating fake test scores"], answer: 0 },
-          { q: "10. How can developers reduce bias in an AI model?", options: ["By training it on diverse, fair, and representative data", "By using less data", "By turning off testing", "By ignoring errors"], answer: 0 }
+          { q: "What does 'Responsible AI' mean?", options: ["Designing and using AI safely, fairly, and ethically", "Using AI to cheat on homework", "Letting AI make all human laws", "Never turning off computers"], answer: 0 },
+          { q: "Why should you verify facts generated by an AI chatbot?", options: ["AI can make mistakes or invent false information", "AI only works on weekends", "AI deletes your files", "AI refuses to use numbers"], answer: 0 },
+          { q: "What is 'AI bias'?", options: ["When AI makes unfair decisions due to unbalanced training data", "When a laptop battery dies", "When a screen turns blue", "When a keyboard gets stuck"], answer: 0 },
+          { q: "Why is protecting personal privacy important when using AI tools?", options: ["Sensitive data entered into AI might be stored or exposed", "AI will steal your chair", "Privacy slows down the internet", "Passwords stop working"], answer: 0 },
+          { q: "What is a 'deepfake'?", options: ["AI-generated fake audio, image, or video that looks real", "A deep ocean submarine", "A broken hard drive", "A type of antivirus"], answer: 0 },
+          { q: "If a facial recognition system only works well for one group of people, what is the problem?", options: ["Training data bias", "Too much screen brightness", "Low Wi-Fi signal", "Outdated mouse drivers"], answer: 0 },
+          { q: "Who is responsible when an AI system causes harm?", options: ["The humans who designed, deployed, or misused it", "Nobody at all", "The electrical outlet", "The computer mouse"], answer: 0 },
+          { q: "What does 'transparency' in AI mean?", options: ["Being clear about when AI is used and how it makes decisions", "Making computer monitors out of clear glass", "Hiding all source code", "Deleting user logs"], answer: 0 },
+          { q: "Which is an ethical use of AI in school?", options: ["Using AI to quiz yourself and explain difficult topics", "Submitting AI-written essays as your own work", "Using AI to spread rumors", "Generating fake test scores"], answer: 0 },
+          { q: "How can developers reduce bias in an AI model?", options: ["By training it on diverse, fair, and representative data", "By using less data", "By turning off testing", "By ignoring errors"], answer: 0 }
         ]
       },
       {
@@ -1086,16 +1085,16 @@
         title: "3. Kinds of AI Problems",
         unit: "Unit 3: Grade 5 - Computer Representation & Search",
         questions: [
-          { q: "1. Sorting emails into 'Spam' and 'Inbox' is what kind of AI problem?", options: ["Classification", "3D Printing", "Hardware Repair", "Battery Charging"], answer: 0 },
-          { q: "2. Predicting tomorrow's temperature using past weather records is:", options: ["Prediction / Regression", "Image Drawing", "File Compression", "Audio Recording"], answer: 0 },
-          { q: "3. Finding the shortest path through a maze or city map is:", options: ["Search and Pathfinding", "Spell Checking", "Video Editing", "Password Hashing"], answer: 0 },
-          { q: "4. Identifying whether a photo contains a dog, cat, or bird is:", options: ["Image Classification", "Text Translation", "Volume Control", "Disk Formatting"], answer: 0 },
-          { q: "5. Grouping customers with similar shopping habits without pre-made labels is:", options: ["Clustering", "Sorting alphabetically", "Deleting duplicates", "Printing receipts"], answer: 0 },
-          { q: "6. Converting spoken words into written text is called:", options: ["Speech Recognition", "Image Cropping", "Screen Mirroring", "Data Backup"], answer: 0 },
-          { q: "7. Translating a sentence from English to Spanish is an example of:", options: ["Natural Language Processing (NLP)", "Computer Vision", "Robotics Hardware", "Cloud Storage"], answer: 0 },
-          { q: "8. Detecting unusual credit card purchases to stop theft is:", options: ["Anomaly Detection", "Video Streaming", "File Renaming", "Color Grading"], answer: 0 },
-          { q: "9. Teaching a robotic arm to pick up objects without dropping them involves:", options: ["Control and Robotics", "Spreadsheet Formatting", "Web Hosting", "Email Forwarding"], answer: 0 },
-          { q: "10. Which problem involves generating new text, music, or images?", options: ["Generative AI", "Binary Search", "File Compression", "Disk Defragmentation"], answer: 0 }
+          { q: "Sorting emails into 'Spam' and 'Inbox' is what kind of AI problem?", options: ["Classification", "3D Printing", "Hardware Repair", "Battery Charging"], answer: 0 },
+          { q: "Predicting tomorrow's temperature using past weather records is:", options: ["Prediction / Regression", "Image Drawing", "File Compression", "Audio Recording"], answer: 0 },
+          { q: "Finding the shortest path through a maze or city map is:", options: ["Search and Pathfinding", "Spell Checking", "Video Editing", "Password Hashing"], answer: 0 },
+          { q: "Identifying whether a photo contains a dog, cat, or bird is:", options: ["Image Classification", "Text Translation", "Volume Control", "Disk Formatting"], answer: 0 },
+          { q: "Grouping customers with similar shopping habits without pre-made labels is:", options: ["Clustering", "Sorting alphabetically", "Deleting duplicates", "Printing receipts"], answer: 0 },
+          { q: "Converting spoken words into written text is called:", options: ["Speech Recognition", "Image Cropping", "Screen Mirroring", "Data Backup"], answer: 0 },
+          { q: "Translating a sentence from English to Spanish is an example of:", options: ["Natural Language Processing (NLP)", "Computer Vision", "Robotics Hardware", "Cloud Storage"], answer: 0 },
+          { q: "Detecting unusual credit card purchases to stop theft is:", options: ["Anomaly Detection", "Video Streaming", "File Renaming", "Color Grading"], answer: 0 },
+          { q: "Teaching a robotic arm to pick up objects without dropping them involves:", options: ["Control and Robotics", "Spreadsheet Formatting", "Web Hosting", "Email Forwarding"], answer: 0 },
+          { q: "Which problem involves generating new text, music, or images?", options: ["Generative AI", "Binary Search", "File Compression", "Disk Defragmentation"], answer: 0 }
         ]
       },
       {
@@ -1103,16 +1102,16 @@
         title: "4. Making Graphs",
         unit: "Unit 4: Grade 6 - How AI Makes Decisions",
         questions: [
-          { q: "1. In computer science, what are the two main parts of a Graph?", options: ["Nodes (vertices) and Edges (connections)", "Rows and columns", "Pixels and frames", "Speakers and mics"], answer: 0 },
-          { q: "2. How does a map app represent intersections and roads as a graph?", options: ["Intersections are Nodes, and roads are Edges", "Roads are Nodes, and cars are Edges", "Maps do not use graphs", "Cities are deleted"], answer: 0 },
-          { q: "3. What is a 'Decision Tree' in AI?", options: ["A flowchart-like graph that asks questions to reach a decision", "A real tree outside a data center", "A list of usernames", "A type of monitor"], answer: 0 },
-          { q: "4. In a social network graph, what do the Nodes usually represent?", options: ["People / User accounts", "Wi-Fi routers", "Keyboard keys", "Battery percentages"], answer: 0 },
-          { q: "5. What is a 'weighted edge' in a graph?", options: ["A connection with a number value, like distance or travel time", "A thick black line on paper", "A broken link", "A heavy computer cable"], answer: 0 },
-          { q: "6. Why do AI search algorithms use graphs?", options: ["To explore possible states and find the best path to a goal", "To draw cartoons", "To play music louder", "To cool down the CPU"], answer: 0 },
-          { q: "7. In a Decision Tree, what is the very first starting point at the top called?", options: ["The Root Node", "The Leaf Node", "The Branch End", "The Trunk"], answer: 0 },
-          { q: "8. What are the final decision endpoints at the bottom of a Decision Tree called?", options: ["Leaf Nodes", "Root Nodes", "Seeds", "Stems"], answer: 0 },
-          { q: "9. Which search strategy explores all neighbors at the current depth before going deeper?", options: ["Breadth-First Search (BFS)", "Random Guessing", "Reverse Deletion", "Binary Sorting"], answer: 0 },
-          { q: "10. What does a 'directed graph' mean?", options: ["Edges have a specific one-way direction (like one-way streets)", "The graph has no nodes", "All edges are invisible", "The graph only works offline"], answer: 0 }
+          { q: "In computer science, what are the two main parts of a Graph?", options: ["Nodes (vertices) and Edges (connections)", "Rows and columns", "Pixels and frames", "Speakers and mics"], answer: 0 },
+          { q: "How does a map app represent intersections and roads as a graph?", options: ["Intersections are Nodes, and roads are Edges", "Roads are Nodes, and cars are Edges", "Maps do not use graphs", "Cities are deleted"], answer: 0 },
+          { q: "What is a 'Decision Tree' in AI?", options: ["A flowchart-like graph that asks questions to reach a decision", "A real tree outside a data center", "A list of usernames", "A type of monitor"], answer: 0 },
+          { q: "In a social network graph, what do the Nodes usually represent?", options: ["People / User accounts", "Wi-Fi routers", "Keyboard keys", "Battery percentages"], answer: 0 },
+          { q: "What is a 'weighted edge' in a graph?", options: ["A connection with a number value, like distance or travel time", "A thick black line on paper", "A broken link", "A heavy computer cable"], answer: 0 },
+          { q: "Why do AI search algorithms use graphs?", options: ["To explore possible states and find the best path to a goal", "To draw cartoons", "To play music louder", "To cool down the CPU"], answer: 0 },
+          { q: "In a Decision Tree, what is the very first starting point at the top called?", options: ["The Root Node", "The Leaf Node", "The Branch End", "The Trunk"], answer: 0 },
+          { q: "What are the final decision endpoints at the bottom of a Decision Tree called?", options: ["Leaf Nodes", "Root Nodes", "Seeds", "Stems"], answer: 0 },
+          { q: "Which search strategy explores all neighbors at the current depth before going deeper?", options: ["Breadth-First Search (BFS)", "Random Guessing", "Reverse Deletion", "Binary Sorting"], answer: 0 },
+          { q: "What does a 'directed graph' mean?", options: ["Edges have a specific one-way direction (like one-way streets)", "The graph has no nodes", "All edges are invisible", "The graph only works offline"], answer: 0 }
         ]
       },
       {
@@ -1120,16 +1119,16 @@
         title: "5. Labeling Takes Work",
         unit: "Unit 5: Grade 6 - Training and Evaluating AI Models",
         questions: [
-          { q: "1. What does 'data labeling' mean in machine learning?", options: ["Tagging raw data with the correct answers so AI can learn", "Putting stickers on laptops", "Naming Wi-Fi networks", "Deleting old files"], answer: 0 },
-          { q: "2. To train an AI to spot stop signs, what must humans provide first?", options: ["Many street photos with stop signs labeled", "A real metal stop sign", "An empty folder", "Only photos of bicycles"], answer: 0 },
-          { q: "3. What happens if training data is inaccurately labeled?", options: ["The AI learns wrong patterns and makes bad predictions", "The AI becomes smarter", "The computer runs faster", "Nothing changes"], answer: 0 },
-          { q: "4. Why is data labeling often time-consuming?", options: ["AI models often require thousands or millions of labeled examples", "Keyboards only work slowly", "Labels erase themselves every hour", "Computers cannot save text"], answer: 0 },
-          { q: "5. What is a 'bounding box' in image labeling?", options: ["A rectangle drawn around an object in a photo to show where it is", "The cardboard box a laptop comes in", "A border around a webpage", "A folder icon"], answer: 0 },
-          { q: "6. Who typically creates labels for large AI datasets?", options: ["Human annotators and domain experts", "Only video game consoles", "Printers", "Power cables"], answer: 0 },
-          { q: "7. What is 'ground truth' in AI training?", options: ["The verified, accurate labels used as the standard for training and testing", "Soil samples under a building", "The bottom of a monitor", "A rumor on the internet"], answer: 0 },
-          { q: "8. Why do CAPTCHA tests sometimes ask you to click on traffic lights or crosswalks?", options: ["They help verify you are human while helping label image data", "To test your eyesight for glasses", "To turn off traffic lights", "To drain your battery"], answer: 0 },
-          { q: "9. If two human labelers disagree on how to label an unclear image, what is needed?", options: ["Clear labeling guidelines and quality review", "Deleting the entire computer", "Ignoring all data", "Turning off the internet"], answer: 0 },
-          { q: "10. Which type of data can be labeled for AI?", options: ["Images, text, audio clips, and videos", "Only numbers from 1 to 10", "Only black-and-white drawings", "Only PDF files"], answer: 0 }
+          { q: "What does 'data labeling' mean in machine learning?", options: ["Tagging raw data with the correct answers so AI can learn", "Putting stickers on laptops", "Naming Wi-Fi networks", "Deleting old files"], answer: 0 },
+          { q: "To train an AI to spot stop signs, what must humans provide first?", options: ["Many street photos with stop signs labeled", "A real metal stop sign", "An empty folder", "Only photos of bicycles"], answer: 0 },
+          { q: "What happens if training data is inaccurately labeled?", options: ["The AI learns wrong patterns and makes bad predictions", "The AI becomes smarter", "The computer runs faster", "Nothing changes"], answer: 0 },
+          { q: "Why is data labeling often time-consuming?", options: ["AI models often require thousands or millions of labeled examples", "Keyboards only work slowly", "Labels erase themselves every hour", "Computers cannot save text"], answer: 0 },
+          { q: "What is a 'bounding box' in image labeling?", options: ["A rectangle drawn around an object in a photo to show where it is", "The cardboard box a laptop comes in", "A border around a webpage", "A folder icon"], answer: 0 },
+          { q: "Who typically creates labels for large AI datasets?", options: ["Human annotators and domain experts", "Only video game consoles", "Printers", "Power cables"], answer: 0 },
+          { q: "What is 'ground truth' in AI training?", options: ["The verified, accurate labels used as the standard for training and testing", "Soil samples under a building", "The bottom of a monitor", "A rumor on the internet"], answer: 0 },
+          { q: "Why do CAPTCHA tests sometimes ask you to click on traffic lights or crosswalks?", options: ["They help verify you are human while helping label image data", "To test your eyesight for glasses", "To turn off traffic lights", "To drain your battery"], answer: 0 },
+          { q: "If two human labelers disagree on how to label an unclear image, what is needed?", options: ["Clear labeling guidelines and quality review", "Deleting the entire computer", "Ignoring all data", "Turning off the internet"], answer: 0 },
+          { q: "Which type of data can be labeled for AI?", options: ["Images, text, audio clips, and videos", "Only numbers from 1 to 10", "Only black-and-white drawings", "Only PDF files"], answer: 0 }
         ]
       },
       {
@@ -1137,16 +1136,16 @@
         title: "6. Training a Model",
         unit: "Unit 6: Grade 7 - How AI Learns",
         questions: [
-          { q: "1. What is an 'AI Model'?", options: ["A program trained on data to find patterns and make predictions", "A fashion model using a tablet", "A plastic robot toy", "A keyboard shortcut"], answer: 0 },
-          { q: "2. Why do developers split data into a 'Training Set' and a 'Testing Set'?", options: ["To check if the AI generalizes to new data instead of memorizing", "To save hard drive space", "Because computers only read half a file", "To slow down training"], answer: 0 },
-          { q: "3. What is 'overfitting'?", options: ["When an AI memorizes training data too closely and fails on new data", "When a laptop case is too tight", "When a hard drive is full", "When a screen is too wide"], answer: 0 },
-          { q: "4. What is 'underfitting'?", options: ["When a model is too simple to capture the patterns in the data", "When a cable is too short", "When a battery is at 10%", "When text is too small"], answer: 0 },
-          { q: "5. What does 'model accuracy' measure?", options: ["The percentage of predictions the model gets right", "How fast the cooling fan spins", "The weight of the server", "The screen resolution"], answer: 0 },
-          { q: "6. What is an 'epoch' during model training?", options: ["One complete pass through the entire training dataset", "A type of computer virus", "A broken pixel", "A brand of keyboard"], answer: 0 },
-          { q: "7. What happens if you train a model on only blurry nighttime photos?", options: ["It will struggle to recognize clear daytime photos", "It will work perfectly in all lighting", "It will fix the camera lens", "It will run twice as fast"], answer: 0 },
-          { q: "8. What are 'features' in a dataset?", options: ["The measurable input properties used by the model to make predictions", "The stickers on a laptop", "The price tag of software", "The power buttons"], answer: 0 },
-          { q: "9. What is 'inference' in AI?", options: ["Using an already-trained model to make predictions on new data", "Deleting a model", "Unplugging a server", "Formatting a disk"], answer: 0 },
-          { q: "10. How can you improve a poorly performing AI model?", options: ["Provide better quality data, tune parameters, or refine features", "Shake the monitor", "Change the wallpaper", "Lower the volume"], answer: 0 }
+          { q: "What is an 'AI Model'?", options: ["A program trained on data to find patterns and make predictions", "A fashion model using a tablet", "A plastic robot toy", "A keyboard shortcut"], answer: 0 },
+          { q: "Why do developers split data into a 'Training Set' and a 'Testing Set'?", options: ["To check if the AI generalizes to new data instead of memorizing", "To save hard drive space", "Because computers only read half a file", "To slow down training"], answer: 0 },
+          { q: "What is 'overfitting'?", options: ["When an AI memorizes training data too closely and fails on new data", "When a laptop case is too tight", "When a hard drive is full", "When a screen is too wide"], answer: 0 },
+          { q: "What is 'underfitting'?", options: ["When a model is too simple to capture the patterns in the data", "When a cable is too short", "When a battery is at 10%", "When text is too small"], answer: 0 },
+          { q: "What does 'model accuracy' measure?", options: ["The percentage of predictions the model gets right", "How fast the cooling fan spins", "The weight of the server", "The screen resolution"], answer: 0 },
+          { q: "What is an 'epoch' during model training?", options: ["One complete pass through the entire training dataset", "A type of computer virus", "A broken pixel", "A brand of keyboard"], answer: 0 },
+          { q: "What happens if you train a model on only blurry nighttime photos?", options: ["It will struggle to recognize clear daytime photos", "It will work perfectly in all lighting", "It will fix the camera lens", "It will run twice as fast"], answer: 0 },
+          { q: "What are 'features' in a dataset?", options: ["The measurable input properties used by the model to make predictions", "The stickers on a laptop", "The price tag of software", "The power buttons"], answer: 0 },
+          { q: "What is 'inference' in AI?", options: ["Using an already-trained model to make predictions on new data", "Deleting a model", "Unplugging a server", "Formatting a disk"], answer: 0 },
+          { q: "How can you improve a poorly performing AI model?", options: ["Provide better quality data, tune parameters, or refine features", "Shake the monitor", "Change the wallpaper", "Lower the volume"], answer: 0 }
         ]
       },
       {
@@ -1154,16 +1153,16 @@
         title: "7. Supervised Learning",
         unit: "Unit 6: Grade 7 - How AI Learns",
         questions: [
-          { q: "1. What defines Supervised Learning?", options: ["The AI learns from labeled data where correct answers are provided", "The AI learns with zero data", "A teacher watches you type", "The AI only plays games"], answer: 0 },
-          { q: "2. Which is an example of Supervised Learning?", options: ["Training an AI on labeled X-rays to detect bone fractures", "Letting a robot wander randomly with no labels", "Formatting a USB stick", "Updating a web browser"], answer: 0 },
-          { q: "3. In Supervised Learning, what are the 'input' and 'target label'?", options: ["Input is raw data (e.g., email text); Target is the label (e.g., 'Spam')", "Input is the mouse; Target is the desk", "Input is electricity; Target is heat", "There is no target"], answer: 0 },
-          { q: "4. What are the two main categories of Supervised Learning tasks?", options: ["Classification and Regression", "Addition and Subtraction", "Copying and Pasting", "Uploading and Downloading"], answer: 0 },
-          { q: "5. Predicting a house's price based on its size and location is:", options: ["Regression", "Classification", "Clustering", "Reinforcement"], answer: 0 },
-          { q: "6. Predicting whether a student passed or failed based on study hours is:", options: ["Classification", "Image Generation", "File Compression", "Audio Mixing"], answer: 0 },
-          { q: "7. Why is it called 'Supervised' learning?", options: ["Because the labeled answers act like a teacher guiding the model", "Because a camera watches the programmer", "Because it only runs during school hours", "Because it requires two monitors"], answer: 0 },
-          { q: "8. What does the model compare its guess against during Supervised Learning?", options: ["The true label from the training dataset", "A random number", "The current time", "The Wi-Fi password"], answer: 0 },
-          { q: "9. Which dataset is best for Supervised Learning?", options: ["10,000 voice recordings paired with their written transcripts", "10,000 blank audio files", "A list of random passwords", "An empty spreadsheet"], answer: 0 },
-          { q: "10. What is a major challenge of Supervised Learning?", options: ["Collecting and labeling large amounts of accurate training data", "It never uses math", "It cannot run on modern computers", "It only works with text"], answer: 0 }
+          { q: "What defines Supervised Learning?", options: ["The AI learns from labeled data where correct answers are provided", "The AI learns with zero data", "A teacher watches you type", "The AI only plays games"], answer: 0 },
+          { q: "Which is an example of Supervised Learning?", options: ["Training an AI on labeled X-rays to detect bone fractures", "Letting a robot wander randomly with no labels", "Formatting a USB stick", "Updating a web browser"], answer: 0 },
+          { q: "In Supervised Learning, what are the 'input' and 'target label'?", options: ["Input is raw data (e.g., email text); Target is the label (e.g., 'Spam')", "Input is the mouse; Target is the desk", "Input is electricity; Target is heat", "There is no target"], answer: 0 },
+          { q: "What are the two main categories of Supervised Learning tasks?", options: ["Classification and Regression", "Addition and Subtraction", "Copying and Pasting", "Uploading and Downloading"], answer: 0 },
+          { q: "Predicting a house's price based on its size and location is:", options: ["Regression", "Classification", "Clustering", "Reinforcement"], answer: 0 },
+          { q: "Predicting whether a student passed or failed based on study hours is:", options: ["Classification", "Image Generation", "File Compression", "Audio Mixing"], answer: 0 },
+          { q: "Why is it called 'Supervised' learning?", options: ["Because the labeled answers act like a teacher guiding the model", "Because a camera watches the programmer", "Because it only runs during school hours", "Because it requires two monitors"], answer: 0 },
+          { q: "What does the model compare its guess against during Supervised Learning?", options: ["The true label from the training dataset", "A random number", "The current time", "The Wi-Fi password"], answer: 0 },
+          { q: "Which dataset is best for Supervised Learning?", options: ["10,000 voice recordings paired with their written transcripts", "10,000 blank audio files", "A list of random passwords", "An empty spreadsheet"], answer: 0 },
+          { q: "What is a major challenge of Supervised Learning?", options: ["Collecting and labeling large amounts of accurate training data", "It never uses math", "It cannot run on modern computers", "It only works with text"], answer: 0 }
         ]
       },
       {
@@ -1171,16 +1170,16 @@
         title: "8. Reinforcement Learning",
         unit: "Unit 7: Grade 8 - Understanding Neural Networks",
         questions: [
-          { q: "1. How does Reinforcement Learning train an AI?", options: ["Through trial and error using rewards and penalties", "By reading a dictionary once", "By copying text files", "By turning off the screen"], answer: 0 },
-          { q: "2. Which example best fits Reinforcement Learning?", options: ["An AI learning chess by earning +1 for wins and -1 for losses", "Sorting names alphabetically", "Printing a document", "Calculating a tip"], answer: 0 },
-          { q: "3. In Reinforcement Learning, what is the 'Agent'?", options: ["The AI learner making decisions in an environment", "A secret spy", "The power cord", "The monitor stand"], answer: 0 },
-          { q: "4. What is the 'Environment' in Reinforcement Learning?", options: ["The world or simulation the agent interacts with", "The weather outside", "The computer desk", "The screen saver"], answer: 0 },
-          { q: "5. What does a positive 'Reward' tell the RL agent?", options: ["That its recent action was helpful and should be repeated", "To shut down immediately", "To delete its memory", "To ignore the goal"], answer: 0 },
-          { q: "6. What is a 'Policy' in Reinforcement Learning?", options: ["The agent's strategy for choosing actions in different states", "A school dress code", "A software license agreement", "An antivirus scan"], answer: 0 },
-          { q: "7. What is the balance between 'Exploration' and 'Exploitation'?", options: ["Trying new actions vs. using known actions that give high rewards", "Turning Wi-Fi on and off", "Saving and deleting files", "Zooming in and out"], answer: 0 },
-          { q: "8. Which real-world application uses Reinforcement Learning?", options: ["Training robots to walk and balance", "Spell-checking a single word", "Changing desktop icons", "Compressing a ZIP file"], answer: 0 },
-          { q: "9. Does Reinforcement Learning require pre-labeled input/output pairs like Supervised Learning?", options: ["No, it learns from reward signals generated by its actions", "Yes, every move must be labeled beforehand", "It uses no numbers at all", "It only works with spreadsheets"], answer: 0 },
-          { q: "10. What happens over thousands of episodes in Reinforcement Learning?", options: ["The agent gradually discovers strategies that maximize total reward", "The agent forgets how to move", "The computer slows down permanently", "The rewards disappear"], answer: 0 }
+          { q: "How does Reinforcement Learning train an AI?", options: ["Through trial and error using rewards and penalties", "By reading a dictionary once", "By copying text files", "By turning off the screen"], answer: 0 },
+          { q: "Which example best fits Reinforcement Learning?", options: ["An AI learning chess by earning +1 for wins and -1 for losses", "Sorting names alphabetically", "Printing a document", "Calculating a tip"], answer: 0 },
+          { q: "In Reinforcement Learning, what is the 'Agent'?", options: ["The AI learner making decisions in an environment", "A secret spy", "The power cord", "The monitor stand"], answer: 0 },
+          { q: "What is the 'Environment' in Reinforcement Learning?", options: ["The world or simulation the agent interacts with", "The weather outside", "The computer desk", "The screen saver"], answer: 0 },
+          { q: "What does a positive 'Reward' tell the RL agent?", options: ["That its recent action was helpful and should be repeated", "To shut down immediately", "To delete its memory", "To ignore the goal"], answer: 0 },
+          { q: "What is a 'Policy' in Reinforcement Learning?", options: ["The agent's strategy for choosing actions in different states", "A school dress code", "A software license agreement", "An antivirus scan"], answer: 0 },
+          { q: "What is the balance between 'Exploration' and 'Exploitation'?", options: ["Trying new actions vs. using known actions that give high rewards", "Turning Wi-Fi on and off", "Saving and deleting files", "Zooming in and out"], answer: 0 },
+          { q: "Which real-world application uses Reinforcement Learning?", options: ["Training robots to walk and balance", "Spell-checking a single word", "Changing desktop icons", "Compressing a ZIP file"], answer: 0 },
+          { q: "Does Reinforcement Learning require pre-labeled input/output pairs like Supervised Learning?", options: ["No, it learns from reward signals generated by its actions", "Yes, every move must be labeled beforehand", "It uses no numbers at all", "It only works with spreadsheets"], answer: 0 },
+          { q: "What happens over thousands of episodes in Reinforcement Learning?", options: ["The agent gradually discovers strategies that maximize total reward", "The agent forgets how to move", "The computer slows down permanently", "The rewards disappear"], answer: 0 }
         ]
       },
       {
@@ -1188,16 +1187,16 @@
         title: "9. Parts of a Neural Network",
         unit: "Unit 7: Grade 8 - Understanding Neural Networks",
         questions: [
-          { q: "1. What inspired the structure of Artificial Neural Networks?", options: ["The human brain and its biological neurons", "A spider web", "A bicycle chain", "A bookshelf"], answer: 0 },
-          { q: "2. What are the three main layer types in a neural network?", options: ["Input Layer, Hidden Layer(s), Output Layer", "Top, Middle, Bottom", "Red, Green, Blue", "Start, Pause, Stop"], answer: 0 },
-          { q: "3. What is the job of the 'Input Layer'?", options: ["To receive the raw data (like pixels or numbers) into the network", "To display the final answer", "To cool the processor", "To save files to USB"], answer: 0 },
-          { q: "4. What is the job of the 'Output Layer'?", options: ["To produce the network's final prediction or classification", "To load raw images", "To connect to Wi-Fi", "To delete old data"], answer: 0 },
-          { q: "5. Where does most of the pattern extraction happen in a deep neural network?", options: ["In the Hidden Layers", "In the power supply", "In the mouse pad", "In the monitor cable"], answer: 0 },
-          { q: "6. What is an artificial 'Neuron' (or node)?", options: ["A math unit that takes inputs, applies weights and a bias, and outputs a value", "A tiny battery", "A screen pixel", "A keyboard switch"], answer: 0 },
-          { q: "7. What does an 'Activation Function' do inside a neuron?", options: ["Decides whether and how strongly the neuron should fire its signal", "Turns on the monitor", "Starts the operating system", "Connects Bluetooth"], answer: 0 },
-          { q: "8. Why is a neural network with many hidden layers called 'Deep Learning'?", options: ["Because of the depth of its multiple stacked hidden layers", "Because the computer sits in a deep basement", "Because it uses deep blue colors", "Because it takes years to turn on"], answer: 0 },
-          { q: "9. What is a 'Bias' value in a neuron?", options: ["An extra adjustable number that shifts the activation threshold", "An unfair opinion", "A broken wire", "A screen glare"], answer: 0 },
-          { q: "10. How does information flow in a standard feedforward neural network?", options: ["From Input Layer -> Hidden Layers -> Output Layer", "From Output Layer -> Input Layer only", "In random circles", "Through the speakers"], answer: 0 }
+          { q: "What inspired the structure of Artificial Neural Networks?", options: ["The human brain and its biological neurons", "A spider web", "A bicycle chain", "A bookshelf"], answer: 0 },
+          { q: "What are the three main layer types in a neural network?", options: ["Input Layer, Hidden Layer(s), Output Layer", "Top, Middle, Bottom", "Red, Green, Blue", "Start, Pause, Stop"], answer: 0 },
+          { q: "What is the job of the 'Input Layer'?", options: ["To receive the raw data (like pixels or numbers) into the network", "To display the final answer", "To cool the processor", "To save files to USB"], answer: 0 },
+          { q: "What is the job of the 'Output Layer'?", options: ["To produce the network's final prediction or classification", "To load raw images", "To connect to Wi-Fi", "To delete old data"], answer: 0 },
+          { q: "Where does most of the pattern extraction happen in a deep neural network?", options: ["In the Hidden Layers", "In the power supply", "In the mouse pad", "In the monitor cable"], answer: 0 },
+          { q: "What is an artificial 'Neuron' (or node)?", options: ["A math unit that takes inputs, applies weights and a bias, and outputs a value", "A tiny battery", "A screen pixel", "A keyboard switch"], answer: 0 },
+          { q: "What does an 'Activation Function' do inside a neuron?", options: ["Decides whether and how strongly the neuron should fire its signal", "Turns on the monitor", "Starts the operating system", "Connects Bluetooth"], answer: 0 },
+          { q: "Why is a neural network with many hidden layers called 'Deep Learning'?", options: ["Because of the depth of its multiple stacked hidden layers", "Because the computer sits in a deep basement", "Because it uses deep blue colors", "Because it takes years to turn on"], answer: 0 },
+          { q: "What is a 'Bias' value in a neuron?", options: ["An extra adjustable number that shifts the activation threshold", "An unfair opinion", "A broken wire", "A screen glare"], answer: 0 },
+          { q: "How does information flow in a standard feedforward neural network?", options: ["From Input Layer -> Hidden Layers -> Output Layer", "From Output Layer -> Input Layer only", "In random circles", "Through the speakers"], answer: 0 }
         ]
       },
       {
@@ -1205,16 +1204,16 @@
         title: "10. Training by Changing Weights",
         unit: "Module 152: AI Foundations and Applications",
         questions: [
-          { q: "1. In a neural network, what is a 'Weight'?", options: ["A number that controls how strongly one neuron's signal affects the next", "How heavy the computer is", "The thickness of the font", "The length of a cable"], answer: 0 },
-          { q: "2. How are weights usually set before training begins?", options: ["Initialized to small random numbers", "All set to zero forever", "Set to the user's birthday", "Typed in manually by the user"], answer: 0 },
-          { q: "3. What happens when a neural network makes a wrong prediction during training?", options: ["It adjusts its weights slightly to reduce the error next time", "It deletes itself", "It shuts down the PC", "It locks the weights forever"], answer: 0 },
-          { q: "4. What is a 'Loss Function' (or Cost Function)?", options: ["A formula that measures how far off the network's prediction is from the truth", "A tool that finds lost files", "A battery-saving mode", "A broken key"], answer: 0 },
-          { q: "5. What is 'Backpropagation'?", options: ["The algorithm that sends error signals backward to update network weights", "Walking backward from a desk", "Reversing a video clip", "Uninstalling updates"], answer: 0 },
-          { q: "6. What is 'Gradient Descent'?", options: ["An optimization method that steps weights downhill toward lower error", "Sliding down a hill", "Lowering screen brightness", "Decreasing volume"], answer: 0 },
-          { q: "7. What does the 'Learning Rate' control?", options: ["How big of a step the weights take during each update", "How fast a student reads", "Internet download speed", "Typing speed"], answer: 0 },
-          { q: "8. What happens if the Learning Rate is set way too high?", options: ["The weights can overshoot the best solution and fail to learn properly", "The AI learns instantly with 100% perfection", "The monitor turns off", "Nothing happens"], answer: 0 },
-          { q: "9. If a connection between two neurons has a high positive weight, what does it mean?", options: ["That connection has a strong positive influence on the next neuron", "That connection is broken", "That connection is ignored", "That connection deletes data"], answer: 0 },
-          { q: "10. When is neural network training considered complete?", options: ["When the weights produce consistently low error on both training and test data", "After the very first guess", "When the keyboard breaks", "Before any data is shown"], answer: 0 }
+          { q: "In a neural network, what is a 'Weight'?", options: ["A number that controls how strongly one neuron's signal affects the next", "How heavy the computer is", "The thickness of the font", "The length of a cable"], answer: 0 },
+          { q: "How are weights usually set before training begins?", options: ["Initialized to small random numbers", "All set to zero forever", "Set to the user's birthday", "Typed in manually by the user"], answer: 0 },
+          { q: "What happens when a neural network makes a wrong prediction during training?", options: ["It adjusts its weights slightly to reduce the error next time", "It deletes itself", "It shuts down the PC", "It locks the weights forever"], answer: 0 },
+          { q: "What is a 'Loss Function' (or Cost Function)?", options: ["A formula that measures how far off the network's prediction is from the truth", "A tool that finds lost files", "A battery-saving mode", "A broken key"], answer: 0 },
+          { q: "What is 'Backpropagation'?", options: ["The algorithm that sends error signals backward to update network weights", "Walking backward from a desk", "Reversing a video clip", "Uninstalling updates"], answer: 0 },
+          { q: "What is 'Gradient Descent'?", options: ["An optimization method that steps weights downhill toward lower error", "Sliding down a hill", "Lowering screen brightness", "Decreasing volume"], answer: 0 },
+          { q: "What does the 'Learning Rate' control?", options: ["How big of a step the weights take during each update", "How fast a student reads", "Internet download speed", "Typing speed"], answer: 0 },
+          { q: "What happens if the Learning Rate is set way too high?", options: ["The weights can overshoot the best solution and fail to learn properly", "The AI learns instantly with 100% perfection", "The monitor turns off", "Nothing happens"], answer: 0 },
+          { q: "If a connection between two neurons has a high positive weight, what does it mean?", options: ["That connection has a strong positive influence on the next neuron", "That connection is broken", "That connection is ignored", "That connection deletes data"], answer: 0 },
+          { q: "When is neural network training considered complete?", options: ["When the weights produce consistently low error on both training and test data", "After the very first guess", "When the keyboard breaks", "Before any data is shown"], answer: 0 }
         ]
       }
     ];
@@ -1229,12 +1228,69 @@
     let activeQuestions = [];
     let currentQIndex = 0;
     let currentScore = 0;
+    let currentExamSeedCode = "";
 
     // ANTI-CHEAT STATE
     let isQuizActive = false;
     let cheatReason = "";
     let aiBannedThisExam = false;
     let aiBanCount = 0;
+
+    // DETERMINISTIC + UNIQUE STUDENT QUESTION & OPTION SHUFFLER
+    // Guarantees every student gets a unique question sequence AND shuffled answer positions
+    function stringToSeed(str) {
+      let hash = 2166136261;
+      for (let i = 0; i < str.length; i++) {
+        hash ^= str.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+      return hash >>> 0;
+    }
+
+    function createSeededRandom(seed) {
+      let s = seed >>> 0;
+      return function () {
+        s += 0x6D2B79F5;
+        let t = Math.imul(s ^ (s >>> 15), 1 | s);
+        t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    function shuffleWithRng(array, rng) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(rng() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function buildPersonalizedExam(rawQuestions, studentName, studentClass, moduleName) {
+      const uniqueKey = `${studentName.toLowerCase().trim()}|${studentClass.toLowerCase().trim()}|${moduleName}|${Date.now()}`;
+      const seedNum = stringToSeed(uniqueKey);
+      const rng = createSeededRandom(seedNum);
+      currentExamSeedCode = `#${(seedNum % 9000 + 1000)}`;
+
+      // 1. Shuffle the question order uniquely for this student
+      const shuffledQs = shuffleWithRng(rawQuestions, rng);
+
+      // 2. Shuffle the 4 options inside every single question and track the new correct index
+      return shuffledQs.map((item, idx) => {
+        const indexedOptions = item.options.map((text, optIdx) => ({
+          text,
+          isCorrect: optIdx === item.answer
+        }));
+        const shuffledOptions = shuffleWithRng(indexedOptions, rng);
+        const newAnswerIndex = shuffledOptions.findIndex((o) => o.isCorrect);
+
+        return {
+          q: `${idx + 1}. ${item.q.replace(/^\d+\.\s*/, "")}`,
+          options: shuffledOptions.map((o) => o.text),
+          answer: newAnswerIndex
+        };
+      });
+    }
 
     // AUTO-RESTORE SAVED STUDENT SESSION ON PAGE LOAD
     window.addEventListener("DOMContentLoaded", () => {
@@ -1314,7 +1370,6 @@
       }, 900);
     }
 
-    // Detects if student asks AI to solve, explain, or answer a quiz question
     function isAskingToSolveQuiz(userText) {
       const cleanUser = userText.toLowerCase().replace(/[^a-z0-9\s]/g, " ").trim();
 
@@ -1523,7 +1578,7 @@
             <div class="topic-title">${mod.title}</div>
           </div>
           <div>
-            <div class="topic-meta">[ 10 QUESTIONS // START ]</div>
+            <div class="topic-meta">[ 10 RANDOMIZED QUESTIONS // START ]</div>
             ${prevAttempt ? `<div class="badge-done">SAVED SCORE: ${prevAttempt.score} (${prevAttempt.percent})</div>` : ""}
           </div>
         `;
@@ -1532,7 +1587,7 @@
       });
     }
 
-    // MANDATORY STUDENT GATE HANDLER (SAVES DATA ON JOIN)
+    // MANDATORY STUDENT GATE HANDLER
     function handleStudentCheckIn(e) {
       e.preventDefault();
       const nameInput = document.getElementById("student-name").value.trim();
@@ -1546,10 +1601,7 @@
 
       errBox.textContent = "";
       activeStudent = { name: nameInput, className: classInput };
-
-      // Save student profile permanently to browser storage
       localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(activeStudent));
-
       activateStudentSessionUI(true);
     }
 
@@ -1560,7 +1612,6 @@
         return;
       }
 
-      // Clear saved active session
       localStorage.removeItem(SESSION_STORAGE_KEY);
       activeStudent = { name: "", className: "" };
 
@@ -1591,14 +1642,15 @@
     function startSingleModule(mod) {
       if (!activeStudent.name || !activeStudent.className) return goToStudentArea();
       activeModuleTitle = mod.title;
-      activeQuestions = [...mod.questions];
+      activeQuestions = buildPersonalizedExam(mod.questions, activeStudent.name, activeStudent.className, mod.title);
       launchQuiz();
     }
 
     function startAllModules() {
       if (!activeStudent.name || !activeStudent.className) return goToStudentArea();
       activeModuleTitle = "ALL 10 LESSONS (100-QUESTION MASTER EXAM)";
-      activeQuestions = curriculum.flatMap((m) => m.questions);
+      const allQs = curriculum.flatMap((m) => m.questions);
+      activeQuestions = buildPersonalizedExam(allQs, activeStudent.name, activeStudent.className, activeModuleTitle);
       launchQuiz();
     }
 
@@ -1619,7 +1671,7 @@
       document.getElementById("hud-class").textContent = `CLASS: ${activeStudent.className}`;
       document.getElementById("hud-module").textContent = `LESSON: ${activeModuleTitle}`;
       document.getElementById("hud-score").textContent = "SCORE: 0";
-      document.getElementById("hud-shield").textContent = "SHIELD: ACTIVE";
+      document.getElementById("hud-seed").textContent = `EXAM SEED: ${currentExamSeedCode}`;
 
       renderQuestion();
     }
@@ -1684,11 +1736,11 @@
       const total = activeQuestions.length;
       const finalPoints = disqualified ? 0 : currentScore;
       const percent = Math.round((finalPoints / total) * 100);
-      let acStatus = "CLEAN (NO TAB SWITCH)";
+      let acStatus = `CLEAN (UNIQUE EXAM ${currentExamSeedCode})`;
       if (disqualified) {
         acStatus = `CHEATING DETECTED (${cheatReason})`;
       } else if (aiBanCount > 0) {
-        acStatus = "CLEAN (AI ASSISTANT LOCKED AFTER ANSWER REQUEST)";
+        acStatus = `CLEAN (AI LOCKED // EXAM ${currentExamSeedCode})`;
       }
 
       const logs = JSON.parse(localStorage.getItem(LOGS_STORAGE_KEY) || "[]");
@@ -1777,7 +1829,7 @@
 
       logs.forEach((entry, index) => {
         const isCheating = entry.anticheat && entry.anticheat.includes("CHEATING");
-        const isAiLocked = entry.anticheat && entry.anticheat.includes("AI ASSISTANT LOCKED");
+        const isAiLocked = entry.anticheat && entry.anticheat.includes("AI LOCKED");
         const acColor = isCheating ? "var(--uae-red)" : (isAiLocked ? "var(--uae-gold)" : "#6ee7b7");
 
         const tr = document.createElement("tr");
