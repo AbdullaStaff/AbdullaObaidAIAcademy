@@ -8,7 +8,7 @@
     :root {
       --bg: #070908;
       --bg-gradient: radial-gradient(circle at 18% 18%, #0a291a 0%, #070908 55%, #1c080a 100%);
-      --panel: rgba(12, 16, 15, 0.92);
+      --panel: rgba(12, 16, 15, 0.94);
       --panel-alt: rgba(18, 25, 22, 0.95);
       --uae-green: #00732f;
       --uae-green-bright: #00b84c;
@@ -38,7 +38,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
+      padding: 20px 20px 90px 20px;
       position: relative;
       overflow-x: hidden;
     }
@@ -127,18 +127,9 @@
       display: flex;
       flex-direction: column;
     }
-    .uae-flag-icon .f-green {
-      flex: 1;
-      background: #00732f;
-    }
-    .uae-flag-icon .f-white {
-      flex: 1;
-      background: #ffffff;
-    }
-    .uae-flag-icon .f-black {
-      flex: 1;
-      background: #000000;
-    }
+    .uae-flag-icon .f-green { flex: 1; background: #00732f; }
+    .uae-flag-icon .f-white { flex: 1; background: #ffffff; }
+    .uae-flag-icon .f-black { flex: 1; background: #000000; }
 
     .brand {
       font-weight: 800;
@@ -594,6 +585,206 @@
       color: #fff;
       font-weight: 700;
     }
+
+    /* FLOATING AI STUDY ASSISTANT WIDGET */
+    .ai-assistant-fab {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: linear-gradient(135deg, var(--uae-green), #05381c);
+      border: 2px solid var(--uae-gold);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.9rem;
+      letter-spacing: 0.6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), 0 0 18px var(--uae-green-glow);
+      z-index: 999;
+      transition: all 0.25s ease;
+    }
+
+    .ai-assistant-fab:hover {
+      transform: translateY(-3px) scale(1.03);
+      border-color: #fff;
+    }
+
+    .ai-assistant-fab.locked {
+      background: linear-gradient(135deg, #4a0808, #240404);
+      border-color: var(--uae-red);
+      color: #fca5a5;
+      box-shadow: 0 0 18px var(--uae-red-glow);
+    }
+
+    .ai-pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--uae-gold);
+      box-shadow: 0 0 10px var(--uae-gold);
+      animation: aiBlink 1.8s infinite;
+    }
+
+    .ai-assistant-fab.locked .ai-pulse-dot {
+      background: var(--uae-red);
+      box-shadow: 0 0 10px var(--uae-red);
+    }
+
+    @keyframes aiBlink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .ai-chat-panel {
+      position: fixed;
+      bottom: 82px;
+      right: 22px;
+      width: 370px;
+      max-width: calc(100vw - 44px);
+      height: 470px;
+      background: rgba(10, 15, 13, 0.97);
+      border: 1px solid var(--uae-gold);
+      border-top: 4px solid var(--uae-green-bright);
+      border-bottom: 4px solid var(--uae-red);
+      border-radius: 16px;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.22);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .ai-chat-header {
+      background: linear-gradient(90deg, rgba(255, 0, 0, 0.18), rgba(0, 115, 47, 0.32));
+      border-bottom: 1px solid var(--uae-gold-dim);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-chat-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--uae-gold);
+      letter-spacing: 0.5px;
+    }
+
+    .ai-close-btn {
+      background: transparent;
+      border: 1px solid var(--uae-gold-dim);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .ai-close-btn:hover {
+      background: var(--uae-red);
+      border-color: var(--uae-red);
+    }
+
+    .ai-chat-messages {
+      flex: 1;
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+    }
+
+    .ai-msg {
+      padding: 10px 13px;
+      border-radius: 12px;
+      max-width: 88%;
+      word-wrap: break-word;
+    }
+
+    .ai-msg.bot {
+      background: rgba(0, 115, 47, 0.22);
+      border: 1px solid rgba(0, 184, 76, 0.35);
+      color: #e6f7ed;
+      align-self: flex-start;
+    }
+
+    .ai-msg.user {
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid var(--uae-gold-dim);
+      color: #fff;
+      align-self: flex-end;
+    }
+
+    .ai-quick-chips {
+      display: flex;
+      gap: 6px;
+      padding: 8px 12px;
+      overflow-x: auto;
+      border-top: 1px solid rgba(212, 175, 55, 0.15);
+      background: rgba(7, 9, 8, 0.85);
+    }
+
+    .ai-chip {
+      background: rgba(0, 115, 47, 0.22);
+      border: 1px solid var(--uae-gold-dim);
+      color: var(--uae-gold);
+      font-size: 0.74rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+
+    .ai-chip:hover {
+      background: var(--uae-gold);
+      color: #070908;
+    }
+
+    .ai-chat-input-row {
+      display: flex;
+      padding: 10px;
+      gap: 8px;
+      border-top: 1px solid var(--uae-gold-dim);
+      background: rgba(7, 9, 8, 0.95);
+    }
+
+    .ai-chat-input-row input {
+      flex: 1;
+      background: rgba(18, 25, 22, 0.95);
+      border: 1px solid var(--uae-gold-dim);
+      border-radius: 8px;
+      color: #fff;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .ai-chat-input-row input:focus {
+      border-color: var(--uae-green-bright);
+    }
+
+    .ai-send-btn {
+      background: var(--uae-green);
+      border: 1px solid var(--uae-gold);
+      color: #fff;
+      padding: 0 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .ai-send-btn:hover {
+      background: var(--uae-gold);
+      color: #070908;
+    }
   </style>
 </head>
 <body>
@@ -644,7 +835,7 @@
     <div class="anticheat-notice">
       <strong>[UAE SMART ANTI-CHEAT SHIELD ACTIVE]:</strong><br/>
       • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong> and flags you for cheating in the Admin Panel.<br/>
-      • <strong>INPUT PROTECTION:</strong> Right-clicking, copying text, and DevTools shortcuts are blocked during active assessments.
+      • <strong>AI ASSISTANT EXAM LOCK:</strong> The built-in AI Study Assistant automatically locks while an exam is running so all scores remain fair.
     </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
@@ -686,7 +877,7 @@
     <div class="uae-header">
       <div>
         <h2><span>[UAE]</span> AI Curriculum Modules (10 Questions Each)</h2>
-        <p class="sub">Stay inside AbdullaObaidAIAcademy once a module starts — leaving the tab triggers instant disqualification.</p>
+        <p class="sub">Need study help before starting? Ask the AI Study Assistant in the bottom-right corner!</p>
       </div>
     </div>
 
@@ -806,6 +997,35 @@
     <span class="partner-tag">AbdullaObaid</span>
     <span class="partner-tag">AliSalem</span>
     <span class="partner-tag">SaifAhamed</span>
+  </div>
+
+  <!-- FLOATING AI STUDY ASSISTANT -->
+  <button class="ai-assistant-fab" id="ai-fab" onclick="toggleAIAssistant()">
+    <span class="ai-pulse-dot"></span>
+    <span id="ai-fab-label">AI Study Assistant</span>
+  </button>
+
+  <div class="ai-chat-panel hidden" id="ai-chat-panel">
+    <div class="ai-chat-header">
+      <div class="ai-chat-title">[UAE AI] Academy Study Assistant</div>
+      <button class="ai-close-btn" onclick="toggleAIAssistant()">X</button>
+    </div>
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-msg bot">
+        Marhaba! I am the <strong>AbdullaObaidAIAcademy AI Assistant</strong>. Ask me to explain any of the 10 AI lessons (Supervised Learning, Neural Networks, Graphs, Backpropagation, Responsible AI, etc.) before you start your quiz!
+      </div>
+    </div>
+    <div class="ai-quick-chips">
+      <button class="ai-chip" onclick="askQuickTopic('Supervised vs Reinforcement Learning')">Supervised vs RL</button>
+      <button class="ai-chip" onclick="askQuickTopic('Parts of a Neural Network')">Neural Networks</button>
+      <button class="ai-chip" onclick="askQuickTopic('What is Overfitting and Weights?')">Weights &amp; Overfitting</button>
+      <button class="ai-chip" onclick="askQuickTopic('Graphs and Decision Trees')">Graphs &amp; Trees</button>
+      <button class="ai-chip" onclick="askQuickTopic('Anti-Cheat Rules')">Anti-Cheat Rules</button>
+    </div>
+    <form class="ai-chat-input-row" onsubmit="handleAIChatSubmit(event)">
+      <input type="text" id="ai-chat-input" placeholder="Ask an AI study question..." autocomplete="off" />
+      <button type="submit" class="ai-send-btn">Send</button>
+    </form>
   </div>
 
   <script>
@@ -994,6 +1214,122 @@
     let isQuizActive = false;
     let cheatReason = "";
 
+    // AI STUDY ASSISTANT LOGIC
+    function toggleAIAssistant() {
+      if (isQuizActive) {
+        showWarningToast("AI Study Assistant is LOCKED during active exams!");
+        return;
+      }
+      const panel = document.getElementById("ai-chat-panel");
+      panel.classList.toggle("hidden");
+    }
+
+    function updateAIAssistantLockState(locked) {
+      const fab = document.getElementById("ai-fab");
+      const label = document.getElementById("ai-fab-label");
+      const panel = document.getElementById("ai-chat-panel");
+      if (locked) {
+        panel.classList.add("hidden");
+        fab.classList.add("locked");
+        label.textContent = "AI Locked (Exam Mode)";
+      } else {
+        fab.classList.remove("locked");
+        label.textContent = "AI Study Assistant";
+      }
+    }
+
+    function askQuickTopic(questionText) {
+      appendChatMessage(questionText, "user");
+      setTimeout(() => {
+        appendChatMessage(generateAIResponse(questionText), "bot");
+      }, 250);
+    }
+
+    function handleAIChatSubmit(e) {
+      e.preventDefault();
+      if (isQuizActive) return;
+      const input = document.getElementById("ai-chat-input");
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendChatMessage(text, "user");
+      input.value = "";
+
+      setTimeout(() => {
+        appendChatMessage(generateAIResponse(text), "bot");
+      }, 280);
+    }
+
+    function appendChatMessage(htmlText, sender) {
+      const box = document.getElementById("ai-chat-messages");
+      const div = document.createElement("div");
+      div.className = `ai-msg ${sender}`;
+      div.innerHTML = htmlText;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function generateAIResponse(query) {
+      const q = query.toLowerCase();
+
+      if (q.includes("supervised") || q.includes("reinforcement") || q.includes("rl")) {
+        return `<strong>Supervised vs. Reinforcement Learning:</strong><br/>
+        • <strong>Supervised Learning (Lesson 7):</strong> Trains on <em>labeled data</em> (input + correct answer), like spam vs. inbox emails (Classification) or predicting house prices (Regression).<br/>
+        • <strong>Reinforcement Learning (Lesson 8):</strong> An <em>Agent</em> learns by trial and error inside an <em>Environment</em> using positive <strong>Rewards</strong> and penalties.`;
+      }
+      if (q.includes("neural") || q.includes("layer") || q.includes("neuron") || q.includes("deep")) {
+        return `<strong>Parts of a Neural Network (Lesson 9):</strong><br/>
+        • <strong>Input Layer:</strong> Receives raw data (pixels/numbers).<br/>
+        • <strong>Hidden Layers:</strong> Extract patterns (many hidden layers = <em>Deep Learning</em>).<br/>
+        • <strong>Output Layer:</strong> Produces the final prediction.<br/>
+        • Each <strong>Neuron</strong> uses <em>Weights</em>, a <em>Bias</em>, and an <em>Activation Function</em>.`;
+      }
+      if (q.includes("weight") || q.includes("overfitting") || q.includes("backprop") || q.includes("gradient") || q.includes("train")) {
+        return `<strong>Training & Weights (Lessons 6 & 10):</strong><br/>
+        • <strong>Weights:</strong> Control how strongly one neuron affects the next (initialized to small random numbers).<br/>
+        • <strong>Backpropagation & Gradient Descent:</strong> Send errors backward from the <em>Loss Function</em> to update weights using a <em>Learning Rate</em>.<br/>
+        • <strong>Overfitting:</strong> When a model memorizes training data and fails on new test data.`;
+      }
+      if (q.includes("graph") || q.includes("tree") || q.includes("node") || q.includes("edge") || q.includes("bfs")) {
+        return `<strong>Graphs & Decision Trees (Lesson 4):</strong><br/>
+        • <strong>Nodes (Vertices)</strong> represent points/people; <strong>Edges</strong> represent connections (weighted edges hold values like distance).<br/>
+        • <strong>Decision Trees</strong> start at the <strong>Root Node</strong> and end at <strong>Leaf Nodes</strong>.`;
+      }
+      if (q.includes("label") || q.includes("bounding") || q.includes("ground truth")) {
+        return `<strong>Data Labeling (Lesson 5):</strong><br/>
+        • Tagging raw data with accurate answers (<strong>Ground Truth</strong>).<br/>
+        • A <strong>Bounding Box</strong> is a rectangle drawn around an object in an image so AI learns where it is.`;
+      }
+      if (q.includes("responsible") || q.includes("bias") || q.includes("deepfake") || q.includes("ethic")) {
+        return `<strong>Responsible AI (Lesson 2):</strong><br/>
+        • <strong>AI Bias</strong> happens when training data is unbalanced.<br/>
+        • Always verify AI answers, protect personal privacy, and watch out for <strong>Deepfakes</strong>.`;
+      }
+      if (q.includes("problem") || q.includes("cluster") || q.includes("nlp") || q.includes("anomaly")) {
+        return `<strong>Kinds of AI Problems (Lesson 3):</strong><br/>
+        • <strong>Classification:</strong> Sorting into categories.<br/>
+        • <strong>Clustering:</strong> Grouping without pre-made labels.<br/>
+        • <strong>NLP:</strong> Understanding/translating human language.<br/>
+        • <strong>Anomaly Detection:</strong> Spotting unusual activity (like fraud).`;
+      }
+      if (q.includes("daily") || q.includes("siri") || q.includes("example")) {
+        return `<strong>AI in Daily Life (Lesson 1):</strong><br/>
+        Examples include Face ID (Computer Vision), Siri/Alexa (Speech Recognition), Netflix recommendations, Google Maps traffic prediction, and email spam filters.`;
+      }
+      if (q.includes("cheat") || q.includes("rule") || q.includes("shield")) {
+        return `<strong>UAE Anti-Cheat Rules:</strong><br/>
+        Once you start a quiz, do <strong>not</strong> switch tabs, minimize the window, copy text, or press developer shortcuts—doing so immediately ends the test with <strong>0%</strong>.`;
+      }
+      if (q.includes("partner") || q.includes("who made") || q.includes("creator")) {
+        return `<strong>AbdullaObaidAIAcademy</strong> was developed by partners: <strong>AbdullaObaid</strong>, <strong>AliSalem</strong>, and <strong>SaifAhamed</strong>.`;
+      }
+      return `I can help you review any of the 10 AI lessons! Try asking about:<br/>
+      • <em>Supervised vs Reinforcement Learning</em><br/>
+      • <em>Parts of a Neural Network</em><br/>
+      • <em>Weights, Backpropagation & Overfitting</em><br/>
+      • <em>Graphs, Decision Trees & Data Labeling</em>`;
+    }
+
     // ANTI-CHEAT LISTENERS
     document.addEventListener("visibilitychange", () => {
       if (isQuizActive && document.hidden) {
@@ -1145,6 +1481,7 @@
       currentScore = 0;
       cheatReason = "";
       isQuizActive = true;
+      updateAIAssistantLockState(true);
       document.body.classList.add("anticheat-lock");
 
       hideAllViews();
@@ -1214,6 +1551,7 @@
 
     function finishQuiz(disqualified = false) {
       isQuizActive = false;
+      updateAIAssistantLockState(false);
       document.body.classList.remove("anticheat-lock");
 
       const total = activeQuestions.length;
