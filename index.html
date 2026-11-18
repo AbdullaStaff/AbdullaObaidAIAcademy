@@ -105,15 +105,39 @@
       gap: 12px;
     }
 
-    /* UAE Emblem Crest Icon */
-    .uae-crest {
-      width: 18px;
-      height: 18px;
+    /* True UAE Flag Icon */
+    .uae-flag-icon {
+      display: inline-flex;
+      width: 36px;
+      height: 22px;
       border-radius: 4px;
-      transform: rotate(45deg);
-      background: linear-gradient(135deg, var(--uae-red) 0%, var(--uae-gold) 50%, var(--uae-green-bright) 100%);
-      box-shadow: 0 0 12px rgba(212, 175, 55, 0.65);
+      overflow: hidden;
+      border: 1px solid var(--uae-gold);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
       flex-shrink: 0;
+    }
+    .uae-flag-icon .f-red {
+      width: 26%;
+      height: 100%;
+      background: #ff0000;
+    }
+    .uae-flag-icon .f-stripes {
+      width: 74%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .uae-flag-icon .f-green {
+      flex: 1;
+      background: #00732f;
+    }
+    .uae-flag-icon .f-white {
+      flex: 1;
+      background: #ffffff;
+    }
+    .uae-flag-icon .f-black {
+      flex: 1;
+      background: #000000;
     }
 
     .brand {
@@ -549,6 +573,11 @@
       font-family: 'Courier New', monospace;
       font-size: 0.88rem;
       color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .partners-footer strong {
@@ -558,7 +587,6 @@
 
     .partner-tag {
       display: inline-block;
-      margin: 4px 6px;
       padding: 4px 12px;
       border-radius: 8px;
       background: rgba(0, 115, 47, 0.2);
@@ -582,7 +610,15 @@
   <div class="topbar">
     <div>
       <div class="brand-row">
-        <div class="uae-crest"></div>
+        <!-- UAE FLAG -->
+        <div class="uae-flag-icon" title="United Arab Emirates">
+          <div class="f-red"></div>
+          <div class="f-stripes">
+            <div class="f-green"></div>
+            <div class="f-white"></div>
+            <div class="f-black"></div>
+          </div>
+        </div>
         <div class="brand">AbdullaObaidAIAcademy</div>
       </div>
       <span class="brand-tag">UNITED ARAB EMIRATES // AI EXCELLENCE PORTAL</span>
@@ -756,9 +792,17 @@
     </div>
   </div>
 
-  <!-- PARTNERS FOOTER -->
+  <!-- PARTNERS FOOTER WITH UAE FLAG -->
   <div class="partners-footer">
-    <strong>[UAE] WEBSITE DEVELOPED BY PARTNERS:</strong>
+    <div class="uae-flag-icon" style="width: 28px; height: 17px;" title="United Arab Emirates">
+      <div class="f-red"></div>
+      <div class="f-stripes">
+        <div class="f-green"></div>
+        <div class="f-white"></div>
+        <div class="f-black"></div>
+      </div>
+    </div>
+    <strong>WEBSITE DEVELOPED BY PARTNERS:</strong>
     <span class="partner-tag">AbdullaObaid</span>
     <span class="partner-tag">AliSalem</span>
     <span class="partner-tag">SaifAhamed</span>
