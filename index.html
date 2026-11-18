@@ -1237,7 +1237,6 @@
     let aiBanCount = 0;
 
     // DETERMINISTIC + UNIQUE STUDENT QUESTION & OPTION SHUFFLER
-    // Guarantees every student gets a unique question sequence AND shuffled answer positions
     function stringToSeed(str) {
       let hash = 2166136261;
       for (let i = 0; i < str.length; i++) {
@@ -1272,10 +1271,8 @@
       const rng = createSeededRandom(seedNum);
       currentExamSeedCode = `#${(seedNum % 9000 + 1000)}`;
 
-      // 1. Shuffle the question order uniquely for this student
       const shuffledQs = shuffleWithRng(rawQuestions, rng);
 
-      // 2. Shuffle the 4 options inside every single question and track the new correct index
       return shuffledQs.map((item, idx) => {
         const indexedOptions = item.options.map((text, optIdx) => ({
           text,
@@ -1805,7 +1802,7 @@
       const u = document.getElementById("admin-user").value.trim();
       const p = document.getElementById("admin-pass").value.trim();
 
-      if (u === "qua" && p === "231") {
+      if (u === "Admin" && p === "admin12345") {
         document.getElementById("admin-user").value = "";
         document.getElementById("admin-pass").value = "";
         renderAdminDashboard();
