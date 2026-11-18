@@ -38,7 +38,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px 20px 90px 20px;
+      padding: 20px 20px 95px 20px;
       position: relative;
       overflow-x: hidden;
     }
@@ -61,6 +61,12 @@
     body.anticheat-lock {
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    /* Allow typing inside AI chat even during quiz */
+    .ai-chat-panel, .ai-chat-panel * {
+      user-select: text !important;
+      -webkit-user-select: text !important;
     }
 
     /* UAE Flag Ribbon Accent */
@@ -116,17 +122,8 @@
       box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
       flex-shrink: 0;
     }
-    .uae-flag-icon .f-red {
-      width: 26%;
-      height: 100%;
-      background: #ff0000;
-    }
-    .uae-flag-icon .f-stripes {
-      width: 74%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
+    .uae-flag-icon .f-red { width: 26%; height: 100%; background: #ff0000; }
+    .uae-flag-icon .f-stripes { width: 74%; height: 100%; display: flex; flex-direction: column; }
     .uae-flag-icon .f-green { flex: 1; background: #00732f; }
     .uae-flag-icon .f-white { flex: 1; background: #ffffff; }
     .uae-flag-icon .f-black { flex: 1; background: #000000; }
@@ -643,10 +640,10 @@
       position: fixed;
       bottom: 82px;
       right: 22px;
-      width: 370px;
+      width: 380px;
       max-width: calc(100vw - 44px);
-      height: 470px;
-      background: rgba(10, 15, 13, 0.97);
+      height: 480px;
+      background: rgba(10, 15, 13, 0.98);
       border: 1px solid var(--uae-gold);
       border-top: 4px solid var(--uae-green-bright);
       border-bottom: 4px solid var(--uae-red);
@@ -713,6 +710,14 @@
       border: 1px solid rgba(0, 184, 76, 0.35);
       color: #e6f7ed;
       align-self: flex-start;
+    }
+
+    .ai-msg.alert {
+      background: rgba(255, 0, 0, 0.25);
+      border: 1px solid var(--uae-red);
+      color: #fecaca;
+      align-self: flex-start;
+      font-weight: 700;
     }
 
     .ai-msg.user {
@@ -835,7 +840,7 @@
     <div class="anticheat-notice">
       <strong>[UAE SMART ANTI-CHEAT SHIELD ACTIVE]:</strong><br/>
       • <strong>ZERO-TOLERANCE TAB/WEB LOCK:</strong> Switching browser tabs, opening another website/window, or minimizing the screen during a quiz immediately terminates your exam with <strong>0%</strong> and flags you for cheating in the Admin Panel.<br/>
-      • <strong>AI ASSISTANT EXAM LOCK:</strong> The built-in AI Study Assistant automatically locks while an exam is running so all scores remain fair.
+      • <strong>SMART AI ASSISTANT GUARD:</strong> You can chat with the AI Study Assistant anytime—even during a quiz—for general concepts, <strong>but</strong> if you ask it to solve or answer a quiz question, the AI Assistant immediately shuts down and locks for the rest of your exam!
     </div>
 
     <form onsubmit="handleStudentCheckIn(event)">
@@ -877,7 +882,7 @@
     <div class="uae-header">
       <div>
         <h2><span>[UAE]</span> AI Curriculum Modules (10 Questions Each)</h2>
-        <p class="sub">Need study help before starting? Ask the AI Study Assistant in the bottom-right corner!</p>
+        <p class="sub">Open the AI Study Assistant in the bottom-right corner to chat and study anytime!</p>
       </div>
     </div>
 
@@ -1012,18 +1017,17 @@
     </div>
     <div class="ai-chat-messages" id="ai-chat-messages">
       <div class="ai-msg bot">
-        Marhaba! I am the <strong>AbdullaObaidAIAcademy AI Assistant</strong>. Ask me to explain any of the 10 AI lessons (Supervised Learning, Neural Networks, Graphs, Backpropagation, Responsible AI, etc.) before you start your quiz!
+        Marhaba! I am your <strong>AbdullaObaidAIAcademy AI Assistant</strong>. You can keep this chat open to ask about AI concepts—<strong>WARNING:</strong> if you ask me to solve or answer a quiz question during an exam, I will immediately close and lock for the rest of the test!
       </div>
     </div>
     <div class="ai-quick-chips">
       <button class="ai-chip" onclick="askQuickTopic('Supervised vs Reinforcement Learning')">Supervised vs RL</button>
       <button class="ai-chip" onclick="askQuickTopic('Parts of a Neural Network')">Neural Networks</button>
-      <button class="ai-chip" onclick="askQuickTopic('What is Overfitting and Weights?')">Weights &amp; Overfitting</button>
+      <button class="ai-chip" onclick="askQuickTopic('Weights and Overfitting')">Weights &amp; Overfitting</button>
       <button class="ai-chip" onclick="askQuickTopic('Graphs and Decision Trees')">Graphs &amp; Trees</button>
-      <button class="ai-chip" onclick="askQuickTopic('Anti-Cheat Rules')">Anti-Cheat Rules</button>
     </div>
     <form class="ai-chat-input-row" onsubmit="handleAIChatSubmit(event)">
-      <input type="text" id="ai-chat-input" placeholder="Ask an AI study question..." autocomplete="off" />
+      <input type="text" id="ai-chat-input" placeholder="Ask a study question..." autocomplete="off" />
       <button type="submit" class="ai-send-btn">Send</button>
     </form>
   </div>
@@ -1213,41 +1217,100 @@
     // ANTI-CHEAT STATE
     let isQuizActive = false;
     let cheatReason = "";
+    let aiBannedThisExam = false;
+    let aiBanCount = 0;
 
-    // AI STUDY ASSISTANT LOGIC
+    // OPEN-CHAT AI STUDY ASSISTANT WITH SMART ANTI-CHEAT DETECTOR
     function toggleAIAssistant() {
-      if (isQuizActive) {
-        showWarningToast("AI Study Assistant is LOCKED during active exams!");
+      if (aiBannedThisExam && isQuizActive) {
+        showWarningToast("AI Assistant was CLOSED & LOCKED because you asked it to solve a quiz question!");
         return;
       }
       const panel = document.getElementById("ai-chat-panel");
       panel.classList.toggle("hidden");
-    }
-
-    function updateAIAssistantLockState(locked) {
-      const fab = document.getElementById("ai-fab");
-      const label = document.getElementById("ai-fab-label");
-      const panel = document.getElementById("ai-chat-panel");
-      if (locked) {
-        panel.classList.add("hidden");
-        fab.classList.add("locked");
-        label.textContent = "AI Locked (Exam Mode)";
-      } else {
-        fab.classList.remove("locked");
-        label.textContent = "AI Study Assistant";
+      if (!panel.classList.contains("hidden")) {
+        document.getElementById("ai-chat-input").focus();
       }
     }
 
+    function resetAIAssistantState() {
+      aiBannedThisExam = false;
+      const fab = document.getElementById("ai-fab");
+      const label = document.getElementById("ai-fab-label");
+      fab.classList.remove("locked");
+      label.textContent = "AI Study Assistant";
+    }
+
+    function lockAndCloseAIAssistant(reasonText) {
+      aiBannedThisExam = true;
+      aiBanCount++;
+      const fab = document.getElementById("ai-fab");
+      const label = document.getElementById("ai-fab-label");
+      const panel = document.getElementById("ai-chat-panel");
+
+      appendChatMessage(`[SECURITY LOCK]: ${reasonText} Closing AI Assistant for this exam!`, "alert");
+
+      setTimeout(() => {
+        panel.classList.add("hidden");
+        fab.classList.add("locked");
+        label.textContent = "AI Closed (Answer Request)";
+        showWarningToast("AI Assistant CLOSED because you asked it to solve/answer a question!");
+      }, 900);
+    }
+
+    // Detects if student asks AI to solve/answer a quiz question
+    function isAskingToSolveQuiz(userText) {
+      const cleanUser = userText.toLowerCase().replace(/[^a-z0-9\s]/g, " ").trim();
+
+      // 1. Direct solve / answer trigger phrases
+      const solvePhrases = [
+        "solve", "answer", "which option", "what is the answer", "whats the answer",
+        "what's the answer", "give me the answer", "tell me the answer",
+        "correct option", "correct answer", "option 1", "option 2", "option 3", "option 4",
+        "01", "02", "03", "04", "help me answer", "solve this", "solve question",
+        "do this question", "pick the right", "which one is right", "which one is correct"
+      ];
+
+      if (solvePhrases.some((phrase) => cleanUser.includes(phrase))) {
+        return true;
+      }
+
+      // 2. Check if user pasted text matching the active quiz question or any of its 4 options
+      if (isQuizActive && activeQuestions[currentQIndex]) {
+        const currentQ = activeQuestions[currentQIndex];
+        const qClean = currentQ.q.toLowerCase().replace(/^\d+\.\s*/, "").replace(/[^a-z0-9\s]/g, " ").trim();
+
+        // Check if a significant chunk of the question text was pasted
+        const qWords = qClean.split(/\s+/).filter((w) => w.length > 3);
+        const matchedWords = qWords.filter((w) => cleanUser.includes(w));
+        if (qWords.length >= 3 && matchedWords.length >= Math.ceil(qWords.length * 0.65)) {
+          return true;
+        }
+
+        // Check if user pasted one of the multiple-choice options
+        for (const opt of currentQ.options) {
+          const optClean = opt.toLowerCase().replace(/[^a-z0-9\s]/g, " ").trim();
+          if (optClean.length > 6 && cleanUser.includes(optClean)) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
     function askQuickTopic(questionText) {
+      if (aiBannedThisExam && isQuizActive) return;
       appendChatMessage(questionText, "user");
       setTimeout(() => {
         appendChatMessage(generateAIResponse(questionText), "bot");
-      }, 250);
+      }, 220);
     }
 
     function handleAIChatSubmit(e) {
       e.preventDefault();
-      if (isQuizActive) return;
+      if (aiBannedThisExam && isQuizActive) return;
+
       const input = document.getElementById("ai-chat-input");
       const text = input.value.trim();
       if (!text) return;
@@ -1255,9 +1318,15 @@
       appendChatMessage(text, "user");
       input.value = "";
 
+      // Check if student tried to get AI to solve/answer a question during the quiz
+      if (isQuizActive && isAskingToSolveQuiz(text)) {
+        lockAndCloseAIAssistant("Attempted to ask AI to solve/answer a quiz question!");
+        return;
+      }
+
       setTimeout(() => {
         appendChatMessage(generateAIResponse(text), "bot");
-      }, 280);
+      }, 250);
     }
 
     function appendChatMessage(htmlText, sender) {
@@ -1272,62 +1341,59 @@
     function generateAIResponse(query) {
       const q = query.toLowerCase();
 
+      if (q.includes("hello") || q.includes("hi") || q.includes("marhaba") || q.includes("salam")) {
+        return `Marhaba! How can I help you understand AI today? Ask me about any lesson topic (like Neural Networks, Supervised Learning, Graphs, or Weights).`;
+      }
       if (q.includes("supervised") || q.includes("reinforcement") || q.includes("rl")) {
         return `<strong>Supervised vs. Reinforcement Learning:</strong><br/>
-        • <strong>Supervised Learning (Lesson 7):</strong> Trains on <em>labeled data</em> (input + correct answer), like spam vs. inbox emails (Classification) or predicting house prices (Regression).<br/>
-        • <strong>Reinforcement Learning (Lesson 8):</strong> An <em>Agent</em> learns by trial and error inside an <em>Environment</em> using positive <strong>Rewards</strong> and penalties.`;
+        • <strong>Supervised Learning:</strong> Learns from <em>labeled examples</em> (inputs paired with known target labels), used for Classification and Regression.<br/>
+        • <strong>Reinforcement Learning:</strong> An <em>Agent</em> interacts with an <em>Environment</em> and learns a <em>Policy</em> through trial-and-error <strong>Rewards</strong> and penalties.`;
       }
       if (q.includes("neural") || q.includes("layer") || q.includes("neuron") || q.includes("deep")) {
-        return `<strong>Parts of a Neural Network (Lesson 9):</strong><br/>
-        • <strong>Input Layer:</strong> Receives raw data (pixels/numbers).<br/>
-        • <strong>Hidden Layers:</strong> Extract patterns (many hidden layers = <em>Deep Learning</em>).<br/>
+        return `<strong>Neural Network Structure:</strong><br/>
+        • <strong>Input Layer:</strong> Receives raw features/data.<br/>
+        • <strong>Hidden Layers:</strong> Process patterns (multiple hidden layers = <em>Deep Learning</em>).<br/>
         • <strong>Output Layer:</strong> Produces the final prediction.<br/>
-        • Each <strong>Neuron</strong> uses <em>Weights</em>, a <em>Bias</em>, and an <em>Activation Function</em>.`;
+        • Neurons combine inputs with <em>Weights</em>, add a <em>Bias</em>, and pass through an <em>Activation Function</em>.`;
       }
-      if (q.includes("weight") || q.includes("overfitting") || q.includes("backprop") || q.includes("gradient") || q.includes("train")) {
-        return `<strong>Training & Weights (Lessons 6 & 10):</strong><br/>
-        • <strong>Weights:</strong> Control how strongly one neuron affects the next (initialized to small random numbers).<br/>
-        • <strong>Backpropagation & Gradient Descent:</strong> Send errors backward from the <em>Loss Function</em> to update weights using a <em>Learning Rate</em>.<br/>
-        • <strong>Overfitting:</strong> When a model memorizes training data and fails on new test data.`;
+      if (q.includes("weight") || q.includes("overfitting") || q.includes("underfitting") || q.includes("backprop") || q.includes("gradient") || q.includes("epoch")) {
+        return `<strong>Training & Weights Concepts:</strong><br/>
+        • <strong>Weights:</strong> Control connection strength between neurons (start as small random numbers).<br/>
+        • <strong>Loss Function:</strong> Measures prediction error.<br/>
+        • <strong>Backpropagation & Gradient Descent:</strong> Adjust weights backward using the <em>Learning Rate</em>.<br/>
+        • <strong>Overfitting:</strong> Memorizing training data too closely and failing on unseen test data.`;
       }
       if (q.includes("graph") || q.includes("tree") || q.includes("node") || q.includes("edge") || q.includes("bfs")) {
-        return `<strong>Graphs & Decision Trees (Lesson 4):</strong><br/>
-        • <strong>Nodes (Vertices)</strong> represent points/people; <strong>Edges</strong> represent connections (weighted edges hold values like distance).<br/>
-        • <strong>Decision Trees</strong> start at the <strong>Root Node</strong> and end at <strong>Leaf Nodes</strong>.`;
+        return `<strong>Graphs & Decision Trees:</strong><br/>
+        • Graphs consist of <strong>Nodes (Vertices)</strong> and <strong>Edges</strong> (weighted edges store values like distance).<br/>
+        • <strong>Decision Trees</strong> flow from a top <strong>Root Node</strong> down to final <strong>Leaf Nodes</strong>.`;
       }
-      if (q.includes("label") || q.includes("bounding") || q.includes("ground truth")) {
-        return `<strong>Data Labeling (Lesson 5):</strong><br/>
-        • Tagging raw data with accurate answers (<strong>Ground Truth</strong>).<br/>
-        • A <strong>Bounding Box</strong> is a rectangle drawn around an object in an image so AI learns where it is.`;
+      if (q.includes("label") || q.includes("bounding") || q.includes("ground truth") || q.includes("captcha")) {
+        return `<strong>Data Labeling Concepts:</strong><br/>
+        • <strong>Ground Truth:</strong> Verified accurate labels used to train and evaluate models.<br/>
+        • <strong>Bounding Box:</strong> A rectangle drawn around an object in an image for object detection.`;
       }
-      if (q.includes("responsible") || q.includes("bias") || q.includes("deepfake") || q.includes("ethic")) {
-        return `<strong>Responsible AI (Lesson 2):</strong><br/>
-        • <strong>AI Bias</strong> happens when training data is unbalanced.<br/>
-        • Always verify AI answers, protect personal privacy, and watch out for <strong>Deepfakes</strong>.`;
+      if (q.includes("responsible") || q.includes("bias") || q.includes("deepfake") || q.includes("ethic") || q.includes("transparency")) {
+        return `<strong>Responsible AI:</strong><br/>
+        • <strong>AI Bias</strong> occurs when training data is unbalanced or unrepresentative.<br/>
+        • <strong>Transparency</strong> means being clear about when and how AI is used, and humans remain accountable for AI systems.`;
       }
-      if (q.includes("problem") || q.includes("cluster") || q.includes("nlp") || q.includes("anomaly")) {
-        return `<strong>Kinds of AI Problems (Lesson 3):</strong><br/>
+      if (q.includes("problem") || q.includes("cluster") || q.includes("nlp") || q.includes("anomaly") || q.includes("generative")) {
+        return `<strong>AI Problem Types:</strong><br/>
         • <strong>Classification:</strong> Sorting into categories.<br/>
-        • <strong>Clustering:</strong> Grouping without pre-made labels.<br/>
-        • <strong>NLP:</strong> Understanding/translating human language.<br/>
-        • <strong>Anomaly Detection:</strong> Spotting unusual activity (like fraud).`;
+        • <strong>Regression:</strong> Predicting continuous numbers.<br/>
+        • <strong>Clustering:</strong> Grouping unlabeled data.<br/>
+        • <strong>NLP:</strong> Human language understanding/translation.<br/>
+        • <strong>Anomaly Detection:</strong> Spotting unusual patterns.`;
       }
       if (q.includes("daily") || q.includes("siri") || q.includes("example")) {
-        return `<strong>AI in Daily Life (Lesson 1):</strong><br/>
-        Examples include Face ID (Computer Vision), Siri/Alexa (Speech Recognition), Netflix recommendations, Google Maps traffic prediction, and email spam filters.`;
-      }
-      if (q.includes("cheat") || q.includes("rule") || q.includes("shield")) {
-        return `<strong>UAE Anti-Cheat Rules:</strong><br/>
-        Once you start a quiz, do <strong>not</strong> switch tabs, minimize the window, copy text, or press developer shortcuts—doing so immediately ends the test with <strong>0%</strong>.`;
+        return `<strong>AI in Daily Life:</strong><br/>
+        Voice assistants (speech recognition), Face ID (computer vision), streaming recommendations, maps traffic prediction, and spam filters.`;
       }
       if (q.includes("partner") || q.includes("who made") || q.includes("creator")) {
-        return `<strong>AbdullaObaidAIAcademy</strong> was developed by partners: <strong>AbdullaObaid</strong>, <strong>AliSalem</strong>, and <strong>SaifAhamed</strong>.`;
+        return `<strong>AbdullaObaidAIAcademy</strong> was created by partners: <strong>AbdullaObaid</strong>, <strong>AliSalem</strong>, and <strong>SaifAhamed</strong>.`;
       }
-      return `I can help you review any of the 10 AI lessons! Try asking about:<br/>
-      • <em>Supervised vs Reinforcement Learning</em><br/>
-      • <em>Parts of a Neural Network</em><br/>
-      • <em>Weights, Backpropagation & Overfitting</em><br/>
-      • <em>Graphs, Decision Trees & Data Labeling</em>`;
+      return `I am here to explain AI concepts! Ask me about <em>Neural Networks</em>, <em>Supervised vs Reinforcement Learning</em>, <em>Weights & Backpropagation</em>, <em>Graphs</em>, <em>Data Labeling</em>, or <em>Responsible AI</em>. (Remember: do not ask me to solve quiz questions during an exam!)`;
     }
 
     // ANTI-CHEAT LISTENERS
@@ -1480,8 +1546,9 @@
       currentQIndex = 0;
       currentScore = 0;
       cheatReason = "";
+      aiBanCount = 0;
       isQuizActive = true;
-      updateAIAssistantLockState(true);
+      resetAIAssistantState();
       document.body.classList.add("anticheat-lock");
 
       hideAllViews();
@@ -1551,13 +1618,18 @@
 
     function finishQuiz(disqualified = false) {
       isQuizActive = false;
-      updateAIAssistantLockState(false);
+      resetAIAssistantState();
       document.body.classList.remove("anticheat-lock");
 
       const total = activeQuestions.length;
       const finalPoints = disqualified ? 0 : currentScore;
       const percent = Math.round((finalPoints / total) * 100);
-      const acStatus = disqualified ? `CHEATING DETECTED (${cheatReason})` : "CLEAN (NO TAB SWITCH)";
+      let acStatus = "CLEAN (NO TAB SWITCH)";
+      if (disqualified) {
+        acStatus = `CHEATING DETECTED (${cheatReason})`;
+      } else if (aiBanCount > 0) {
+        acStatus = "CLEAN (AI ASSISTANT LOCKED AFTER ANSWER REQUEST)";
+      }
 
       const logs = JSON.parse(localStorage.getItem("abdulla_obaid_ai_academy_logs") || "[]");
       logs.unshift({
@@ -1588,7 +1660,7 @@
         titleEl.innerHTML = `<span>[UAE]</span> AbdullaObaidAIAcademy Assessment Complete`;
         titleEl.style.color = "#fff";
         scoreEl.classList.remove("cheated");
-        acEl.style.color = "#6ee7b7";
+        acEl.style.color = aiBanCount > 0 ? "var(--uae-gold)" : "#6ee7b7";
         acEl.textContent = `ANTI-CHEAT STATUS: ${acStatus}`;
       }
 
@@ -1645,7 +1717,8 @@
 
       logs.forEach((entry, index) => {
         const isCheating = entry.anticheat && entry.anticheat.includes("CHEATING");
-        const acColor = isCheating ? "var(--uae-red)" : "#6ee7b7";
+        const isAiLocked = entry.anticheat && entry.anticheat.includes("AI ASSISTANT LOCKED");
+        const acColor = isCheating ? "var(--uae-red)" : (isAiLocked ? "var(--uae-gold)" : "#6ee7b7");
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
